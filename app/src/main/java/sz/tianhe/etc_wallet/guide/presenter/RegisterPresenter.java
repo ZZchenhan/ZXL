@@ -17,7 +17,7 @@ import sz.tianhe.etc_wallet.requst.api.UserApi;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 15:22
  */
-public class RegisterPresenter extends AbstarctPresenter<UserApi> {
+public class RegisterPresenter extends AbstarctPresenter {
 
     private EditText tvPhone;
 
@@ -36,11 +36,6 @@ public class RegisterPresenter extends AbstarctPresenter<UserApi> {
     }
 
     @Override
-    public UserApi baseModel() {
-        return null;
-    }
-
-    @Override
     public void init() {
 
     }
@@ -51,7 +46,6 @@ public class RegisterPresenter extends AbstarctPresenter<UserApi> {
             toast(R.string.phone_erro);
             return;
         }
-        btnGetCode.setClickable(false);
 
     }
 

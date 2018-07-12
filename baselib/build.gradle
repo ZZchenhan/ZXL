@@ -64,4 +64,6 @@ dependencies {
 
     //工具类大全
     api 'com.blankj:utilcode:1.9.10'
+
+    api 'com.wang.avi:library:2.1.3'
 }

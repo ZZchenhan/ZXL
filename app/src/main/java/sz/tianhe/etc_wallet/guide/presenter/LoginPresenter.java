@@ -28,7 +28,7 @@ import sz.tianhe.etc_wallet.requst.vo.UserVo;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 14:13
  */
-public class LoginPresenter extends AbstarctPresenter<UserApi> {
+public class LoginPresenter extends AbstarctPresenter{
 
     /**
      * 电话
@@ -64,10 +64,6 @@ public class LoginPresenter extends AbstarctPresenter<UserApi> {
         this.tvRegister = tvRegister;
     }
 
-    @Override
-    public UserApi baseModel() {
-        return MyApplication.retrofitClient.getRetrofit().create(UserApi.class);
-    }
 
     @Override
     public void init() {
@@ -91,9 +87,9 @@ public class LoginPresenter extends AbstarctPresenter<UserApi> {
             return;
         }
 
-        requst(baseModel.login(etPhone.getText().toString(), etPass.getText().toString()), userVo -> {
+        requst(MyApplication.retrofitClient.getRetrofit().create(UserApi.class)
+                .login(etPhone.getText().toString(), etPass.getText().toString()), userVo -> {
             //登录成功
-        });
-        //做登录
+        },true);
     }
 }

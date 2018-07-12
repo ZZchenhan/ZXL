@@ -42,11 +42,6 @@ public class GuidPrensenter extends AbstarctPresenter {
 
     private TextView countTimer;
 
-    @Override
-    public Api baseModel() {
-        return null;
-    }
-
     private final int REQUSET_PERMISSION = 1;
 
     /**

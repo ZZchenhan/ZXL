@@ -1,11 +1,14 @@
 package sz.tianhe.baselib.presenter;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.widget.Toast;
 
 
-import com.bumptech.glide.load.HttpException;
+import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
+
 
 import org.json.JSONException;
 
@@ -16,14 +19,17 @@ import java.text.ParseException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 import sz.tianhe.baselib.R;
 import sz.tianhe.baselib.api.Api;
 import sz.tianhe.baselib.http.IResultListener;
 import sz.tianhe.baselib.http.erro.ApiErro;
 import sz.tianhe.baselib.model.bean.Result;
+import sz.tianhe.baselib.weight.ProgrossDialog;
 
 
 /**
@@ -34,23 +40,16 @@ import sz.tianhe.baselib.model.bean.Result;
  * @email 869360026@qq.com
  * 创建时间:2018/6/22 15:45
  */
-public abstract class AbstarctPresenter<M extends Api> implements IBasePresenter {
+public abstract class AbstarctPresenter implements IBasePresenter {
 
     protected Context mContext;
 
-    protected M baseModel;
+
 
     public AbstarctPresenter(Context context) {
         this.mContext = context;
-        this.baseModel = baseModel();
     }
 
-    /**
-     * prensenter强制要求一个请求模型，可以为null
-     *
-     * @return
-     */
-    public abstract M baseModel();
 
 
     public void toast(int msg) {
@@ -62,7 +61,11 @@ public abstract class AbstarctPresenter<M extends Api> implements IBasePresenter
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
+    private ProgrossDialog dialog;
 
+    public <T> void requst(Observable<Result<T>> observable,  IResultListener<T> resultItf){
+        requst(observable,resultItf,false);
+    }
     /**
      * 解析数据
      *
@@ -71,13 +74,24 @@ public abstract class AbstarctPresenter<M extends Api> implements IBasePresenter
      * @return
      */
     @SuppressLint("CheckResult")
-    public <T> void requst(Observable<Result<T>> observable, final IResultListener<T> resultItf) {
+    public <T> void requst(Observable<Result<T>> observable, final IResultListener<T> resultItf, final boolean isShow) {
         observable.subscribeOn(Schedulers.newThread())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        if(isShow){
+                            dialog = new ProgrossDialog(mContext);
+                        }
+                        dialog.show();
+                    }
+                }).observeOn(AndroidSchedulers.mainThread())
                 .map(new Function<Result<T>, T>() {
                     @Override
                     public T apply(Result<T> tResult) throws Exception {
                         if (tResult.getCode() == 200) {
+                            if(isShow && dialog!=null){
+                                dialog.dismiss();
+                            }
                             return tResult.getData();
                         } else {
                             throw new ApiErro(tResult.getCode(), tResult.getMsg());
@@ -91,12 +105,21 @@ public abstract class AbstarctPresenter<M extends Api> implements IBasePresenter
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable e) throws Exception {
+                if(isShow && dialog!=null){
+                   //dialog.dismiss();
+                }
                 if (e == null) {
                     return;
                 }
                 if (e instanceof HttpException) {
                     /*网络异常*/
-                    toast(R.string.net_erro);
+                    if(((HttpException) e).code() == 404){
+                        toast(R.string.notfound_erro);
+                    }else if(((HttpException) e).code() > 500){
+                        toast(R.string.service_erro);
+                    }else {
+                        toast(R.string.net_erro);
+                    }
                 } else if (e instanceof ApiErro) {
                     toast(((ApiErro) e).getMsg());
                 } else if (e instanceof ConnectException || e instanceof SocketTimeoutException) {
@@ -108,6 +131,8 @@ public abstract class AbstarctPresenter<M extends Api> implements IBasePresenter
                 } else if (e instanceof UnknownHostException) {
                     /*无法解析该域名异常*/
                     toast(R.string.host_erro);
+                }else{
+                    toast(e.getMessage());
                 }
             }
         });

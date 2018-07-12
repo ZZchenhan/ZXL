@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.POST;
 
+import retrofit2.http.Query;
 import sz.tianhe.baselib.api.Api;
 
 import sz.tianhe.baselib.model.bean.Result;
@@ -20,13 +21,13 @@ import sz.tianhe.etc_wallet.requst.vo.UserVo;
  * 创建时间:2018/7/12 15:13
  */
 
-public interface UserApi extends Api {
+public interface UserApi{
 
     /**
      * 用户登录
      * @return
      */
     @POST("/user/login")
-    Observable<Result<UserVo>> login(@Field("phone") String phone, @Field("pass") String pass);
+    Observable<Result<UserVo>> login(@Query("phone") String phone, @Query("pass") String pass);
 
 }

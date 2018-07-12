@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">baseLib</string>
     <string name="net_erro">网络异常</string>
+    <string name="service_erro">服务器错误</string>
+    <string name="notfound_erro">找不到服务器</string>
     <string name="connet_erro">网络异常</string>
     <string name="json_erro">json解析错误</string>
     <string name="host_erro">无法解析到主机</string>
