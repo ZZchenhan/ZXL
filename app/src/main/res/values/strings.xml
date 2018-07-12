@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">etc_wallet</string>
+    <string name="guild_surplus_times">剩余%d秒</string>
+    <string name="phone_erro">手机号码错误</string>
+    <string name="pass_erro">手机号与密码不匹配</string>
+    <string name="pass_length_erro">密码长度应该为6-14位</string>
+    <string name="not_register">用户未注册</string>
+    <string name="is_register">用户已注册，请重新登录</string>
+
+
+    <string name="hint_phone">请输入手机号码</string>
+    <string name="hint_pass">请输入登录密码</string>
+    <string name="btn_login">登  录</string>
+    <string name="tv_register">注册账户?</string>
+    <string name="tv_forget">忘记密码</string>
+    <string name="customer_phone">客服热线:400-900-8800</string>
 </resources>
