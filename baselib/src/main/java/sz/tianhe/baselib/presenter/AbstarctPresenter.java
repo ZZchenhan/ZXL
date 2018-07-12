@@ -106,7 +106,7 @@ public abstract class AbstarctPresenter implements IBasePresenter {
             @Override
             public void accept(Throwable e) throws Exception {
                 if(isShow && dialog!=null){
-                   //dialog.dismiss();
+                   dialog.dismiss();
                 }
                 if (e == null) {
                     return;
