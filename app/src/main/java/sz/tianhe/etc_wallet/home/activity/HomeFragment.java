@@ -1,10 +1,8 @@
 package sz.tianhe.etc_wallet.home.activity;
 
+import android.app.Dialog;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,7 @@ import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
-import sz.tianhe.etc_wallet.databinding.FragmentIndexBinding;
+import sz.tianhe.etc_wallet.main.customview.NormalDialog;
 
 /**
  * 项目名称:etc_wallet
@@ -49,8 +47,16 @@ public class HomeFragment extends BaseFragment {
         return binding.getRoot();
     }
 
+    Dialog updateDialog;
+
     @Override
     protected void initViews() {
-
+        binding.button2.setOnClickListener(view -> {
+            if(updateDialog == null){
+                updateDialog = new NormalDialog.Builder(getContext())
+                        .create();
+            }
+            updateDialog.show();
+        });
     }
 }

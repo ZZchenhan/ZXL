@@ -18,11 +18,14 @@ import sz.tianhe.etc_wallet.databinding.ActivityMainBinding;
 import sz.tianhe.etc_wallet.home.activity.HomeFragment;
 import sz.tianhe.etc_wallet.index.activity.IndexFragment;
 import sz.tianhe.etc_wallet.main.customview.MyNormalItem;
+import sz.tianhe.etc_wallet.main.prensenter.MainPrensenter;
 
 public class MainActivity extends BaseActivity {
 
     private String[] fragmentTitles = new String[]{"首页", "资产", "我的"};
     ActivityMainBinding binding;
+
+    MainPrensenter prensenter;
 
     @Override
     public int layoutId() {
@@ -38,6 +41,8 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         initFragment();
         initBottom();
+        prensenter = new MainPrensenter(this);
+        prensenter.init();
     }
 
     private void initFragment() {

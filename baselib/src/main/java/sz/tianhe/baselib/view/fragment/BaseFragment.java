@@ -57,6 +57,7 @@ public abstract class BaseFragment extends Fragment {
             }
             rootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             root.addView(rootView);
+            initViews();
         }
         return view;
     }
