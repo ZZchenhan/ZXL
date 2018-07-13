@@ -152,7 +152,7 @@ public class GuidPrensenter extends AbstarctPresenter {
     }
 
     private void jumpView() {
-        MainActivity.openActivity(mContext, MainActivity.class);
+        CreateWalletActivity.openActivity(mContext, CreateWalletActivity.class);
         ((Activity)mContext).finish();
     }
 

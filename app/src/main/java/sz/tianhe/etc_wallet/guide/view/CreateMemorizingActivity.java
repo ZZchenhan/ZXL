@@ -1,5 +1,6 @@
 package sz.tianhe.etc_wallet.guide.view;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;

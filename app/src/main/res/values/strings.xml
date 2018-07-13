@@ -24,6 +24,5 @@
     <string name="create_wallet_pass_hint">密码提示</string>
     <string name="create_wallet_btn_confirm">立即创建</string>
 
-
-    <string name="create_memorizing_world">创建助记词</string>
+    <string name="create_memorizing_world">助记词</string>
 </resources>
