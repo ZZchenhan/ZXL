@@ -10,45 +10,16 @@
         android:background="@color/bgColor"
         tools:context=".guide.view.GuideActivity">
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@color/lineColor" />
-
-        <TextView
-            android:id="@+id/timecount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/bg_guide_counttime"
-            android:text=""
-            android:textSize="14sp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/version"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:lottie_loop="false" />
     </android.support.constraint.ConstraintLayout>
 </layout>

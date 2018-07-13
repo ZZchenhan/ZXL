@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="lineColor">#e3e3e3</color>
     <color name="bottomColor">#fffafafa</color>
+
+
+    <color name="createWalletPassHintColor">#d4cbcb</color>
 </resources>

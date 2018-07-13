@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".guide.view.CreateWalletActivity">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/createWalletPassHintColor"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/create_wallet_pass_hint1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/createWalletPassHintColor"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+            android:text="@string/create_wallet_pass_hint2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/name_layout"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:divider="@color/lineColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:hintEnabled="false"
+            app:errorEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_wallet_name_hinit"
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pass_layou1"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:divider="@color/lineColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            app:layout_constraintTop_toBottomOf="@+id/name_layout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/pass2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_wallet_pass"
+                android:inputType="textPassword"
+                 />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/repeat_pass_layout"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="@+id/pass_layou1"
+            app:layout_constraintStart_toStartOf="@+id/pass_layou1"
+            app:layout_constraintTop_toBottomOf="@+id/pass_layou1">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/repeat_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:hint="@string/create_wallet_repeat_pass"
+                android:textColor="@color/black" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pass_hint_layout"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="@+id/repeat_pass_layout"
+            app:layout_constraintStart_toStartOf="@+id/repeat_pass_layout"
+            app:layout_constraintTop_toBottomOf="@+id/repeat_pass_layout">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/pass_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/create_wallet_pass_hint"
+                android:textColor="@color/black" />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/create_wallet_btn_confirm"
+            app:layout_constraintEnd_toEndOf="@+id/pass_hint_layout"
+            app:layout_constraintStart_toStartOf="@+id/pass_hint_layout"
+            app:layout_constraintTop_toBottomOf="@+id/pass_hint_layout" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

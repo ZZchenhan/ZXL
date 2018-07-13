@@ -1,12 +1,14 @@
 package sz.tianhe.etc_wallet.guide.presenter;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +25,10 @@ import sz.tianhe.baselib.api.Api;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.baselib.utils.VersionUtils;
 import sz.tianhe.etc_wallet.R;
+import sz.tianhe.etc_wallet.databinding.ActivityGuideBinding;
+import sz.tianhe.etc_wallet.guide.view.CreateWalletActivity;
 import sz.tianhe.etc_wallet.guide.view.LoginActivity;
+import sz.tianhe.etc_wallet.main.MainActivity;
 
 /**
  * 引导页导航
@@ -36,11 +41,7 @@ import sz.tianhe.etc_wallet.guide.view.LoginActivity;
  */
 public class GuidPrensenter extends AbstarctPresenter {
 
-    private ImageView imageView;
-
-    private TextView tvVersion;
-
-    private TextView countTimer;
+    ActivityGuideBinding binding;
 
     private final int REQUSET_PERMISSION = 1;
 
@@ -62,11 +63,9 @@ public class GuidPrensenter extends AbstarctPresenter {
     }
 
 
-    public GuidPrensenter(Context context, TextView tvTimeCount, TextView tvVersion, ImageView imageView) {
+    public GuidPrensenter(Context context, ActivityGuideBinding binding) {
         super(context);
-        this.tvVersion = tvVersion;
-        this.countTimer = tvTimeCount;
-        this.imageView = imageView;
+        this.binding = binding;
     }
 
 
@@ -119,42 +118,42 @@ public class GuidPrensenter extends AbstarctPresenter {
 
 
     public void loadVersion() {
-        tvVersion.setText(VersionUtils.getLocalVersionName(mContext));
+
     }
 
     /**
      * 延迟跳转
      */
     public void handOver() {
-        Observable.interval(1, TimeUnit.SECONDS)
-                .take(5)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        binding.animationView.setAnimation("AndroidWave.json");
+        binding.animationView.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
-                    }
+            }
 
-                    @Override
-                    public void onNext(Long aLong) {
-                        countTimer.setText(String.format(mContext.getResources().getString(R.string.guild_surplus_times),5-aLong));
-                    }
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                jumpView();
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
+            @Override
+            public void onAnimationCancel(Animator animator) {
 
-                    }
+            }
 
-                    @Override
-                    public void onComplete() {
-                        jumpView();
-                    }
-                });
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
+        binding.animationView.playAnimation();
     }
 
-    private void jumpView(){
-        LoginActivity.openActivity(mContext,LoginActivity.class);
+    private void jumpView() {
+        MainActivity.openActivity(mContext, MainActivity.class);
+        ((Activity)mContext).finish();
     }
 
 }

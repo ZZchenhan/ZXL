@@ -14,4 +14,16 @@
     <string name="tv_register">注册账户?</string>
     <string name="tv_forget">忘记密码</string>
     <string name="customer_phone">客服热线:400-900-8800</string>
+
+    <string name="create_wallet_title">创建钱包</string>
+    <string name="create_wallet_pass_hint1">密码用户保护私钥和交易授权，强度非常重要</string>
+    <string name="create_wallet_pass_hint2">钱包不用与存储密码，也无法帮你找回。请务必牢记</string>
+    <string name="create_wallet_name_hinit">钱包名称</string>
+    <string name="create_wallet_pass">钱包密码</string>
+    <string name="create_wallet_repeat_pass">重复密码</string>
+    <string name="create_wallet_pass_hint">密码提示</string>
+    <string name="create_wallet_btn_confirm">立即创建</string>
+
+
+    <string name="create_memorizing_world">创建助记词</string>
 </resources>

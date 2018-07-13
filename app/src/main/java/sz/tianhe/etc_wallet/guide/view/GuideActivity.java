@@ -32,7 +32,7 @@ public class GuideActivity extends BaseActivity {
     @Override
     public void initView() {
         guidPrensenter = new GuidPrensenter(this,
-                binding.timecount,binding.version,binding.image);
+                binding);
         guidPrensenter.init();
     }
 

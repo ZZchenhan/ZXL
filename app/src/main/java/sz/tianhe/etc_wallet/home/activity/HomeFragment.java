@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import sz.tianhe.baselib.navagation.AdapterNavagation;
+import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
 import sz.tianhe.etc_wallet.databinding.FragmentIndexBinding;
@@ -21,16 +24,33 @@ import sz.tianhe.etc_wallet.databinding.FragmentIndexBinding;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:01
  */
-public class HomeFragment extends Fragment{
+public class HomeFragment extends BaseFragment {
 
     FragmentHomeBinding binding;
+    AdapterNavagation adapterNavagation;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(null == binding) {
-            binding =  DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-        }
+    public int layoutId() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    public IBaseNavagation navagation() {
+        adapterNavagation = new AdapterNavagation(getContext())
+                .setNavagationBackgroudColor(R.color.colorPrimary)
+                .setTitle("个人中心", 16, R.color.white);
+        return adapterNavagation;
+    }
+
+
+    @Override
+    protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
+        binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
         return binding.getRoot();
+    }
+
+    @Override
+    protected void initViews() {
+
     }
 }

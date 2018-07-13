@@ -7,6 +7,7 @@ import android.os.Build;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 
+import retrofit2.Retrofit;
 import sz.tianhe.baselib.http.RetrofitClient;
 
 /**
@@ -18,7 +19,7 @@ import sz.tianhe.baselib.http.RetrofitClient;
  * 创建时间:2018/7/12 11:54
  */
 public class MyApplication extends Application{
-    public static RetrofitClient retrofitClient;
+    public static Retrofit retrofitClient;
 
     public static String deviceId;
 
@@ -27,7 +28,7 @@ public class MyApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        retrofitClient = new RetrofitClient(this,baseUrl);
+        retrofitClient = new RetrofitClient(this,baseUrl).getRetrofit();
         deviceId = Build.SERIAL;
         Utils.init(this);
         ToastUtils.setMsgColor(Color.BLACK);
