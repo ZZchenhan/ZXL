@@ -168,7 +168,7 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
         return this;
     }
 
-    public AdapterNavagation setRightText(String title, int textSize, int color) {
+    public AdapterNavagation setRightText(String title, int textSize, int color,OnClickListener onClickListener) {
         int padding = DeviceUtils.dip2px(getContext(), 4);
         if (rightPane == null) {
             rightPane = new LinearLayout(getContext());
@@ -188,6 +188,9 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
         textView.setTextColor(getResources().getColor(color));
         textView.setPadding(padding, 0, padding, 0);
         textView.setText(title);
+        if(onClickListener!=null){
+            textView.setOnClickListener(onClickListener);
+        }
         rightPane.addView(textView);
         return this;
     }

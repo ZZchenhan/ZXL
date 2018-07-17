@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -116,4 +119,19 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
     public static void openActivity(Activity context, Class cls, int requestCode){
         context.startActivityForResult(new Intent(context,cls),requestCode);
     }
+
+    public void drawbackgroud(float alpha){
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.alpha = alpha;
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        this.getWindow().setAttributes(lp);
+    }
+
+    public void initSwiplayout(SwipeRefreshLayout swipeRefreshLayout){
+        swipeRefreshLayout.setBackgroundColor(this.getResources().getColor(R.color.white));
+        swipeRefreshLayout.setColorSchemeColors(Color.RED,Color.BLUE);
+        swipeRefreshLayout.setOnRefreshListener(()->initData());
+    }
+
+    public void initData(){}
 }

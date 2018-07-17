@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:background="@drawable/bg_4e4e53_c_4"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingRight="19dp"
+    android:paddingLeft="19dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="194dp"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:text="手机号码位数有误无法获得验证码"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

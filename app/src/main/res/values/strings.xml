@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">etc_wallet</string>
+    <string name="app_name">钱包</string>
     <string name="guild_surplus_times">剩余%d秒</string>
     <string name="phone_erro">手机号码错误</string>
     <string name="pass_erro">手机号与密码不匹配</string>
@@ -25,4 +25,5 @@
     <string name="create_wallet_btn_confirm">立即创建</string>
 
     <string name="create_memorizing_world">助记词</string>
+    <string name="create_memorizing_world_confirm">确认助记词</string>
 </resources>

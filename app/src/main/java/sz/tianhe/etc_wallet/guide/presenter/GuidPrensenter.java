@@ -24,9 +24,11 @@ import io.reactivex.schedulers.Schedulers;
 import sz.tianhe.baselib.api.Api;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.baselib.utils.VersionUtils;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityGuideBinding;
 import sz.tianhe.etc_wallet.guide.view.CreateWalletActivity;
+import sz.tianhe.etc_wallet.guide.view.FirstChooseActivity;
 import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.main.MainActivity;
 
@@ -152,7 +154,7 @@ public class GuidPrensenter extends AbstarctPresenter {
     }
 
     private void jumpView() {
-        CreateWalletActivity.openActivity(mContext, CreateWalletActivity.class);
+        FirstChooseActivity.openActivity(mContext, FirstChooseActivity.class);
         ((Activity)mContext).finish();
     }
 

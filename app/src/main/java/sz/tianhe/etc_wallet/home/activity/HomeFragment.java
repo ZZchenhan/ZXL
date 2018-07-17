@@ -1,6 +1,5 @@
 package sz.tianhe.etc_wallet.home.activity;
 
-import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,7 +11,6 @@ import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
-import sz.tianhe.etc_wallet.main.customview.NormalDialog;
 
 /**
  * 项目名称:etc_wallet
@@ -22,7 +20,7 @@ import sz.tianhe.etc_wallet.main.customview.NormalDialog;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:01
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     FragmentHomeBinding binding;
     AdapterNavagation adapterNavagation;
@@ -43,20 +41,26 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
-        binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
-        return binding.getRoot();
+        this.binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
+        return this.binding.getRoot();
     }
 
-    Dialog updateDialog;
 
     @Override
     protected void initViews() {
-        binding.button2.setOnClickListener(view -> {
-            if(updateDialog == null){
-                updateDialog = new NormalDialog.Builder(getContext())
-                        .create();
-            }
-            updateDialog.show();
-        });
+        binding.manage.setOnClickListener(this);
+        binding.msg.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.manage:
+                ManageActivity.openActivity(getContext(),ManageActivity.class);
+                break;
+            case R.id.msg:
+                MsgActivity.openActivity(getContext(),MsgActivity.class);
+                break;
+        }
     }
 }

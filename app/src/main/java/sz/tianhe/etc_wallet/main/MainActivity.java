@@ -22,7 +22,7 @@ import sz.tianhe.etc_wallet.main.prensenter.MainPrensenter;
 
 public class MainActivity extends BaseActivity {
 
-    private String[] fragmentTitles = new String[]{"首页", "资产", "我的"};
+    private String[] fragmentTitles = new String[]{"首页", "行情", "我的"};
     ActivityMainBinding binding;
 
     MainPrensenter prensenter;
@@ -57,9 +57,9 @@ public class MainActivity extends BaseActivity {
 
     private void initBottom() {
         controller = binding.bootm.custom()
-                .addItem(newItem(R.drawable.icon_bottom_index_nomarl, R.drawable.icon_bottom_index_selector, fragmentTitles[0]))
-                .addItem(newItem(R.drawable.icon_bottom_index_nomarl, R.drawable.icon_bottom_index_selector, fragmentTitles[1]))
-                .addItem(newItem(R.drawable.icon_bottom_index_nomarl, R.drawable.icon_bottom_index_selector, fragmentTitles[2]))
+                .addItem(newItem(R.mipmap.ic_nagavation_assert_nomarl, R.mipmap.ic_nagavation_assert_select, fragmentTitles[0]))
+                .addItem(newItem(R.mipmap.ic_nagavation_quotation_nomarl,R.mipmap.ic_nagavation_quotation_select, fragmentTitles[1]))
+                .addItem(newItem(R.mipmap.ic_nagavation_me_nomarl, R.mipmap.ic_nagavation_me_select, fragmentTitles[2]))
                 .build();
         controller.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity {
         MyNormalItem normalItemView = new MyNormalItem(this);
         normalItemView.initialize(drawable, checkedDrawable, text);
         normalItemView.setTextDefaultColor(0xffbfbfbf);
-        normalItemView.setTextCheckedColor(0xffbfbfbf);
+        normalItemView.setTextCheckedColor(0xff3F51B5);
         return normalItemView;
     }
 

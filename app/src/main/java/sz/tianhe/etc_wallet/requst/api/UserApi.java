@@ -24,10 +24,9 @@ import sz.tianhe.etc_wallet.requst.vo.UserVo;
 public interface UserApi{
 
     /**
-     * 用户登录
+     * 获取用户钱包
      * @return
      */
     @POST("/user/login")
-    Observable<Result<UserVo>> login(@Query("phone") String phone, @Query("pass") String pass);
-
+    Observable<Result<UserVo>> haveWallet(@Query("deviceId")String deviceId);
 }

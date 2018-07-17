@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".home.activity.PrivacyActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:gravity="center"
+                    android:text="《Be Wallet 服务协议》"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16sp"
+                    android:layout_marginTop="25sp"
+                    android:text="尊敬的用户：感谢您选择Be Wallet服务。" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:background="#1F000000"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/is_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:drawablePadding="8dp"
+                android:checked="true"
+                android:text="我已仔细阅读并同意以上条款"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/btn_nex"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="74dp"
+                android:layout_height="36dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/bg_first_btn_create"
+                android:text="继续"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

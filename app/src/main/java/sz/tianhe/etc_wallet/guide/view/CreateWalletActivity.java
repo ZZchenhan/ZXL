@@ -27,6 +27,9 @@ public class CreateWalletActivity extends BaseActivity {
         adapterNavagation = new AdapterNavagation(this)
                 .setTitle(getResources().getString(R.string.create_wallet_title), 16, R.color.white)
                 .setNavagationBackgroudColor(R.color.colorPrimary);
+        if(getIntent().getBooleanExtra("back",false)){
+            adapterNavagation.setBack();
+        }
         return adapterNavagation;
     }
 

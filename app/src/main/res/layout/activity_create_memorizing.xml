@@ -2,11 +2,80 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bgColor"
-        tools:context=".guide.view.CreateMemorizingActivity">
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            android:background="@color/white"
+            android:layout_height="match_parent">
 
-    </android.support.constraint.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="请抄写好这12个助记词"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="256dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="你只可以用这12个助记词恢复你的账户 一旦丢失，将无法找回"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="14sp"
+                    android:textColor="#FF8E8E93"
+                    android:gravity="center"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <TextView
+                android:id="@+id/world"
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_f7f7f7_c_4"
+                android:layout_marginRight="16dp"
+                android:text="this is my world"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="16dp"
+                android:layout_height="140dp" />
+                <Button
+                    android:id="@+id/sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/bg_first_btn_create"
+                    android:text="已抄记"
+                    android:textSize="16sp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp" />
+
+                <TextView
+                    android:id="@+id/wait"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:padding="10dp"
+                    android:text="稍后抄记"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    />
+        </LinearLayout>
+    </ScrollView>
 </layout>

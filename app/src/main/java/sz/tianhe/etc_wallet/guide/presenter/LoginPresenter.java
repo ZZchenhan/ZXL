@@ -86,10 +86,5 @@ public class LoginPresenter extends AbstarctPresenter{
             toast(R.string.pass_length_erro);
             return;
         }
-
-        requst(MyApplication.retrofitClient.create(UserApi.class)
-                .login(etPhone.getText().toString(), etPass.getText().toString()), userVo -> {
-            //登录成功
-        },true);
     }
 }
