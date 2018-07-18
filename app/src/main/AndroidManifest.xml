@@ -39,10 +39,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".main.MainActivity">
-
         </activity>
         <activity android:name=".home.activity.UserInfoActivity" />
-        <activity android:name=".guide.view.GuideActivity" >
+        <activity android:name=".guide.view.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,8 +60,9 @@
         <activity android:name=".guide.view.SetLoginPassActivity" />
         <activity android:name=".guide.view.ConfirmPassActivity" />
         <activity android:name=".index.activity.WalletInfoActivity" />
-        <activity android:name=".index.activity.ReciveActivity"></activity>
-        <activity android:name=".index.activity.ScanActivity"/>
+        <activity android:name=".index.activity.ReciveActivity" />
+        <activity android:name=".index.activity.ScanActivity" />
+        <activity android:name=".index.activity.TransferActivity"></activity>
     </application>
 
 </manifest>

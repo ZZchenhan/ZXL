@@ -22,7 +22,7 @@ import sz.tianhe.etc_wallet.main.prensenter.MainPrensenter;
 
 public class MainActivity extends BaseActivity {
 
-    private String[] fragmentTitles = new String[]{"首页", "行情", "我的"};
+    private String[] fragmentTitles = new String[]{"钱包", "行情", "我的"};
     ActivityMainBinding binding;
 
     MainPrensenter prensenter;

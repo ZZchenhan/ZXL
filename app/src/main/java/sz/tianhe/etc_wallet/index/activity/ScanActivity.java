@@ -1,6 +1,7 @@
 package sz.tianhe.etc_wallet.index.activity;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -56,12 +57,16 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
     }
 
     public void handleDecode(Result obj, Bitmap barcode, float scaleFactor){
-        Log.e("Load",obj.getText());
+        Intent intent = new Intent(this,TransferActivity.class);
+        intent.putExtra(TransferActivity.EXTRA_ADDRESS,obj.getText());
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
 
     public void drawViewfinder(){
-        viewfinderView.drawViewfinder();
+//        viewfinderView.drawViewfinder();
     }
 
     @Override
@@ -74,7 +79,7 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
         adapterNavagation = new AdapterNavagation(this)
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setBack()
-                .setTitle("收款码", 16, R.color.white);
+                .setTitle("扫一扫", 16, R.color.white);
         return adapterNavagation;
     }
 

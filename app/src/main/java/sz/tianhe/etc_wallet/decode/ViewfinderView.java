@@ -16,20 +16,15 @@
 
 package sz.tianhe.etc_wallet.decode;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
-
-import com.google.zxing.ResultPoint;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.decode.camera.CameraManager;
@@ -42,151 +37,146 @@ import sz.tianhe.etc_wallet.decode.camera.CameraManager;
  */
 public final class ViewfinderView extends View {
 
-  private static final int[] SCANNER_ALPHA = {0, 64, 128, 192, 255, 192, 128, 64};
-  private static final long ANIMATION_DELAY = 80L;
-  private static final int CURRENT_POINT_OPACITY = 0xA0;
-  private static final int MAX_RESULT_POINTS = 20;
-  private static final int POINT_SIZE = 6;
+    private Paint paint = null;
+    private int maskColor;
+    private int resultColor = 0;
+    private int frameColor = 0;
+    private int laserColor = 0;
+    private int resultPointColor = 0;
+    private int green = 0;
+    /**
+     * 刷新界面的时间
+     */
+    private static final long ANIMATION_DELAY = 10L;
 
-  private CameraManager cameraManager;
-  private final Paint paint;
-  private Bitmap resultBitmap;
-  private final int maskColor;
-  private final int resultColor;
-  private final int laserColor;
-  private final int resultPointColor;
-  private int scannerAlpha;
-  private List<ResultPoint> possibleResultPoints;
-  private List<ResultPoint> lastPossibleResultPoints;
+    /**
+     * 中间滑动线的最顶端位置
+     */
+    private int slideTop;
 
-  // This constructor is used when the class is built from an XML resource.
-  public ViewfinderView(Context context, AttributeSet attrs) {
-    super(context, attrs);
+    /**
+     * 中间滑动线的最底端位置
+     */
+    private int slideBottom;
+    /**
+     * 中间那条线每次刷新移动的距离
+     */
+    private static final int SPEEN_DISTANCE = 5;
 
-    // Initialize these once for performance rather than calling them every time in onDraw().
-    paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    Resources resources = getResources();
-    maskColor = resources.getColor(R.color.viewfinder_mask);
-    resultColor = resources.getColor(R.color.result_view);
-    laserColor = resources.getColor(R.color.viewfinder_laser);
-    resultPointColor = resources.getColor(R.color.possible_result_points);
-    scannerAlpha = 0;
-    possibleResultPoints = new ArrayList<>(5);
-    lastPossibleResultPoints = null;
-  }
-
-  public void setCameraManager(CameraManager cameraManager) {
-    this.cameraManager = cameraManager;
-  }
-
-  @SuppressLint("DrawAllocation")
-  @Override
-  public void onDraw(Canvas canvas) {
-    if (cameraManager == null) {
-      return; // not ready yet, early draw before done configuring
+    public ViewfinderView(Context context) {
+        super(context);
+        init(context);
     }
-    Rect frame = cameraManager.getFramingRect();
-    Rect previewFrame = cameraManager.getFramingRectInPreview();
-    if (frame == null || previewFrame == null) {
-      return;
+
+    public ViewfinderView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        // 初始化这些曾经为性能而不是叫他们在ondraw()每次。
+        paint = new Paint();
+        Resources resources = getResources();
+        maskColor = resources.getColor(R.color.viewfinder_mask);
+        resultColor = resources.getColor(R.color.result_view);
+        frameColor = resources.getColor(R.color.viewfinder_laser);
+        laserColor = resources.getColor(R.color.viewfinder_laser);
+        resultPointColor = resources.getColor(R.color.possible_result_points);
+        green = Color.parseColor("#FF286CFF");
+
+        init(context);
     }
-    int width = canvas.getWidth();
-    int height = canvas.getHeight();
 
-    // Draw the exterior (i.e. outside the framing rect) darkened
-    paint.setColor(resultBitmap != null ? resultColor : maskColor);
-    canvas.drawRect(0, 0, width, frame.top-400, paint);
-    canvas.drawRect(0, frame.top-400, frame.left, frame.bottom + 1-400, paint);
-    canvas.drawRect(frame.right + 1, frame.top-400, width, frame.bottom + 1-400, paint);
-    canvas.drawRect(0, frame.bottom + 1-400, width, height, paint);
+    public ViewfinderView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context);
+    }
 
-    if (resultBitmap != null) {
-      // Draw the opaque result bitmap over the scanning rectangle
-      paint.setAlpha(CURRENT_POINT_OPACITY);
-      canvas.drawBitmap(resultBitmap, null, frame, paint);
-    } else {
+    private void init(Context context) {
 
-      // Draw a red "laser scanner" line through the middle to show decoding is active
-      paint.setColor(laserColor);
-      paint.setAlpha(SCANNER_ALPHA[scannerAlpha]);
-      scannerAlpha = (scannerAlpha + 1) % SCANNER_ALPHA.length;
-      int middle = frame.height() / 2 + frame.top;
-      canvas.drawRect(frame.left + 2, middle - 1-400, frame.right - 1, middle + 2-400, paint);
-      
-      float scaleX = frame.width() / (float) previewFrame.width();
-      float scaleY = frame.height() / (float) previewFrame.height();
+    }
 
-      List<ResultPoint> currentPossible = possibleResultPoints;
-      List<ResultPoint> currentLast = lastPossibleResultPoints;
-      int frameLeft = frame.left;
-      int frameTop = frame.top-400;
-      if (currentPossible.isEmpty()) {
-        lastPossibleResultPoints = null;
-      } else {
-        possibleResultPoints = new ArrayList<>(5);
-        lastPossibleResultPoints = currentPossible;
-        paint.setAlpha(CURRENT_POINT_OPACITY);
-        paint.setColor(resultPointColor);
-        synchronized (currentPossible) {
-          for (ResultPoint point : currentPossible) {
-            canvas.drawCircle(frameLeft + (int) (point.getX() * scaleX),
-                              frameTop + (int) (point.getY() * scaleY),
-                              POINT_SIZE, paint);
-          }
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        //中间的扫描框，你要修改扫描框的大小，去CameraManager里面修改
+        if(cameraManager==null){
+            return;
         }
-      }
-      if (currentLast != null) {
-        paint.setAlpha(CURRENT_POINT_OPACITY / 2);
-        paint.setColor(resultPointColor);
-        synchronized (currentLast) {
-          float radius = POINT_SIZE / 2.0f;
-          for (ResultPoint point : currentLast) {
-            canvas.drawCircle(frameLeft + (int) (point.getX() * scaleX),
-                              frameTop + (int) (point.getY() * scaleY),
-                              radius, paint);
-          }
+        Rect frame = cameraManager.getFramingRect();
+        if (frame == null) {
+            return;
         }
-      }
+        int width = canvas.getWidth();
+        int height = canvas.getHeight();
 
-      // Request another update at the animation interval, but only repaint the laser line,
-      // not the entire viewfinder mask.
-      postInvalidateDelayed(ANIMATION_DELAY,
-                            frame.left - POINT_SIZE,
-                            frame.top - POINT_SIZE,
-                            frame.right + POINT_SIZE,
-                            frame.bottom + POINT_SIZE);
+        // 画的外部（即外部框架矩形）黑暗
+        paint.setColor(maskColor);
+        //
+        /**
+         * 想要调节二维码扫描的速度 就要在CameraManager里面调节
+         *   private static final int MIN_FRAME_WIDTH = 240;
+         private static final int MIN_FRAME_HEIGHT = 240;
+         private static final int MAX_FRAME_WIDTH = 675;
+         private static final int MAX_FRAME_HEIGHT = 800;
+         这四个参数的大小
+         然后通过Rect frame = CameraManager.get().getFramingRect();获取相机扫描区域的大小
+         如果只是单纯的用相机的高宽去设置扫描二维码区域会发现扫描比较快 但是二维码扫描区域太大
+         代码是这样的
+         // 画的外部（即外部框架矩形）黑暗
+         paint.setColor(resultBitmap != null ? resultColor : maskColor);
+         canvas.drawRect(0, 0, width, frame.top, paint);
+         canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
+         canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1, paint);
+         canvas.drawRect(0, frame.bottom + 1, width, height, paint);
+         画出了是和相机一样大小的边框
+         但是如果为了扫描快一些就要调大相机区域 也要重新画出扫描区域
+         就要自己画一个比相机小的正方形的扫描区域
+         */
+        //画一个方形 获取相机宽度
+        int x = frame.right - frame.left;
+        //上面阴影部分高度 x=height-2*top; 算出top
+        int top = (height - x) / 3;
+        //获取下面阴影部分的在y轴的坐标
+        int botton = x + top;
+        canvas.drawRect(0, 0, width, top, paint);//最上面的一块透明的背景
+        canvas.drawRect(0, top, frame.left, botton, paint);//左边的一块透明的背景
+        canvas.drawRect(frame.right + 1, top, width, botton, paint);//右边的一块透明背景
+        canvas.drawRect(0, botton, width, height, paint);//最下面的一块透明背景
+
+        //画四个角上面的绿线
+        float strokeWidth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,2,getContext().getResources().getDisplayMetrics());
+        paint.setColor(green);
+        paint.setStrokeWidth(strokeWidth);              //线宽
+        paint.setStyle(Paint.Style.FILL);
+        canvas.drawLine(frame.left, top , frame.left + 50, top , paint);//左上角横着的线
+        canvas.drawLine(frame.left, top, frame.left, top + 50, paint);//左上角竖着的线
+
+        canvas.drawLine(frame.left , botton - 50, frame.left , botton, paint);//左下角竖着的线
+        canvas.drawLine(frame.left, botton, frame.left + 50, botton, paint);//左下角横着的线
+
+        canvas.drawLine(frame.right - 50, top, frame.right, top, paint);//右上角横着的线
+        canvas.drawLine(frame.right, top, frame.right, top + 50, paint);//右上角竖着的线
+
+
+        canvas.drawLine(frame.right, botton - 50, frame.right, botton, paint);//右下角竖着的线
+        canvas.drawLine(frame.right - 50, botton, frame.right, botton, paint);//右下角横着的线
+
+        //绘制中间的线,每次刷新界面，中间的线往下移动SPEEN_DISTANCE
+        paint.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,1,getContext().getResources().getDisplayMetrics()));
+        slideTop += SPEEN_DISTANCE;
+        if (slideTop >= botton) {
+            slideTop = top;
+        }
+        if (slideTop >= top) {
+            //绘制中间的线
+            canvas.drawLine(frame.left, slideTop, frame.right, slideTop, paint);//中间的横线
+        } else {
+            canvas.drawLine(frame.left, top + x / 2, frame.right, top + x / 2, paint);//中间的横线
+        }
+
+        //只刷新扫描框的内容，其他地方不刷新
+        postInvalidateDelayed(ANIMATION_DELAY, frame.left, top,
+                frame.right, botton);
     }
-  }
-
-  public void drawViewfinder() {
-    Bitmap resultBitmap = this.resultBitmap;
-    this.resultBitmap = null;
-    if (resultBitmap != null) {
-      resultBitmap.recycle();
+    CameraManager cameraManager;
+    public void setCameraManager(CameraManager cameraManager){
+         this.cameraManager = cameraManager;
     }
-    invalidate();
-  }
-
-  /**
-   * Draw a bitmap with the result points highlighted instead of the live scanning display.
-   *
-   * @param barcode An image of the decoded barcode.
-   */
-  public void drawResultBitmap(Bitmap barcode) {
-    resultBitmap = barcode;
-    invalidate();
-  }
-
-  public void addPossibleResultPoint(ResultPoint point) {
-    List<ResultPoint> points = possibleResultPoints;
-    synchronized (points) {
-      points.add(point);
-      int size = points.size();
-      if (size > MAX_RESULT_POINTS) {
-        // trim it
-        points.subList(0, size - MAX_RESULT_POINTS / 2).clear();
-      }
-    }
-  }
-
 }

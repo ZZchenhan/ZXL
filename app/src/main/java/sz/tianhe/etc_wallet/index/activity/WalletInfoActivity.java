@@ -16,6 +16,7 @@ import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityWalletInfoBinding;
+import sz.tianhe.etc_wallet.decode.Intents;
 import sz.tianhe.etc_wallet.index.adapter.TanscationAdaper;
 import sz.tianhe.etc_wallet.index.bean.AsssertBean;
 import sz.tianhe.etc_wallet.index.bean.TanscationBean;
@@ -49,7 +50,7 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setBack()
                 .setTitle(asssertBean.getCoinTilte(), 16, R.color.white)
-                .setRightImage(R.mipmap.ic_scan, v -> ToastUtils.showShort("scan"));
+                .setRightImage(R.mipmap.ic_scan, v -> {ScanActivity.openActivity(WalletInfoActivity.this, ScanActivity.class);});
         return adapterNavagation;
     }
 
@@ -63,6 +64,7 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
         binding.recyclerView.setAdapter(adaper);
 
         binding.rlRecive.setOnClickListener(this);
+        binding.rlTranscation.setOnClickListener(this);
         test();
     }
 
@@ -89,12 +91,15 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent();
+        intent.putExtra("data",asssertBean);
         switch (view.getId()){
             case R.id.rl_transcation:
+                intent.setClass(this,TransferActivity.class);
+                startActivity(intent);
                 break;
             case R.id.rl_recive:
-                Intent intent = new Intent(this,ReciveActivity.class);
-                intent.putExtra("data",asssertBean);
+                intent.setClass(this,ReciveActivity.class);
                 startActivity(intent);
                 break;
         }
