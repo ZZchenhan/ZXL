@@ -15,7 +15,7 @@ public class AsssertBean implements Serializable{
     private String coinTilte;
     private double coinNumber;
     private double value;
-
+    private String adessss;
     public AsssertBean(int iconId, String coinTilte, double coinNumber, double value) {
         this.iconId = iconId;
         this.coinTilte = coinTilte;

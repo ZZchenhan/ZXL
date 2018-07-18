@@ -79,6 +79,7 @@
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:text="复制地址"
+            android:background="@drawable/bg_a15_ffffff_r4"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
