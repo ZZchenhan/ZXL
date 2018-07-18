@@ -1,14 +1,14 @@
 package sz.tianhe.etc_wallet.assets.activity;
 
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import sz.tianhe.baselib.navagation.AdapterNavagation;
+import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentAssertBinding;
 
@@ -20,15 +20,37 @@ import sz.tianhe.etc_wallet.databinding.FragmentAssertBinding;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:05
  */
-public class AssetsFragment extends Fragment {
+public class AssetsFragment extends BaseFragment {
 
     FragmentAssertBinding binding;
-    @Nullable
+
+    AdapterNavagation adapterNavagation;
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public int layoutId() {
+        return R.layout.fragment_assert;
+    }
+
+    @Override
+    public IBaseNavagation navagation() {
+        adapterNavagation = new AdapterNavagation(getContext())
+                .setNavagationBackgroudColor(R.color.fragment_index_color)
+                .setTitle("行情", 16, R.color.white);
+        return adapterNavagation;
+    }
+
+
+    @Override
+    protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
         if(binding == null){
-            binding = DataBindingUtil.inflate(inflater, R.layout.fragment_assert,container,false);
+            binding = DataBindingUtil.inflate(inflater,layoutId(),container,false);
         }
         return binding.getRoot();
+    }
+
+    @Override
+    protected void initViews() {
+
     }
 }

@@ -44,14 +44,43 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
     }
 
     public AdapterNavagation setBack() {
-        setLeftImage(R.drawable.icon_back, new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((Activity) getContext()).finish();
-            }
-        });
+       setLeftImage(R.drawable.icon_back,v->{  ((Activity)getContext()).finish();});
         return this;
     }
+
+    public AdapterNavagation setBack(String string,int color){
+        int padding = DeviceUtils.dip2px(getContext(), 8);
+        if (leftPane == null) {
+            leftPane = new LinearLayout(getContext());
+            LayoutParams layoutParams = new LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+                    LayoutParams.MATCH_PARENT);
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT,TRUE);
+            layoutParams.leftMargin = padding;
+            leftPane.setLayoutParams(layoutParams);
+            this.addView(leftPane);
+        }
+        TextView textView = new TextView(getContext());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.MATCH_PARENT);
+        textView.setPadding(padding,0,0,0);
+        textView.setLayoutParams(params);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(getResources().getColor(color));
+
+        textView.setOnClickListener(view -> {
+            ((Activity)getContext()).finish();
+        });
+
+        Drawable lIcon = getContext().getDrawable(R.drawable.icon_back);
+        lIcon.setBounds(0,0,lIcon.getMinimumWidth(),lIcon.getMinimumHeight());
+        textView.setCompoundDrawablePadding(20);
+        textView.setCompoundDrawables(lIcon,null,null,null);
+        textView.setText(string == null?"返回":string);
+        leftPane.addView(textView);
+        return this;
+    }
+
 
     public AdapterNavagation setLeftText(String title, int textSize, int color,OnClickListener onClickListener) {
         int padding = DeviceUtils.dip2px(getContext(), 4);
@@ -94,7 +123,7 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
     }
 
     public AdapterNavagation setLeftImage(int drawableId, OnClickListener onClickListener) {
-        int padding = DeviceUtils.dip2px(getContext(), 4);
+        int padding = DeviceUtils.dip2px(getContext(), 8);
         if (leftPane == null) {
             leftPane = new LinearLayout(getContext());
             LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,

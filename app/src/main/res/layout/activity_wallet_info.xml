@@ -112,14 +112,19 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:gravity="center"
                     android:layout_centerInParent="true"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@mipmap/ic_arrow_up"
+                        android:layout_height="wrap_content" />
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:text="转账"
+                        android:layout_marginLeft="11dp"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
                 </LinearLayout>
@@ -134,13 +139,18 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_centerInParent="true"
+                    android:gravity="center"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@mipmap/ic_arrow_down"
+                        android:layout_height="wrap_content" />
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_marginLeft="11dp"
+                        android:layout_height="wrap_content"
                         android:text="收款"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
