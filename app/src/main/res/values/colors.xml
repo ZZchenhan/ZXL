@@ -10,4 +10,8 @@
     <color name="createWalletPassHintColor">#d4cbcb</color>
 
     <color name="first_btn_color">#286CFF</color>
+
+    <color name="fragment_index_color">#FF3975E2</color>
+    <color name="color286cff">#FF286CFF</color>
+    <color name="color262626">#FF262626</color>
 </resources>

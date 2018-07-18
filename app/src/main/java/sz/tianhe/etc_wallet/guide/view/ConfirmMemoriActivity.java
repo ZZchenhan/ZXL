@@ -39,8 +39,6 @@ public class ConfirmMemoriActivity extends BaseActivity {
     @Override
     public IBaseNavagation navagation() {
         adapterNavagation = new AdapterNavagation(this)
-                .setTitle(getResources().getString(R.string.create_memorizing_world_confirm),
-                        16, R.color.white)
                 .setBack()
                 .setNavagationBackgroudColor(R.color.colorPrimary);
         return adapterNavagation;

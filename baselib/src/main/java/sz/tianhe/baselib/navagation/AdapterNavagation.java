@@ -2,6 +2,7 @@ package sz.tianhe.baselib.navagation;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -52,7 +53,7 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
         return this;
     }
 
-    public AdapterNavagation setLeftText(String title, int textSize, int color) {
+    public AdapterNavagation setLeftText(String title, int textSize, int color,OnClickListener onClickListener) {
         int padding = DeviceUtils.dip2px(getContext(), 4);
         if (leftPane == null) {
             leftPane = new LinearLayout(getContext());
@@ -70,7 +71,9 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,textSize);
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(getResources().getColor(color));
-        textView.setPadding(padding, 0, padding, 0);
+        if(onClickListener != null){
+            textView.setOnClickListener(onClickListener);
+        }
         textView.setText(title);
         leftPane.addView(textView);
         return this;
@@ -132,7 +135,7 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
 
 
     public AdapterNavagation setRightImage(int drawableId, OnClickListener onClickListener) {
-        int padding = DeviceUtils.dip2px(getContext(), 4);
+        int padding = DeviceUtils.dip2px(getContext(), 8);
         if (rightPane == null) {
             rightPane = new LinearLayout(getContext());
             LayoutParams layoutParams = new LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -148,7 +151,7 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
         imageView.setLayoutParams(params);
         params.gravity = Gravity.CENTER;
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        imageView.setPadding(padding, 0, padding, 0);
+        imageView.setPadding(padding, 20, padding, 20);
         imageView.setImageDrawable(getResources().getDrawable(drawableId));
         if (onClickListener != null) {
             imageView.setOnClickListener(onClickListener);

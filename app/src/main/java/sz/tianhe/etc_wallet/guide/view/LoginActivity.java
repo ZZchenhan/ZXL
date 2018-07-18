@@ -1,5 +1,6 @@
 package sz.tianhe.etc_wallet.guide.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,15 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityLoginBinding;
 import sz.tianhe.etc_wallet.guide.presenter.LoginPresenter;
+import sz.tianhe.etc_wallet.main.MainActivity;
 
 public class LoginActivity extends BaseActivity {
 
     ActivityLoginBinding binding;
 
     LoginPresenter loginPresenter;
+
+    AdapterNavagation adapterNavagation;
 
     @Override
     public int layoutId() {
@@ -24,25 +28,30 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public IBaseNavagation navagation() {
-        AdapterNavagation adapterNavagation = new AdapterNavagation(this)
-                .setTitle("登录", 17, R.color.black)
-                .setLineColor(R.color.lineColor);
+        adapterNavagation = new AdapterNavagation(this)
+                .setBack()
+                .setNavagationBackgroudColor(R.color.colorPrimary);
         return adapterNavagation;
     }
 
     @Override
     public void initView() {
-        loginPresenter.init();
     }
 
     @Override
     public void findViews() {
-        loginPresenter = new LoginPresenter(this,binding.phone,binding.etPass,binding.login,binding.tvRegister);
+        binding.btnLogin.setOnClickListener(v ->
+        {
+            Intent intent = new Intent(LoginActivity.this, FirstChooseActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("data","登录");
+            startActivity(intent);
+        });
     }
 
     @Override
     protected View bindViews() {
-         binding =  DataBindingUtil.inflate(LayoutInflater.from(this),layoutId(),null,false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         return binding.getRoot();
     }
 }

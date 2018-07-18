@@ -18,7 +18,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="设置登录密码"
+            android:text="确认登录密码"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -31,31 +31,22 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:text="提示登录密码的作用"
+            android:text="再次确认密码是否一致"
             android:textColor="#FF8E8E93"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <LinearLayout
+        <sz.tianhe.etc_wallet.weight.PasswordUnderLineEditText
+            android:id="@+id/input"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:inputType="numberPassword"
+            android:maxLength="6"
             android:layout_marginLeft="40dp"
             android:layout_marginRight="40dp"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
-
-            <sz.tianhe.etc_wallet.weight.PasswordUnderLineEditText
-                android:id="@+id/input"
-                android:layout_width="match_parent"
-                android:inputType="numberPassword"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:maxLength="6"
-                android:background="@null"
-                android:layout_height="40dp" />
-        </LinearLayout>
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:layout_height="40dp" />
 
 
     </LinearLayout>

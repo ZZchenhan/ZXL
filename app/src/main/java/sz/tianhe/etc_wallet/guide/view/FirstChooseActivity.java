@@ -15,6 +15,7 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityFirstChooseBinding;
 import sz.tianhe.etc_wallet.home.activity.PrivacyActivity;
+import sz.tianhe.etc_wallet.main.MainActivity;
 
 /**
  * 系统经过引导页之后判断第一次进入
@@ -34,6 +35,10 @@ public class FirstChooseActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void initView() {
         BarUtils.setStatusBarColor(this, Color.parseColor("#FFFFFFFF"));
+        if(getIntent().getStringExtra("data") != null){
+            MainActivity.openActivity(this,MainActivity.class);
+            finish();
+        }
     }
 
     @Override
@@ -55,7 +60,7 @@ public class FirstChooseActivity extends BaseActivity implements View.OnClickLis
                 PrivacyActivity.openActivity(this,PrivacyActivity.class);
                 break;
             case R.id.import_wallet:
-                toast("登录");
+                LoginActivity.openActivity(this,LoginActivity.class);
                 break;
         }
     }

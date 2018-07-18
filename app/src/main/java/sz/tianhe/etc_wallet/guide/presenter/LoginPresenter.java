@@ -30,61 +30,28 @@ import sz.tianhe.etc_wallet.requst.vo.UserVo;
  */
 public class LoginPresenter extends AbstarctPresenter{
 
-    /**
-     * 电话
-     */
-    private EditText etPhone;
 
-    /**
-     * 密码
-     */
-    private EditText etPass;
-
-    /**
-     * 提交按钮
-     */
-    private Button btnComfinm;
-
-    /**
-     * 注册按钮
-     */
-    private TextView tvRegister;
-
-
-    private LoginPresenter(Context context) {
+    public LoginPresenter(Context context) {
         super(context);
     }
-
-    public LoginPresenter(Context context
-            , EditText etPhone, EditText etPass, Button btnComfinm, TextView tvRegister) {
-        super(context);
-        this.etPhone = etPhone;
-        this.etPass = etPass;
-        this.btnComfinm = btnComfinm;
-        this.tvRegister = tvRegister;
-    }
-
-
-    @Override
-    public void init() {
-        btnComfinm.setOnClickListener(view -> login());
-        tvRegister.setOnClickListener(view -> MainActivity.openActivity(mContext, MainActivity.class));
-    }
-
 
     /**
      * 登录
      */
-    private void login() {
-        if (!PhoneUtils.isMobile0(etPhone.getText().toString())) {
+    private void login(String phone,String pass) {
+        if (!PhoneUtils.isMobile0(phone)) {
             toast(R.string.phone_erro);
             return;
         }
-        if (etPass.getText().toString().length() > 14
-                || etPass.getText().toString().length() < 6
+        if (pass.length() == 0
                 ) {
-            toast(R.string.pass_length_erro);
+            toast("请输入密码");
             return;
         }
+    }
+
+    @Override
+    public void init() {
+
     }
 }

@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
         initFragment();
         initBottom();
         prensenter = new MainPrensenter(this);
-        prensenter.init();
+//        prensenter.init();
     }
 
     private void initFragment() {
@@ -97,8 +97,8 @@ public class MainActivity extends BaseActivity {
     private BaseTabItem newItem(int drawable, int checkedDrawable, String text) {
         MyNormalItem normalItemView = new MyNormalItem(this);
         normalItemView.initialize(drawable, checkedDrawable, text);
-        normalItemView.setTextDefaultColor(0xffbfbfbf);
-        normalItemView.setTextCheckedColor(0xff3F51B5);
+        normalItemView.setTextDefaultColor(0xff8E8E93);
+        normalItemView.setTextCheckedColor(0xff3975E2);
         return normalItemView;
     }
 

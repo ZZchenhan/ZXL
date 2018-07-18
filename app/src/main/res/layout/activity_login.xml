@@ -1,100 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-    <android.support.constraint.ConstraintLayout
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bgColor"
-        tools:context=".guide.view.LoginActivity">
+        android:orientation="vertical"
+        tools:context=".guide.view.PhoneCodeActivity">
 
-        <EditText
-            android:id="@+id/phone"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:hint="@string/hint_phone"
-            android:inputType="phone"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo" />
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="0dp"
-            android:layout_height="90dp"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="80dp"
-            android:scaleType="fitCenter"
-            app:layout_constraintDimensionRatio="w,1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-        <EditText
-            android:id="@+id/et_pass"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:hint="@string/hint_pass"
-            android:inputType="textPassword"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="用户登录"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/phone"
-            app:layout_constraintStart_toStartOf="@+id/phone"
-            app:layout_constraintTop_toBottomOf="@+id/phone" />
+            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="38dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机号码"
+                android:textColor="@color/textColor"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="请输入手机号码"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:background="@null"
+                android:inputType="number"
+                android:paddingLeft="28dp"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/textHintColor"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/lineColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="        密码"
+                android:textColor="@color/textColor"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="请输入密码"
+                android:background="@null"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:inputType="numberPassword"
+                android:paddingLeft="28dp"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/textHintColor"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/lineColor" />
 
         <Button
-            android:id="@+id/login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/btn_login"
-            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="40dp"
+            android:text="登录"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/et_pass"
-            app:layout_constraintStart_toStartOf="@+id/et_pass"
-            app:layout_constraintTop_toBottomOf="@+id/et_pass" />
-
-        <TextView
-            android:id="@+id/customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:text="@string/customer_phone"
-            android:textColor="@color/black"
-            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_first_btn_create"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            style="?android:attr/borderlessButtonStyle"
             app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_register"
-            android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/tv_register"
-            android:textColor="@color/black"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="@+id/login"
-            app:layout_constraintTop_toBottomOf="@+id/login" />
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 </layout>

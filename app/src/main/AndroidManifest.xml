@@ -37,11 +37,15 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity" />
-        <activity android:name=".home.activity.UserInfoActivity" />
-        <activity android:name=".guide.view.GuideActivity">
+        <activity android:name=".main.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".home.activity.UserInfoActivity" />
+        <activity android:name=".guide.view.GuideActivity" />
         <activity android:name=".guide.view.LoginActivity" />
         <activity android:name=".guide.view.CreateWalletActivity" />
         <activity android:name=".guide.view.CreateMemorizingActivity" />
@@ -51,12 +55,10 @@
         <activity android:name=".home.activity.PrivacyActivity" />
         <activity android:name=".guide.view.ConfirmMemoriActivity" />
         <activity android:name=".guide.view.PhoneCodeActivity" />
-        <activity android:name=".guide.view.SetLoginPassActivity">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+        <activity android:name=".guide.view.SetLoginPassActivity" />
+        <activity android:name=".guide.view.ConfirmPassActivity" />
+        <activity android:name=".index.activity.WalletInfoActivity" />
+        <activity android:name=".index.activity.ReciveActivity"></activity>
     </application>
 
 </manifest>

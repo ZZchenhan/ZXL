@@ -2,6 +2,9 @@ package sz.tianhe.etc_wallet.guide.presenter;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -111,9 +114,11 @@ public class GuidPrensenter extends AbstarctPresenter {
     @Override
     public void init() {
         loadVersion();
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //6.0以上需要检查权限
             checkPermision();
+        }else{
+            handOver();
         }
 
     }
@@ -127,8 +132,16 @@ public class GuidPrensenter extends AbstarctPresenter {
      * 延迟跳转
      */
     public void handOver() {
-        binding.animationView.setAnimation("AndroidWave.json");
-        binding.animationView.addAnimatorListener(new Animator.AnimatorListener() {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(binding.image, "scaleX", 0.5f,0.9f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(binding.image, "scaleY", 0.5f, 0.9f, 1f);
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(binding.image, "alpha", 0f, 0.8f, 1f);
+        // 步骤2：创建组合动画的对象
+        AnimatorSet animSet = new AnimatorSet();
+
+        // 步骤3：根据需求组合动画
+        animSet.play(scaleX).with(scaleY).with(alpha);
+        animSet.setDuration(3000);
+        animSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -149,8 +162,9 @@ public class GuidPrensenter extends AbstarctPresenter {
 
             }
         });
+        // 步骤4：启动动画
+        animSet.start();
 
-        binding.animationView.playAnimation();
     }
 
     private void jumpView() {

@@ -8,6 +8,11 @@
 
     <color name="bgColor">#FFFFFF</color>
     <color name="textColor">#252525</color>
+    <color name="textColor2">#262626</color>
     <color name="textHintColor">#8E8E93</color>
     <color name="lineColor">#FFE5E5EA</color>
+    <color name="color999999">#999999</color>
+    <color name="colore5e5ea">#E5E5EA</color>
+    <color name="color26231a">#26231A</color>
+
 </resources>

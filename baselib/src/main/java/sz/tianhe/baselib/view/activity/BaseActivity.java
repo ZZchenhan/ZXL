@@ -61,12 +61,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
 
     public abstract  void findViews();
 
+    public void getIntenData(){
+
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.base_activity);
-
+        getIntenData();
         this.root = (LinearLayout) findViewById(R.id.root);
         if (null != navagation()) {
             this.root.addView(navagation().getNavagation());
