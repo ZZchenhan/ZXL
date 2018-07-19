@@ -20,12 +20,7 @@
             app:tabTextColor="#66FFFFFF"
             app:tabSelectedTextColor="@color/white"
             app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
-            android:layout_height="wrap_content">
-            <android.support.design.widget.TabItem
-                android:layout_width="wrap_content"
-                android:layout_gravity="left"
-                android:text="USDT"
-                android:layout_height="wrap_content" />
+            android:layout_height="40dp">
         </android.support.design.widget.TabLayout>
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPage"

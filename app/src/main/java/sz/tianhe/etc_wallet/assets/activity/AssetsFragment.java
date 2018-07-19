@@ -2,9 +2,16 @@ package sz.tianhe.etc_wallet.assets.activity;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
@@ -26,6 +33,9 @@ public class AssetsFragment extends BaseFragment {
 
     AdapterNavagation adapterNavagation;
 
+    List<AssertsDetailsFragment> fragmentList = new ArrayList<>();
+
+    private List<String> tiles = new ArrayList<>();
 
     @Override
     public int layoutId() {
@@ -43,14 +53,66 @@ public class AssetsFragment extends BaseFragment {
 
     @Override
     protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
-        if(binding == null){
-            binding = DataBindingUtil.inflate(inflater,layoutId(),container,false);
+        if (binding == null) {
+            binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
         }
         return binding.getRoot();
     }
 
+    FragmentPagerAdapter adapter;
+
     @Override
     protected void initViews() {
+        adapter = new FragmentPagerAdapter(getFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return fragmentList.get(i);
+            }
 
+            @Override
+            public int getCount() {
+                return fragmentList.size();
+            }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return tiles.get(position);
+            }
+        };
+        binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //tab被选的时候回调
+                binding.viewPage.setCurrentItem(tab.getPosition(),true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                //tab未被选择的时候回调
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                //tab重新选择的时候回调
+            }
+        });
+        binding.viewPage.setAdapter(adapter);
+        binding.tabLayout.setupWithViewPager(binding.viewPage);
+        initTab();
     }
+
+    private void initTab(){
+        tiles.add("USP");
+        tiles.add("BTC");
+        tiles.add("ETH");
+        tiles.add("RBB");
+        for(int i=0;i<tiles.size();i++) {
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(tiles.get(i)));
+            fragmentList.add(new AssertsDetailsFragment());
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+
 }

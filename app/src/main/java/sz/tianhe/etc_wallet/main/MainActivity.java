@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -27,6 +28,10 @@ public class MainActivity extends BaseActivity {
 
     MainPrensenter prensenter;
 
+    private IndexFragment indexFragment;
+    private AssetsFragment assetsFragment;
+    private HomeFragment homeFragment;
+
     @Override
     public int layoutId() {
         return R.layout.activity_main;
@@ -48,7 +53,7 @@ public class MainActivity extends BaseActivity {
     private void initFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        Fragment indexFragment = new IndexFragment();
+        indexFragment = new IndexFragment();
         transaction.add(R.id.content, indexFragment, fragmentTitles[0]);
         transaction.commit();
     }
@@ -84,6 +89,7 @@ public class MainActivity extends BaseActivity {
                 }
                 transaction.hide(oldFragment).show(newFragment);
                 transaction.commit();
+                Log.i("Load","旧"+old+"xin"+index);
             }
 
             @Override
