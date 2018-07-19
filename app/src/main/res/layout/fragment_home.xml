@@ -1,73 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/bgColor">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/bgColor">
+
+        <sz.tianhe.baselib.weight.CircleImageView
+            android:id="@+id/head"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/head" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:text="名字"
+            android:textColor="@color/textColor"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/head" />
+
+        <TextView
+            android:id="@+id/user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="UID:87571"
+            android:textColor="@color/textHintColor"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:id="@+id/ll_linear_layout"
+            android:layout_width="395dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_id">
 
-            <com.allen.library.SuperTextView
-                android:id="@+id/manage"
+            <RelativeLayout
+                android:id="@+id/rl_wallet"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                app:sLeftIconRes="@mipmap/ic_me_wallet"
-                app:sLeftTextColor="@color/black"
-                android:background="@color/white"
-                app:sLeftTextSize="14sp"
-                app:sLeftTextString="管理钱包"
-                app:sRightIconRes="@mipmap/ic_left_arrow" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/ic_me_wallet" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="管理钱包"
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp" />
+            </RelativeLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:layout_marginLeft="10dp"
-                android:background="@color/lineColor" />
+                android:layout_width="0.3dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@color/textHintColor" />
 
-            <com.allen.library.SuperTextView
-                android:id="@+id/msg"
+            <RelativeLayout
+                android:id="@+id/rl_transfer"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:sLeftIconRes="@mipmap/ic_me_msg"
-                app:sLeftTextColor="@color/black"
-                app:sLeftTextSize="14sp"
-                app:sLeftTextString="消息中心"
-                android:background="@color/white"
-                app:sRightIconRes="@mipmap/ic_left_arrow" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/ic_me_transfer" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="交易记录"
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0.3dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:background="@color/textHintColor" />
+
+            <RelativeLayout
+                android:id="@+id/rl_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/ic_me_notify" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="消息"
+                    android:textColor="@color/textColor"
+                    android:textSize="12sp" />
+            </RelativeLayout>
         </LinearLayout>
 
+        <View
+            android:id="@+id/view9"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/textHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_linear_layout" />
 
-        <com.allen.library.SuperTextView
-            android:id="@+id/set"
-            android:layout_width="match_parent"
+
+        <View
+            android:id="@+id/view10"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginTop="17dp"
+            android:background="@color/textHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+        <TextView
+            android:id="@+id/user_permission"
+            android:layout_width="0dp"
             android:layout_height="45dp"
-            android:layout_marginTop="20dp"
-            app:sLeftIconRes="@mipmap/ic_me_seting"
-            app:sLeftTextColor="@color/black"
-            app:sLeftTextSize="14sp"
-            app:sRightIconRes="@mipmap/ic_left_arrow"
-            app:sLeftTextString="设置" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:drawableRight="@mipmap/ic_left_arrow"
+            android:gravity="center_vertical"
+            android:text="用户协议"
+            android:textColor="@color/textColor"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view10" />
 
+        <View
+            android:id="@+id/view11"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:background="@color/textHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/user_permission"
+            app:layout_constraintTop_toBottomOf="@+id/user_permission" />
 
-        <com.allen.library.SuperTextView
-            android:id="@+id/about"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            app:sLeftIconRes="@mipmap/ic_me_about"
-            app:sLeftTextColor="@color/black"
-            app:sLeftTextSize="14sp"
-            app:sLeftTextString="关于我们"
-            app:sRightIconRes="@mipmap/ic_left_arrow" />
-    </LinearLayout>
-
+        <TextView
+            android:id="@+id/about_me"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:drawableRight="@mipmap/ic_left_arrow"
+            android:gravity="center_vertical"
+            android:text="关于我们"
+            android:textColor="@color/textColor"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view11" />
+        <View
+            android:id="@+id/view12"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/textHintColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/about_me" />
+    </android.support.constraint.ConstraintLayout>
 </layout>

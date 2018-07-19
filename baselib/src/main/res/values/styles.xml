@@ -13,4 +13,15 @@
         <attr name="border_width" format="dimension" />  //边界线的宽度
         <attr name="border_color" format="color" />  //边界线的颜色
     </declare-styleable>
+
+    <!-- 自定义仿IOSAlertDialog的样式 -->
+    <style name="AlertDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>//背景
+        <item name="android:windowContentOverlay">@null</item>//
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowNoTitle">true</item>//无标题栏
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

@@ -46,8 +46,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".home.activity.UserInfoActivity" />
-        <activity android:name=".guide.view.GuideActivity">
-        </activity>
+        <activity android:name=".guide.view.GuideActivity" />
         <activity android:name=".guide.view.LoginActivity" />
         <activity android:name=".guide.view.CreateWalletActivity" />
         <activity android:name=".guide.view.CreateMemorizingActivity" />
@@ -62,7 +61,9 @@
         <activity android:name=".index.activity.WalletInfoActivity" />
         <activity android:name=".index.activity.ReciveActivity" />
         <activity android:name=".index.activity.ScanActivity" />
-        <activity android:name=".index.activity.TransferActivity"></activity>
+        <activity android:name=".index.activity.TransferActivity" />
+        <activity android:name=".home.activity.MeInfoActivity" />
+        <activity android:name=".home.activity.HomeWalletInfoActivity"></activity>
     </application>
 
 </manifest>

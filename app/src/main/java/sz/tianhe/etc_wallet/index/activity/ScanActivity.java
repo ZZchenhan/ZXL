@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -79,7 +80,15 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
         adapterNavagation = new AdapterNavagation(this)
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setBack()
-                .setTitle("扫一扫", 16, R.color.white);
+                .setTitle("扫一扫", 16, R.color.white)
+                .setRightText("相册",14,R.color.white,v->{
+                    Intent intent = new Intent(Intent.ACTION_PICK, null);
+                    intent.setDataAndType(
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            "image/*");
+                    startActivityForResult(intent,1);
+                })
+        ;
         return adapterNavagation;
     }
 

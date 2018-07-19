@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "钱包1.0"
@@ -65,4 +65,8 @@ dependencies {
     api 'com.airbnb.android:lottie:2.5.5'
 
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.28'
+
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.1.9'
+    //拍照
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.0'
 }

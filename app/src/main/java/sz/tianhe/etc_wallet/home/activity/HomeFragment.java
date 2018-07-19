@@ -34,7 +34,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
     public IBaseNavagation navagation() {
         adapterNavagation = new AdapterNavagation(getContext())
                 .setNavagationBackgroudColor(R.color.colorPrimary)
-                .setTitle("个人中心", 16, R.color.white);
+                .setTitle("我", 16, R.color.white);
         return adapterNavagation;
     }
 
@@ -48,18 +48,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     protected void initViews() {
-        binding.manage.setOnClickListener(this);
-        binding.msg.setOnClickListener(this);
+        binding.head.setOnClickListener(this);
+        binding.rlWallet.setOnClickListener(this);
+        binding.rlMsg.setOnClickListener(this);
+        binding.rlTransfer.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.manage:
-                ManageActivity.openActivity(getContext(),ManageActivity.class);
+            case R.id.head:
+                MeInfoActivity.openActivity(getContext(),MeInfoActivity.class);
                 break;
-            case R.id.msg:
-                MsgActivity.openActivity(getContext(),MsgActivity.class);
+            case R.id.rl_wallet:
+                ManageActivity.openActivity(getContext(),ManageActivity.class);
                 break;
         }
     }

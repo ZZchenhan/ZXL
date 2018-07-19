@@ -26,15 +26,6 @@ import sz.tianhe.etc_wallet.home.view.MangerPopDialog;
 public class ManageActivity extends BaseActivity {
 
     ActivityManageBinding binding;
-    /**
-     * 创建钱包
-     */
-    public static final int REQUESET_CREAT_WALLET = 1;
-
-    /**
-     * 导入钱包
-     */
-    public static final int REQUEST_IMPORT_WALLET = 2;
 
     MangerPopDialog dialog;
 
@@ -53,18 +44,6 @@ public class ManageActivity extends BaseActivity {
         adapterNavagation.setTitle("钱包管理", 16, R.color.white);
         adapterNavagation.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
         adapterNavagation.setBack();
-        adapterNavagation.setRightImage(R.drawable.icon_add, view -> {
-            if (dialog == null) {
-                dialog = new MangerPopDialog(ManageActivity.this);
-                dialog.setOnDismissListener(() -> drawbackgroud(1));
-                dialog.setCreatListener(view1 -> {
-                    startActivityForResult(new Intent(ManageActivity.this, CreateWalletActivity.class).putExtra("back", true), REQUESET_CREAT_WALLET);
-                    dialog.dismiss();
-                });
-            }
-            dialog.showAsDropDown(view);
-            drawbackgroud(0.4f);
-        });
         return adapterNavagation;
     }
 
@@ -76,6 +55,11 @@ public class ManageActivity extends BaseActivity {
         binding.recyclerView.setAdapter(managerAdapter);
         binding.swipeRefreshLayout.setRefreshing(true);
         binding.swipeRefreshLayout.postDelayed(() -> initData(), 500);
+
+
+        managerAdapter.setOnItemClickListener((adapter, view, position) -> {
+            HomeWalletInfoActivity.openActivity(ManageActivity.this, HomeWalletInfoActivity.class);
+        });
     }
 
     @Override
