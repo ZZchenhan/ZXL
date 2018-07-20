@@ -26,4 +26,5 @@
 
     <string name="create_memorizing_world">助记词</string>
     <string name="create_memorizing_world_confirm">确认助记词</string>
+    <string name="descript">\tVAHWallet是一款数字货币的支付宝软件。\t\n用户可以将手中的数字货币转入到VAHWallet中，每日对其进行结息。</string>
 </resources>

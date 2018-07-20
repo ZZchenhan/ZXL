@@ -52,6 +52,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
         binding.rlWallet.setOnClickListener(this);
         binding.rlMsg.setOnClickListener(this);
         binding.rlTransfer.setOnClickListener(this);
+        binding.userPermission.setOnClickListener(this);
+        binding.aboutMe.setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +64,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
                 break;
             case R.id.rl_wallet:
                 ManageActivity.openActivity(getContext(),ManageActivity.class);
+                break;
+            case R.id.rl_msg:
+                MsgActivity.openActivity(getContext(),MsgActivity.class);
+                break;
+            case R.id.rl_transfer:
+                TransferHistoryActivity.openActivity(getContext(),TransferHistoryActivity.class);
+                break;
+            case R.id.user_permission:
+                PrivacyActivity.openActivity(getContext(),PrivacyActivity.class);
+                break;
+            case R.id.about_me:
+                AboutActivity.openActivity(getContext(),AboutActivity.class);
                 break;
         }
     }

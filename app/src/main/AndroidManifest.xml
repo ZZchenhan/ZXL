@@ -33,37 +33,81 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:hardwareAccelerated="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".home.activity.UserInfoActivity" />
-        <activity android:name=".guide.view.GuideActivity" />
-        <activity android:name=".guide.view.LoginActivity" />
-        <activity android:name=".guide.view.CreateWalletActivity" />
-        <activity android:name=".guide.view.CreateMemorizingActivity" />
-        <activity android:name=".home.activity.ManageActivity" />
-        <activity android:name=".home.activity.MsgActivity" />
-        <activity android:name=".guide.view.FirstChooseActivity" />
-        <activity android:name=".home.activity.PrivacyActivity" />
-        <activity android:name=".guide.view.ConfirmMemoriActivity" />
-        <activity android:name=".guide.view.PhoneCodeActivity" />
-        <activity android:name=".guide.view.SetLoginPassActivity" />
-        <activity android:name=".guide.view.ConfirmPassActivity" />
-        <activity android:name=".index.activity.WalletInfoActivity" />
-        <activity android:name=".index.activity.ReciveActivity" />
-        <activity android:name=".index.activity.ScanActivity" />
-        <activity android:name=".index.activity.TransferActivity" />
-        <activity android:name=".home.activity.MeInfoActivity" />
-        <activity android:name=".home.activity.HomeWalletInfoActivity"></activity>
+        <activity
+            android:name=".home.activity.UserInfoActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.GuideActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.LoginActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.CreateWalletActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.CreateMemorizingActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".home.activity.ManageActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".home.activity.MsgActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.FirstChooseActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".home.activity.PrivacyActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.ConfirmMemoriActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.PhoneCodeActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.SetLoginPassActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".guide.view.ConfirmPassActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".index.activity.WalletInfoActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".index.activity.ReciveActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".index.activity.ScanActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".index.activity.TransferActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".home.activity.MeInfoActivity"
+            android:hardwareAccelerated="false" />
+        <activity
+            android:name=".home.activity.HomeWalletInfoActivity"
+            android:hardwareAccelerated="false" />
+        <activity android:name=".home.activity.TransferHistoryActivity" />
+        <activity android:name=".home.activity.TransferFundsActivity" />
+        <activity android:name=".home.activity.AboutActivity"></activity>
     </application>
 
 </manifest>

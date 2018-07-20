@@ -1,12 +1,10 @@
 package sz.tianhe.etc_wallet.home.activity;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.PopupWindow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +13,19 @@ import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
-import sz.tianhe.etc_wallet.databinding.ActivityHomeWalletInfoBinding;
+import sz.tianhe.etc_wallet.databinding.ActivityTransferHistoryBinding;
 import sz.tianhe.etc_wallet.home.adapter.ManageTransferAdapter;
-import sz.tianhe.etc_wallet.home.adapter.ManagerAdapter;
+import sz.tianhe.etc_wallet.home.view.TransferListPopDialog;
 
-public class HomeWalletInfoActivity extends BaseActivity implements View.OnClickListener {
+public class TransferHistoryActivity extends BaseActivity {
+    ActivityTransferHistoryBinding binding;
     AdapterNavagation adapterNavagation;
-    private List<String> data = new ArrayList<>();
     private ManageTransferAdapter adapter = null;
-    ActivityHomeWalletInfoBinding  binding;
+    private List<String> data = new ArrayList<>();
+    TransferListPopDialog popDialog;
     @Override
     public int layoutId() {
-        return R.layout.activity_home_wallet_info;
+        return R.layout.activity_transfer_history;
     }
 
     @Override
@@ -40,21 +39,30 @@ public class HomeWalletInfoActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
-        test();
-    }
-
-    @Override
-    public void findViews() {
         adapter = new ManageTransferAdapter(data);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
-        binding.rlRecive.setOnClickListener(this);
-        binding.rlTranscation.setOnClickListener(this);
+        test();
+        binding.time.setOnClickListener(view -> {
+            if(popDialog == null){
+                popDialog = new TransferListPopDialog(TransferHistoryActivity.this);
+                popDialog.setmOnSelectedListener(string -> {
+                    binding.time.setText(string);//数据
+                    popDialog.dismiss();
+                });
+                popDialog.setOnDismissListener(() -> {
+                    drawbackgroud(1);
+                });
+            }
+            popDialog.showAsDropDown(view);
+            drawbackgroud(0.4f);
+        });
     }
 
     public void test(){
         data.add("0");
         data.add("3");
+        data.add("4");
         data.add("2");
         data.add("3");
         data.add("1");
@@ -62,23 +70,13 @@ public class HomeWalletInfoActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    protected View bindViews() {
-        binding =  DataBindingUtil.inflate(LayoutInflater.from(this),layoutId(),null,false);
-        return binding.getRoot();
+    public void findViews() {
+
     }
 
     @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(this,TransferFundsActivity.class);
-        switch (view.getId()){
-            case R.id.rl_transcation:
-                intent.putExtra(TransferFundsActivity.TYPE,TransferFundsActivity.TYPE_OUT);
-                startActivity(intent);
-                break;
-            case R.id.rl_recive:
-                intent.putExtra(TransferFundsActivity.TYPE,TransferFundsActivity.TYPE_IN);
-                startActivity(intent);
-                break;
-        }
+    protected View bindViews() {
+        binding =    DataBindingUtil.inflate(LayoutInflater.from(this),layoutId(),null,false);
+        return binding.getRoot();
     }
 }
