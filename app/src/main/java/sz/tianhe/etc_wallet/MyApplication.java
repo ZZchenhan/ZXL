@@ -7,8 +7,10 @@ import android.os.Build;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import sz.tianhe.baselib.http.RetrofitClient;
+import sz.tianhe.etc_wallet.http.QuotationIntercetor;
 
 /**
  * 项目名称:etc_wallet
@@ -23,12 +25,17 @@ public class MyApplication extends Application{
 
     public static String deviceId;
 
-    public static String baseUrl = "http://47.98.241.211/";
+    public static String baseUrl = "http://api.zb.cn/";
 
     @Override
     public void onCreate() {
         super.onCreate();
-        retrofitClient = new RetrofitClient(this,baseUrl).getRetrofit();
+        retrofitClient = new RetrofitClient(this,baseUrl){
+            @Override
+            public void addInterceptor(OkHttpClient.Builder builder) {
+                super.addInterceptor(builder);
+            }
+        }.getRetrofit();
         deviceId = Build.SERIAL;
         Utils.init(this);
         ToastUtils.setMsgColor(Color.BLACK);

@@ -24,6 +24,6 @@ public class AssertsAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-
+        helper.setText(R.id.market_name,item);
     }
 }

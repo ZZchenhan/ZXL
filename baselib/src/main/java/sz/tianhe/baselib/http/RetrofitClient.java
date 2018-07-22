@@ -90,34 +90,20 @@ public class RetrofitClient {
             throw new RuntimeException("请输入正确的服务器路径");
         }
 
-        /**
-         * 生成缓存文件
-         */
-        if (null == this.cacheFile) {
-            this.cacheFile = new File(this.mContext.getCacheDir(), "cache");
-        }
-        if (null == this.cache) {
-            try {
-                //设置缓存大小
-                this.cache = new Cache(this.cacheFile, 1024 * 1024 * 10);
-            } catch (Exception e) {
-                //设置缓存失败
-            }
-        }
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor(new HttpLogger());
         logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //1、添加自定义头
         //2 Cookie管理
         //3 缓存管理
         //4 网络状态访问
-        this.okHttpClient = new OkHttpClient().newBuilder()
+        OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
                 .addInterceptor(new BaseInterceptor(this.headers))
-                .cookieJar(new CookieManagerInterceptor(this.mContext))
                 .addNetworkInterceptor(logInterceptor)
                 .connectionPool(new ConnectionPool(8, 10, TimeUnit.SECONDS))
                 .connectTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS)
-                .build();
+                .writeTimeout(15, TimeUnit.SECONDS);
+         addInterceptor(builder);
+         okHttpClient = builder.build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(this.serverUrl).client(okHttpClient)
@@ -128,6 +114,11 @@ public class RetrofitClient {
 
     public Retrofit getRetrofit() {
         return retrofit;
+    }
+
+
+    public void addInterceptor(OkHttpClient.Builder builder){
+
     }
 
 }
