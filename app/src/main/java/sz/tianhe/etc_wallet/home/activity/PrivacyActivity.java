@@ -21,7 +21,7 @@ public class PrivacyActivity extends BaseActivity {
     @Override
     public IBaseNavagation navagation() {
         AdapterNavagation adapterNavagation = new AdapterNavagation(this);
-        adapterNavagation.setTitle("隐私服务", 16, R.color.white);
+        adapterNavagation.setTitle("服务协议", 16, R.color.white);
         adapterNavagation.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
         adapterNavagation.setBack();
         return adapterNavagation;
@@ -37,6 +37,9 @@ public class PrivacyActivity extends BaseActivity {
                 finish();
             }
         });
+        if(getIntent().getStringExtra("isSee") != null){
+            binding.llSee.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -48,4 +51,6 @@ public class PrivacyActivity extends BaseActivity {
         binding =  DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         return binding.getRoot();
     }
+
+
 }

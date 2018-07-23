@@ -26,4 +26,7 @@
 
     <string name="create_memorizing_world">助记词</string>
     <string name="create_memorizing_world_confirm">确认助记词</string>
+    <string name="descript">\t\tVAH 钱包系统是做一个基于区块链去中心化技术，是一次即将改变数字资产托管管理模式的一次革命。 通过先进的区块链技术和智能合约的特性，及人工智能分析数据，让区块链与资产托管管理领域相融合，使得钱包具有独特的创新功能。</string>
+
+
 </resources>
