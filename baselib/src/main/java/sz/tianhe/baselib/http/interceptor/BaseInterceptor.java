@@ -40,7 +40,9 @@ public class BaseInterceptor implements Interceptor{
                 requestBuilder.addHeader(key,mHeaders.get(key));
             }
         }
-        requestBuilder.addHeader("Accept","application/json;charset=UTF-8");
+//        requestBuilder.addHeader("Accept","application/json;charset=UTF-8");
+        requestBuilder.addHeader("User-agent","Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36");
+
         Request request = requestBuilder.build();
         return chain.proceed(request);
     }

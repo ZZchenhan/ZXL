@@ -23,6 +23,7 @@ android {
     dataBinding {
         enabled = true
     }
+    buildToolsVersion '25.0.0'
 }
 
 dependencies {
@@ -35,7 +36,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation project(':baselib')
     implementation 'com.github.lygttpod:SuperTextView:2.0.1'
-
     //引入谷歌SDK
     api 'com.google.zxing:core:3.3.3'
 }

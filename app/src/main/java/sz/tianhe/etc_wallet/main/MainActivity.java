@@ -89,7 +89,6 @@ public class MainActivity extends BaseActivity {
                 }
                 transaction.hide(oldFragment).show(newFragment);
                 transaction.commit();
-                Log.i("Load","旧"+old+"xin"+index);
             }
 
             @Override

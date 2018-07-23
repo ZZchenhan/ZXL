@@ -39,7 +39,6 @@ public class AssertsDetailsFragment extends BaseFragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        testData();
     }
 
     @Override
@@ -63,15 +62,8 @@ public class AssertsDetailsFragment extends BaseFragment{
         adapter = new AssertsAdapter(datas);
         binding.recylearView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recylearView.setAdapter(adapter);
+       List<String> datas = getArguments().getStringArrayList("data");
+       this.datas.addAll(datas);
     }
-
-    private void testData(){
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-    }
-
 
 }

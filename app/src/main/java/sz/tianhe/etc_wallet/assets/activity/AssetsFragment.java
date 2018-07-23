@@ -1,22 +1,29 @@
 package sz.tianhe.etc_wallet.assets.activity;
 
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
+import sz.tianhe.etc_wallet.assets.api.QutaiorApi;
 import sz.tianhe.etc_wallet.databinding.FragmentAssertBinding;
 
 /**
@@ -55,6 +62,7 @@ public class AssetsFragment extends BaseFragment {
     protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
         if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
+            getMarkets();
         }
         return binding.getRoot();
     }
@@ -99,20 +107,47 @@ public class AssetsFragment extends BaseFragment {
         });
         binding.viewPage.setAdapter(adapter);
         binding.tabLayout.setupWithViewPager(binding.viewPage);
-        initTab();
     }
 
-    private void initTab(){
-        tiles.add("USP");
-        tiles.add("BTC");
-        tiles.add("ETH");
-        tiles.add("RBB");
-        for(int i=0;i<tiles.size();i++) {
-            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(tiles.get(i)));
-            fragmentList.add(new AssertsDetailsFragment());
+    private void initTab(Map<String, List<String>> keysMarkets){
+       Set<Map.Entry<String,List<String>>> entries =  keysMarkets.entrySet();
+        Iterator<Map.Entry<String,List<String>>> iterator = entries.iterator();
+        while (iterator.hasNext()){
+            Map.Entry<String,List<String>> entry = iterator.next();
+            tiles.add(entry.getKey().toUpperCase());
+            binding.tabLayout.addTab(binding.tabLayout.newTab().setText(entry.getKey().toUpperCase()));
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("data", (ArrayList<String>) entry.getValue());
+            AssertsDetailsFragment assertsDetailsFragment =  new AssertsDetailsFragment();
+            assertsDetailsFragment.setArguments(bundle);
+            fragmentList.add(assertsDetailsFragment);
         }
         adapter.notifyDataSetChanged();
     }
 
 
+    private void getMarkets(){
+        QutaiorApi.getMarkets()
+        .subscribe(new Observer<Map<String, List<String>>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(Map<String, List<String>> stringListMap) {
+                initTab(stringListMap);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
 }
