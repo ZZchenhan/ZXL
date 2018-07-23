@@ -59,13 +59,20 @@ public class QutaiorApi {
             return result;
     }
 
-    public  static Observable<String> getReuset(String market){
+    /**
+     * 获取市场行情
+     * @param markets
+     * @return
+     */
+    public  static Observable<String> getQutations(List<String> markets){
         return Observable.create((ObservableOnSubscribe<String>) emitter -> {
-            // 请求地址
-            String url = "http://api.zb.cn/data/v1/ticker?market=" + market;
+            List<String> callbacks= new ArrayList<>();
 
+            // 请求地址
+            String url = "http://api.zb.cn/data/v1/ticker?market=" + markets.get(0);
             // 请求测试
             String callback = get(url, "UTF-8");
+            callbacks.add(callback);
             emitter.onNext(callback);
             emitter.onComplete();
         }).subscribeOn(Schedulers.io()) .observeOn(AndroidSchedulers.mainThread());
