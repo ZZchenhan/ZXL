@@ -79,4 +79,7 @@ public class TransferHistoryActivity extends BaseActivity {
         binding =    DataBindingUtil.inflate(LayoutInflater.from(this),layoutId(),null,false);
         return binding.getRoot();
     }
+
+
+    public void showTims(){}
 }

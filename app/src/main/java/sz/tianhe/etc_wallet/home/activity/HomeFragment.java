@@ -1,5 +1,6 @@
 package sz.tianhe.etc_wallet.home.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:01
  */
-public class HomeFragment extends BaseFragment implements View.OnClickListener{
+public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     FragmentHomeBinding binding;
     AdapterNavagation adapterNavagation;
@@ -58,24 +59,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.head:
-                MeInfoActivity.openActivity(getContext(),MeInfoActivity.class);
+                MeInfoActivity.openActivity(getContext(), MeInfoActivity.class);
                 break;
             case R.id.rl_wallet:
-                ManageActivity.openActivity(getContext(),ManageActivity.class);
+                ManageActivity.openActivity(getContext(), ManageActivity.class);
                 break;
             case R.id.rl_msg:
-                MsgActivity.openActivity(getContext(),MsgActivity.class);
+                MsgActivity.openActivity(getContext(), MsgActivity.class);
                 break;
             case R.id.rl_transfer:
-                TransferHistoryActivity.openActivity(getContext(),TransferHistoryActivity.class);
+                TransferHistoryActivity.openActivity(getContext(), TransferHistoryActivity.class);
                 break;
             case R.id.user_permission:
-                PrivacyActivity.openActivity(getContext(),PrivacyActivity.class);
+
+                Intent intent = new Intent(getContext(), PrivacyActivity.class);
+                intent.putExtra("isSee", "dada");
+                startActivity(intent);
                 break;
             case R.id.about_me:
-                AboutActivity.openActivity(getContext(),AboutActivity.class);
+                AboutActivity.openActivity(getContext(), AboutActivity.class);
                 break;
         }
     }
