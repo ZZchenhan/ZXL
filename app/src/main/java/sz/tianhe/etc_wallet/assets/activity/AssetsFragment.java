@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,7 @@ import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
-import sz.tianhe.etc_wallet.assets.api.QutaiorApi;
+import sz.tianhe.etc_wallet.requst.api.QutaiorApi;
 import sz.tianhe.etc_wallet.databinding.FragmentAssertBinding;
 
 /**

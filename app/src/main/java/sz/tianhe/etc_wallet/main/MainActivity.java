@@ -14,6 +14,7 @@ import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
+import sz.tianhe.etc_wallet.assets.activity.AssertsDetailsFragment;
 import sz.tianhe.etc_wallet.assets.activity.AssetsFragment;
 import sz.tianhe.etc_wallet.databinding.ActivityMainBinding;
 import sz.tianhe.etc_wallet.home.activity.HomeFragment;

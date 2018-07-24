@@ -1,5 +1,7 @@
 package sz.tianhe.etc_wallet.guide.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.TypedValue;
@@ -9,7 +11,10 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
@@ -30,6 +35,8 @@ public class ConfirmMemoriActivity extends BaseActivity {
     private SelectMemoriAdapeter adapeter = null;
     private List<String> worlds = new ArrayList<>();
     private MemoriAdapeter memoriAdapeter = null;
+
+    private List<String> keyWorkds = new ArrayList<>();
 
     @Override
     public int layoutId() {
@@ -63,23 +70,43 @@ public class ConfirmMemoriActivity extends BaseActivity {
                 this.adapeter.add(selectData.size(),worlds.get(position));
             }
         });
+        //获取真实助记词
+        String[] worlds = getIntent().getStringExtra("keyWord").split(" ");
+        this.keyWorkds.addAll(Arrays.asList(worlds));
+        this.worlds.addAll(Arrays.asList(worlds));
         initDatas();
-        this.binding.sure.setOnClickListener(view -> PhoneCodeActivity.openActivity(this,PhoneCodeActivity.class));
+        this.binding.sure.setOnClickListener(view -> {
+            if(this.selectData.size() != 12){
+                toast("助记词输入不正确");
+                return;
+            }
+            if(compare(this.selectData,this.keyWorkds)){
+                PhoneCodeActivity.openActivity(this,getIntent().getStringExtra("keyWord"));
+            }else{
+                toast("助记词输入不正确");
+            }
+        });
     }
 
+
+    /**
+     *
+     * @param selectWorld
+     * @param keyWorkds
+     * @return 相同 true 不同false
+     */
+    private boolean compare(List<String> selectWorld,List<String> keyWorkds){
+        for (int i=0;i<12;i++){
+            if(!selectWorld.get(i).equals(keyWorkds.get(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //
     private void initDatas() {
-        worlds.add("world");
-        worlds.add("can");
-        worlds.add("earth");
-        worlds.add("easy");
-        worlds.add("can");
-        worlds.add("how");
-        worlds.add("what");
-        worlds.add("doing");
-        worlds.add("what");
-        worlds.add("doing");
-        worlds.add("what");
-        worlds.add("doing");
+        Collections.shuffle(worlds);
         memoriAdapeter.notifyDataSetChanged();
     }
 
@@ -94,4 +121,10 @@ public class ConfirmMemoriActivity extends BaseActivity {
         binding = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         return binding.getRoot();
     }
+
+    public static void openActivity(Context context,String words){
+        context.startActivity(new Intent(context,ConfirmMemoriActivity.class).putExtra("keyWord",words));
+    }
+
+
 }

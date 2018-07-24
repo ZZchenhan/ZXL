@@ -1,5 +1,7 @@
 package sz.tianhe.etc_wallet.guide.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -132,5 +134,9 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
         toast.setGravity(Gravity.CENTER,0,0);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    public static void openActivity(Context context, String words){
+        context.startActivity(new Intent(context,PhoneCodeActivity.class).putExtra("keyWord",words));
     }
 }

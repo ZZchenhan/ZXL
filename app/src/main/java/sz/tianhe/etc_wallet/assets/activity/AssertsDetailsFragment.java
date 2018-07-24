@@ -4,24 +4,22 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.blankj.utilcode.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
-import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.assets.adapter.AssertsAdapter;
-import sz.tianhe.etc_wallet.assets.api.QutaiorApi;
+import sz.tianhe.etc_wallet.requst.api.QutaiorApi;
+import sz.tianhe.etc_wallet.assets.bean.QutaiorBean;
 import sz.tianhe.etc_wallet.databinding.FragmentAssertsDetailBinding;
 
 /**
@@ -36,9 +34,10 @@ public class AssertsDetailsFragment extends BaseFragment {
 
     FragmentAssertsDetailBinding binding;
 
+    AdapterNavagation adapterNavagation;
     AssertsAdapter adapter;
 
-    List<String> datas = new ArrayList();
+    List<QutaiorBean> datas = new ArrayList();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +51,7 @@ public class AssertsDetailsFragment extends BaseFragment {
 
     @Override
     public IBaseNavagation navagation() {
+
         return null;
     }
 
@@ -66,27 +66,41 @@ public class AssertsDetailsFragment extends BaseFragment {
         adapter = new AssertsAdapter(datas);
         binding.recylearView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recylearView.setAdapter(adapter);
-        List<String> datas = getArguments().getStringArrayList("data");
-        QutaiorApi.getQutations(datas).subscribe(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+        getQutais();
+        binding.swipeLayout.setOnRefreshListener(() -> getQutais());
+    }
 
-            }
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
-            @Override
-            public void onNext(String s) {
-                Log.i("string",s);
-            }
+    private void getQutais() {
+       List<String> input =  getArguments().getStringArrayList("data");
+        QutaiorApi.getQutations(input)
+                .subscribe(new Observer<List<QutaiorBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-            @Override
-            public void onError(Throwable e) {
+                    }
 
-            }
+                    @Override
+                    public void onNext(List<QutaiorBean> qutaiorBeans) {
+                        binding.swipeLayout.setRefreshing(false);
+                        datas.clear();
+                        datas.addAll(qutaiorBeans);
+                        adapter.notifyDataSetChanged();
+                    }
 
-            @Override
-            public void onComplete() {
+                    @Override
+                    public void onError(Throwable e) {
 
-            }
-        });
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

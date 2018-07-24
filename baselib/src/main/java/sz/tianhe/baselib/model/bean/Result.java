@@ -12,7 +12,8 @@ package sz.tianhe.baselib.model.bean;
 public class Result<T> {
     private int code;
     private T data;
-    private String msg;
+    private String message;
+    private String type;
 
     public int getCode() {
         return code;
@@ -30,11 +31,26 @@ public class Result<T> {
         this.data = data;
     }
 
-    public String getMsg() {
-        return msg;
+    public Result(int code, T data, String message, String type) {
+        this.code = code;
+        this.data = data;
+        this.message = message;
+        this.type = type;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

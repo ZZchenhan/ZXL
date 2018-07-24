@@ -4,6 +4,7 @@ package sz.tianhe.etc_wallet.requst.api;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 import retrofit2.http.Query;
@@ -29,4 +30,7 @@ public interface UserApi{
      */
     @POST("/user/login")
     Observable<Result<UserVo>> haveWallet(@Query("deviceId")String deviceId);
+
+    @GET("/user/mnemonit")
+    Observable<Result<String>> mnemonit();
 }

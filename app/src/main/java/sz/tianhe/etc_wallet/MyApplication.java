@@ -10,7 +10,6 @@ import com.blankj.utilcode.util.Utils;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import sz.tianhe.baselib.http.RetrofitClient;
-import sz.tianhe.etc_wallet.http.QuotationIntercetor;
 
 /**
  * 项目名称:etc_wallet
@@ -25,7 +24,7 @@ public class MyApplication extends Application{
 
     public static String deviceId;
 
-    public static String baseUrl = "http://api.zb.cn/";
+    public static String baseUrl = "http://192.168.10.10:8083/";
 
     @Override
     public void onCreate() {

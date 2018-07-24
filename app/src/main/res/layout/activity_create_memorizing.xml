@@ -46,10 +46,11 @@
                 android:layout_width="match_parent"
                 android:background="@drawable/bg_f7f7f7_c_4"
                 android:layout_marginRight="16dp"
-                android:text="this is my world"
+                android:text=""
                 android:padding="10dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                android:lineSpacingExtra="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="16dp"
                 android:layout_height="140dp" />

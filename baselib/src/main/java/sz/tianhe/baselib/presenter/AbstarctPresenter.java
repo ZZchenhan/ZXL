@@ -76,66 +76,52 @@ public abstract class AbstarctPresenter implements IBasePresenter {
     @SuppressLint("CheckResult")
     public <T> void requst(Observable<Result<T>> observable, final IResultListener<T> resultItf, final boolean isShow) {
         observable.subscribeOn(Schedulers.newThread())
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        if(isShow){
-                            dialog = new ProgrossDialog(mContext);
-                        }
+                .doOnSubscribe(disposable -> {
+                    if(isShow){
+                        dialog = new ProgrossDialog(mContext);
                         dialog.show();
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
-                .map(new Function<Result<T>, T>() {
-                    @Override
-                    public T apply(Result<T> tResult) throws Exception {
-                        if (tResult.getCode() == 200) {
-                            if(isShow && dialog!=null){
-                                dialog.dismiss();
-                            }
-                            return tResult.getData();
-                        } else {
-                            throw new ApiErro(tResult.getCode(), tResult.getMsg());
+                .map(tResult -> {
+                    if (tResult.getCode() == 1) {
+                        if(isShow && dialog!=null){
+                            dialog.dismiss();
                         }
+                        return tResult.getData();
+                    } else {
+                        throw new ApiErro(tResult.getCode(), tResult.getMessage());
                     }
-                }).subscribe(new Consumer<T>() {
-            @Override
-            public void accept(T t) throws Exception {
-                resultItf.onListener(t);
-            }
-        }, new Consumer<Throwable>() {
-            @Override
-            public void accept(Throwable e) throws Exception {
-                if(isShow && dialog!=null){
-                   dialog.dismiss();
-                }
-                if (e == null) {
-                    return;
-                }
-                if (e instanceof HttpException) {
-                    /*网络异常*/
-                    if(((HttpException) e).code() == 404){
-                        toast(R.string.notfound_erro);
-                    }else if(((HttpException) e).code() > 500){
-                        toast(R.string.service_erro);
-                    }else {
-                        toast(R.string.net_erro);
+                }).subscribe(t -> resultItf.onListener(t), e -> {
+                    if(isShow && dialog!=null){
+                       dialog.dismiss();
                     }
-                } else if (e instanceof ApiErro) {
-                    toast(((ApiErro) e).getMsg());
-                } else if (e instanceof ConnectException || e instanceof SocketTimeoutException) {
-                    /*链接异常*/
-                    toast(R.string.connet_erro);
-                } else if (e instanceof JSONException || e instanceof ParseException) {
-                    /*fastjson解析异常*/
-                    toast(R.string.json_erro);
-                } else if (e instanceof UnknownHostException) {
-                    /*无法解析该域名异常*/
-                    toast(R.string.host_erro);
-                }else{
-                    toast(e.getMessage());
-                }
-            }
-        });
+                    if (e == null) {
+                        return;
+                    }
+                    if (e instanceof HttpException) {
+                        /*网络异常*/
+                        if(((HttpException) e).code() == 404){
+                            toast(R.string.notfound_erro);
+                        }else if(((HttpException) e).code() > 500){
+                            toast(R.string.service_erro);
+                        }else {
+                            toast(R.string.net_erro);
+                        }
+                    } else if (e instanceof ApiErro) {
+                        toast(((ApiErro) e).getMsg());
+                    } else if (e instanceof ConnectException || e instanceof SocketTimeoutException) {
+                        /*链接异常*/
+                        toast(R.string.connet_erro);
+                    } else if (e instanceof JSONException || e instanceof ParseException) {
+                        /*fastjson解析异常*/
+                        toast(R.string.json_erro);
+                    } else if (e instanceof UnknownHostException) {
+                        /*无法解析该域名异常*/
+                        toast(R.string.host_erro);
+                    }else{
+                        toast(e.getMessage());
+                    }
+                });
     }
 
 }
