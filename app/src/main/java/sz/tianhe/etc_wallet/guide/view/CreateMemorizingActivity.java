@@ -10,6 +10,7 @@ import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityCreateMemorizingBinding;
+import sz.tianhe.etc_wallet.guide.bean.RegisterBean;
 import sz.tianhe.etc_wallet.guide.presenter.MemotizingPrensenter;
 
 /**
@@ -74,7 +75,9 @@ public class CreateMemorizingActivity extends BaseActivity implements View.OnCli
                 ConfirmMemoriActivity.openActivity(this,binding.world.getText().toString());
                 break;
             case R.id.wait:
-                PhoneCodeActivity.openActivity(this, binding.world.getText().toString());
+                RegisterBean registerBean = new RegisterBean();
+                registerBean.setWords(binding.world.getText().toString());
+                PhoneCodeActivity.openActivity(this,registerBean);
                 break;
         }
     }

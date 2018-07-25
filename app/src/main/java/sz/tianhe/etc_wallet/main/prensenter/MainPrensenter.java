@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import sz.tianhe.baselib.http.IResultListener;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.main.customview.NormalDialog;
+import sz.tianhe.etc_wallet.requst.api.UserApi;
+import sz.tianhe.etc_wallet.requst.vo.User;
 
 /**
  * 项目名称:etc_wallet
@@ -22,9 +26,11 @@ import sz.tianhe.etc_wallet.main.customview.NormalDialog;
 public class MainPrensenter extends AbstarctPresenter {
 
     Dialog upateDialog;
+    OnRefreshUser onRefreshUser;
 
-    public MainPrensenter(Context context) {
+    public MainPrensenter(Context context, OnRefreshUser onRefreshUser) {
         super(context);
+        this.onRefreshUser = onRefreshUser;
     }
 
     @Override
@@ -49,7 +55,7 @@ public class MainPrensenter extends AbstarctPresenter {
             tvHinit.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             int pading = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, this.mContext.getResources().getDisplayMetrics());
-            tvHinit.setPadding(pading,0,pading,pading);
+            tvHinit.setPadding(pading, 0, pading, pading);
             tvHinit.setMinWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 45, this.mContext.getResources().getDisplayMetrics()));
 
             this.upateDialog =
@@ -65,5 +71,19 @@ public class MainPrensenter extends AbstarctPresenter {
 
         }
         this.upateDialog.show();
+    }
+
+
+    public void refreshUserInfo() {
+        requst(MyApplication.retrofitClient.create(UserApi.class).getUserInfo(),
+                user -> {
+                    MyApplication.user = user;
+                    onRefreshUser.onRefreh(user);
+                }, true
+        );
+    }
+
+    public interface OnRefreshUser {
+        void onRefreh(User user);
     }
 }

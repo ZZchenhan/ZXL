@@ -49,6 +49,11 @@
         <activity
             android:name=".guide.view.GuideActivity"
             android:hardwareAccelerated="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".guide.view.LoginActivity"
@@ -77,11 +82,7 @@
         <activity
             android:name=".guide.view.PhoneCodeActivity"
             android:hardwareAccelerated="false" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".guide.view.SetLoginPassActivity"

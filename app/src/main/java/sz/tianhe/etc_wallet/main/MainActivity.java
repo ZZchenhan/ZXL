@@ -13,6 +13,7 @@ import me.majiajie.pagerbottomtabstrip.item.BaseTabItem;
 import me.majiajie.pagerbottomtabstrip.listener.OnTabItemSelectedListener;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.assets.activity.AssertsDetailsFragment;
 import sz.tianhe.etc_wallet.assets.activity.AssetsFragment;
@@ -21,8 +22,9 @@ import sz.tianhe.etc_wallet.home.activity.HomeFragment;
 import sz.tianhe.etc_wallet.index.activity.IndexFragment;
 import sz.tianhe.etc_wallet.main.customview.MyNormalItem;
 import sz.tianhe.etc_wallet.main.prensenter.MainPrensenter;
+import sz.tianhe.etc_wallet.requst.vo.User;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainPrensenter.OnRefreshUser {
 
     private String[] fragmentTitles = new String[]{"钱包", "行情", "我的"};
     ActivityMainBinding binding;
@@ -47,7 +49,7 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         initFragment();
         initBottom();
-        prensenter = new MainPrensenter(this);
+        prensenter = new MainPrensenter(this, this);
 //        prensenter.init();
     }
 
@@ -64,7 +66,7 @@ public class MainActivity extends BaseActivity {
     private void initBottom() {
         controller = binding.bootm.custom()
                 .addItem(newItem(R.mipmap.ic_nagavation_assert_nomarl, R.mipmap.ic_nagavation_assert_select, fragmentTitles[0]))
-                .addItem(newItem(R.mipmap.ic_nagavation_quotation_nomarl,R.mipmap.ic_nagavation_quotation_select, fragmentTitles[1]))
+                .addItem(newItem(R.mipmap.ic_nagavation_quotation_nomarl, R.mipmap.ic_nagavation_quotation_select, fragmentTitles[1]))
                 .addItem(newItem(R.mipmap.ic_nagavation_me_nomarl, R.mipmap.ic_nagavation_me_select, fragmentTitles[2]))
                 .build();
         controller.addTabItemSelectedListener(new OnTabItemSelectedListener() {
@@ -119,4 +121,19 @@ public class MainActivity extends BaseActivity {
         return binding.getRoot();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        prensenter.refreshUserInfo();
+    }
+
+    @Override
+    public void onRefreh(User user) {
+        //刷新用户页面
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (null != fragmentManager.findFragmentByTag(fragmentTitles[2])) {
+            HomeFragment homeFragment = (HomeFragment) fragmentManager.findFragmentByTag(fragmentTitles[2]);
+            homeFragment.setUserInfo(user);
+        }
+    }
 }

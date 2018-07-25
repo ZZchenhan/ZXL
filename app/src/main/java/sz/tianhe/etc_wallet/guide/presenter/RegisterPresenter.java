@@ -4,9 +4,12 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.EditText;
 
+import sz.tianhe.baselib.http.IResultListener;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.baselib.utils.PhoneUtils;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
+import sz.tianhe.etc_wallet.guide.bean.RegisterBean;
 import sz.tianhe.etc_wallet.requst.api.UserApi;
 
 /**
@@ -19,20 +22,10 @@ import sz.tianhe.etc_wallet.requst.api.UserApi;
  */
 public class RegisterPresenter extends AbstarctPresenter {
 
-    private EditText tvPhone;
 
-    private EditText tvPass;
-
-    private EditText code;
-
-    private Button btnGetCode;
-
-    private Button btnRegister;
-
-
-
-    public RegisterPresenter(Context context) {
+    public RegisterPresenter(Context context,IRegister iRegister) {
         super(context);
+        this.iRegister = iRegister;
     }
 
     @Override
@@ -41,12 +34,17 @@ public class RegisterPresenter extends AbstarctPresenter {
     }
 
 
-    private void getCode(){
-        if(!PhoneUtils.isMobile0(tvPhone.getText().toString())){
-            toast(R.string.phone_erro);
-            return;
-        }
-
+    public void register(RegisterBean registerBean){
+        requst(MyApplication.retrofitClient.create(UserApi.class).register(registerBean.getPhone(), registerBean.getPass(), registerBean.getInvaldCode(), registerBean.getWords()), s -> {
+            if(iRegister!=null){
+                iRegister.success();
+            }
+        },true);
     }
 
+
+    IRegister iRegister;
+    public interface IRegister{
+        void success();
+    }
 }

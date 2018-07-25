@@ -7,11 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
+import sz.tianhe.etc_wallet.requst.vo.User;
 
 /**
  * 项目名称:etc_wallet
@@ -55,6 +61,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         binding.rlTransfer.setOnClickListener(this);
         binding.userPermission.setOnClickListener(this);
         binding.aboutMe.setOnClickListener(this);
+        setUserInfo(MyApplication.user);
     }
 
     @Override
@@ -82,5 +89,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 AboutActivity.openActivity(getContext(), AboutActivity.class);
                 break;
         }
+    }
+
+    public void setUserInfo(User userInfo) {
+        if (userInfo == null) {
+            return;
+        }
+        if(binding == null){
+            return;
+        }
+        if(binding.aboutMe == null){
+            return;
+        }
+        Glide.with(this)
+                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).placeholder(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL))
+                .load(userInfo.getHeadImg())
+                .into(binding.head);
+        binding.name.setText(userInfo.getNickName());
+        binding.userId.setText("邀请码:"+userInfo.getInvitationCode());
     }
 }

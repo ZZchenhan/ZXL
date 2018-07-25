@@ -26,6 +26,7 @@ import sz.tianhe.etc_wallet.guide.adapter.GridItemDecoration;
 import sz.tianhe.etc_wallet.guide.adapter.MemoriAdapeter;
 import sz.tianhe.etc_wallet.guide.adapter.SelectMemoriAdapeter;
 import sz.tianhe.etc_wallet.guide.adapter.SpaceItemDecoration;
+import sz.tianhe.etc_wallet.guide.bean.RegisterBean;
 
 public class ConfirmMemoriActivity extends BaseActivity {
     AdapterNavagation adapterNavagation;
@@ -81,7 +82,9 @@ public class ConfirmMemoriActivity extends BaseActivity {
                 return;
             }
             if(compare(this.selectData,this.keyWorkds)){
-                PhoneCodeActivity.openActivity(this,getIntent().getStringExtra("keyWord"));
+                RegisterBean registerBean = new RegisterBean();
+                registerBean.setWords(getIntent().getStringExtra("keyWord"));
+                PhoneCodeActivity.openActivity(this,registerBean);
             }else{
                 toast("助记词输入不正确");
             }

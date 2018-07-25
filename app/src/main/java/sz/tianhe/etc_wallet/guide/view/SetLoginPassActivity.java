@@ -1,6 +1,7 @@
 package sz.tianhe.etc_wallet.guide.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.text.Editable;
@@ -18,6 +19,7 @@ import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivitySetLoginPassBinding;
+import sz.tianhe.etc_wallet.guide.bean.RegisterBean;
 
 public class SetLoginPassActivity extends BaseActivity implements TextWatcher{
     AdapterNavagation adapterNavagation;
@@ -77,7 +79,18 @@ public class SetLoginPassActivity extends BaseActivity implements TextWatcher{
     @Override
     public void afterTextChanged(Editable editable) {
         if(binding.input.getText().toString().length() == 6) {
-            startActivity(new Intent(this,ConfirmPassActivity.class).putExtra("pass",binding.input.getText().toString()));
+            RegisterBean registerBean = (RegisterBean) getIntent().getSerializableExtra("data");
+            registerBean.setPass(binding.input.getText().toString());
+            startActivity(new Intent(this,ConfirmPassActivity.class).putExtra("data",registerBean));
         }
+    }
+
+    /**
+     * 传递助记词到最后一部进行校验
+     * @param context
+     * @param
+     */
+    public static void openActivity(Context context, RegisterBean registerBean) {
+        context.startActivity(new Intent(context, PhoneCodeActivity.class).putExtra("data", registerBean));
     }
 }

@@ -26,9 +26,10 @@ import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityPhoneCodeBinding;
+import sz.tianhe.etc_wallet.guide.bean.RegisterBean;
 import sz.tianhe.etc_wallet.guide.presenter.PhoneCodePresenter;
 
-public class PhoneCodeActivity extends BaseActivity implements View.OnClickListener, TextWatcher, PhoneCodePresenter.IPhoneCodeView {
+public class PhoneCodeActivity extends BaseActivity implements View.OnClickListener, PhoneCodePresenter.IPhoneCodeView {
 
     ActivityPhoneCodeBinding binding;
 
@@ -63,8 +64,7 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void findViews() {
-        binding.code.addTextChangedListener(this);
-        binding.phone.addTextChangedListener(this);
+        binding.btnNext.setOnClickListener(this);
         binding.tvGetCode.setOnClickListener(this);
     }
 
@@ -80,27 +80,17 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
             case R.id.tv_get_code:
                 getCode();
                 break;
-        }
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-        if (binding.phone.getText().toString().length() == 11 && binding.code.getText().toString().length() == 4) {
-            if (!RegexUtils.isMobileExact(binding.phone.getText().toString())) {
-                meTost("手机号码有误");
-                return;
-            }
-            phoneCodePresenter.chekCode(binding.phone.getText().toString(), binding.code.getText().toString());
+            case R.id.btn_next:
+                if (binding.phone.getText().toString().length() == 11 && binding.code.getText().toString().length() == 4) {
+                    if (!RegexUtils.isMobileExact(binding.phone.getText().toString())) {
+                        meTost("手机号码有误");
+                        return;
+                    }
+                    phoneCodePresenter.chekCode(binding.phone.getText().toString(), binding.code.getText().toString());
+                } else {
+                    meTost("手机或验证码有误");
+                }
+                break;
         }
     }
 
@@ -138,10 +128,6 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-    private void jump() {
-        toast("跳转到确认登录密码页面");
-    }
-
     public void meTost(String str) {
         Toast toast = new Toast(this);
         View view = LayoutInflater.from(this).inflate(R.layout.toast_erro, null, false);
@@ -154,12 +140,16 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
         toast.show();
     }
 
-    public static void openActivity(Context context, String words) {
-        context.startActivity(new Intent(context, PhoneCodeActivity.class).putExtra("keyWord", words));
+    public static void openActivity(Context context, RegisterBean registerBean) {
+        context.startActivity(new Intent(context, PhoneCodeActivity.class).putExtra("data", registerBean));
     }
 
     @Override
     public void checkSuccess() {
-        SetLoginPassActivity.openActivity(this, SetLoginPassActivity.class);
+        RegisterBean registerBean = (RegisterBean) getIntent().getSerializableExtra("data");
+        registerBean.setCode(binding.code.getText().toString());
+        registerBean.setPhone(binding.phone.getText().toString());
+        registerBean.setInvaldCode(binding.invalidCode.getText().toString());
+        startActivity(new Intent(this, SetLoginPassActivity.class).putExtra("data", registerBean));
     }
 }

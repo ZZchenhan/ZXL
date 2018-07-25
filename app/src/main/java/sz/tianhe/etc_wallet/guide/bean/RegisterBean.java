@@ -1,5 +1,7 @@
 package sz.tianhe.etc_wallet.guide.bean;
 
+import java.io.Serializable;
+
 /**
  * 项目名称:etc_wallet
  * 类描述
@@ -8,7 +10,7 @@ package sz.tianhe.etc_wallet.guide.bean;
  * @email 869360026@qq.com
  * 创建时间:2018/7/17 18:33
  */
-public class RegisterBean {
+public class RegisterBean implements Serializable{
     /**
      * 助记词
      */
@@ -33,6 +35,16 @@ public class RegisterBean {
      * 第二次密码
      */
     private String sencondPass;
+
+    private String invaldCode;
+
+    public String getInvaldCode() {
+        return invaldCode;
+    }
+
+    public void setInvaldCode(String invaldCode) {
+        this.invaldCode = invaldCode;
+    }
 
     public String getWords() {
         return words;

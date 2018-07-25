@@ -7,13 +7,14 @@ import android.view.View;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityLoginBinding;
 import sz.tianhe.etc_wallet.guide.presenter.LoginPresenter;
 import sz.tianhe.etc_wallet.main.MainActivity;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements LoginPresenter.ILoginView {
 
     ActivityLoginBinding binding;
 
@@ -35,6 +36,12 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
+    public IBasePresenter createPrensenter() {
+        loginPresenter = new LoginPresenter(this, this);
+        return super.createPrensenter();
+    }
+
+    @Override
     public void initView() {
     }
 
@@ -42,10 +49,7 @@ public class LoginActivity extends BaseActivity {
     public void findViews() {
         binding.btnLogin.setOnClickListener(v ->
         {
-            Intent intent = new Intent(LoginActivity.this, FirstChooseActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("data","登录");
-            startActivity(intent);
+            loginPresenter.login(binding.phone.getText().toString(),binding.pass.getText().toString());
         });
     }
 
@@ -53,5 +57,13 @@ public class LoginActivity extends BaseActivity {
     protected View bindViews() {
         binding = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         return binding.getRoot();
+    }
+
+    @Override
+    public void loginSuccess() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }

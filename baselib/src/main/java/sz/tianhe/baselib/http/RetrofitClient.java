@@ -24,6 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import sz.tianhe.baselib.http.interceptor.BaseInterceptor;
+import sz.tianhe.baselib.http.interceptor.CacheInterceptor;
 import sz.tianhe.baselib.http.interceptor.CookieManagerInterceptor;
 import sz.tianhe.baselib.http.interceptor.HttpLogger;
 
@@ -97,11 +98,12 @@ public class RetrofitClient {
         //3 缓存管理
         //4 网络状态访问
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
-                .addInterceptor(new BaseInterceptor(this.headers))
+                .addInterceptor(new BaseInterceptor(this.mContext,this.headers))
                 .addNetworkInterceptor(logInterceptor)
+                .cookieJar(new CookieManagerInterceptor(mContext))
                 .connectionPool(new ConnectionPool(8, 10, TimeUnit.SECONDS))
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .writeTimeout(15, TimeUnit.SECONDS);
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS);
          addInterceptor(builder);
          okHttpClient = builder.build();
 
