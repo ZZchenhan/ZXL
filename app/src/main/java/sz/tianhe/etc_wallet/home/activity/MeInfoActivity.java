@@ -18,16 +18,19 @@ import java.util.List;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.baselib.weight.ActionSheetDialog;
 import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityMeInfoBinding;
+import sz.tianhe.etc_wallet.home.presenter.UpdatePresenter;
 
-public class MeInfoActivity extends BaseActivity implements View.OnClickListener {
+public class MeInfoActivity extends BaseActivity implements View.OnClickListener, UpdatePresenter.OnUpdateViewSuccss {
     AdapterNavagation adapterNavagation;
     ActivityMeInfoBinding binding;
     boolean isEdit = false;
+    UpdatePresenter updatePresenter;
 
     @Override
     public int layoutId() {
@@ -50,12 +53,18 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
                 isEdit = true;
                 return;
             } else {
-                toast("提交用户数据");
+               updatePresenter.updateUserInfo(upload,binding.etName.getText().toString(),binding.etSex.getText().toString());
             }
         });
         return adapterNavagation;
     }
 
+    @Override
+    public IBasePresenter createPrensenter() {
+        updatePresenter = new UpdatePresenter(this,this);
+        return super.createPrensenter();
+
+    }
 
     @Override
     public void initView() {
@@ -135,6 +144,8 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
                 Glide.with(MeInfoActivity.this)
                         .load(headImgPath)
                         .into(binding.imageView2);
+                //
+                updatePresenter.uploade(headImgPath);
             }
         }
     }
@@ -147,5 +158,17 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
                 .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).placeholder(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL))
                 .load(MyApplication.user.getHeadImg())
                 .into(binding.imageView2);
+    }
+
+
+    private String upload = null;
+    @Override
+    public void onUploadSuccss(String url) {
+        upload = url;
+    }
+
+    @Override
+    public void updateUserInfoSuccss() {
+        finish();
     }
 }

@@ -4,6 +4,10 @@ import android.app.Application;
 import android.graphics.Color;
 import android.os.Build;
 
+import com.alibaba.sdk.android.oss.OSS;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 
@@ -32,10 +36,18 @@ public class MyApplication extends Application{
 
     public static User user;
 
+    public static String aluyun = "http://tongyongbucket.oss-cn-hangzhou.aliyuncs.com/";
+
+    public static String buck = "tongyongbucket";
+
+    public static OSS oss = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
-
+        String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
+        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("LTAIqNxd4rFLe0l6","xZEViV4zH0VaVza8kd4cdNZ8TGvFLS");
+        oss = new OSSClient(this, endpoint, credentialProvider);
         retrofitClient = new RetrofitClient(this,baseUrl){
             @Override
             public void addInterceptor(OkHttpClient.Builder builder) {

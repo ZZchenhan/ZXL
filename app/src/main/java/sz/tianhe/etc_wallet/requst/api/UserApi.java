@@ -33,4 +33,8 @@ public interface UserApi{
 
     @GET("/user/user")
     Observable<Result<User>> getUserInfo();
+
+    @POST("/user/updateUserInfo")
+    Observable<Result<String>> updateUserInfo(@Query("id") int id,@Query("name")String name,@Query("sex")int sex,@Query("pic")String pic);
+
 }

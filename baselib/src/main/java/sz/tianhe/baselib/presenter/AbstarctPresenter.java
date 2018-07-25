@@ -61,7 +61,7 @@ public abstract class AbstarctPresenter implements IBasePresenter {
         Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
     }
 
-    private ProgrossDialog dialog;
+    protected ProgrossDialog dialog;
 
     public <T> void requst(Observable<Result<T>> observable,  IResultListener<T> resultItf){
         requst(observable,resultItf,false);
@@ -123,5 +123,6 @@ public abstract class AbstarctPresenter implements IBasePresenter {
                     }
                 });
     }
+
 
 }

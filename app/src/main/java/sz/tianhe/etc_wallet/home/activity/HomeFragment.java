@@ -115,4 +115,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         binding.name.setText(userInfo.getNickName());
         binding.userId.setText("我的邀请码:"+userInfo.getInvitationCode());
     }
+
+    
 }
