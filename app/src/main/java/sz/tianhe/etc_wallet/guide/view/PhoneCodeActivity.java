@@ -22,25 +22,38 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityPhoneCodeBinding;
+import sz.tianhe.etc_wallet.guide.presenter.PhoneCodePresenter;
 
-public class PhoneCodeActivity extends BaseActivity implements View.OnClickListener, TextWatcher {
+public class PhoneCodeActivity extends BaseActivity implements View.OnClickListener, TextWatcher, PhoneCodePresenter.IPhoneCodeView {
 
     ActivityPhoneCodeBinding binding;
+
+    PhoneCodePresenter phoneCodePresenter;
 
     @Override
     public int layoutId() {
         return R.layout.activity_phone_code;
     }
+
     AdapterNavagation adapterNavagation;
+
     @Override
     public IBaseNavagation navagation() {
         adapterNavagation = new AdapterNavagation(this)
                 .setBack()
                 .setNavagationBackgroudColor(R.color.colorPrimary);
         return adapterNavagation;
+    }
+
+    @Override
+    public IBasePresenter createPrensenter() {
+        phoneCodePresenter = new PhoneCodePresenter(this, this);
+        return super.createPrensenter();
+
     }
 
     @Override
@@ -63,7 +76,7 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.tv_get_code:
                 getCode();
                 break;
@@ -83,12 +96,16 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void afterTextChanged(Editable editable) {
         if (binding.phone.getText().toString().length() == 11 && binding.code.getText().toString().length() == 4) {
-            SetLoginPassActivity.openActivity(this,SetLoginPassActivity.class);
+            if (!RegexUtils.isMobileExact(binding.phone.getText().toString())) {
+                meTost("手机号码有误");
+                return;
+            }
+            phoneCodePresenter.chekCode(binding.phone.getText().toString(), binding.code.getText().toString());
         }
     }
 
-    private void getCode(){
-        if(!RegexUtils.isMobileExact(binding.phone.getText().toString())){
+    private void getCode() {
+        if (!RegexUtils.isMobileExact(binding.phone.getText().toString())) {
             meTost("手机号码有误无法获得验证码");
             return;
         }
@@ -103,7 +120,7 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
 
                     @Override
                     public void onNext(Long aLong) {
-                        binding.tvGetCode.setText("剩余"+(60-aLong)+"秒");
+                        binding.tvGetCode.setText("剩余" + (60 - aLong) + "秒");
                     }
 
                     @Override
@@ -117,26 +134,32 @@ public class PhoneCodeActivity extends BaseActivity implements View.OnClickListe
                         binding.tvGetCode.setText("获取验证码");
                     }
                 });
+        phoneCodePresenter.getCode(binding.phone.getText().toString());
     }
 
 
-    private void jump(){
+    private void jump() {
         toast("跳转到确认登录密码页面");
     }
 
-    public void meTost(String str){
+    public void meTost(String str) {
         Toast toast = new Toast(this);
-        View view = LayoutInflater.from(this).inflate(R.layout.toast_erro,null,false);
+        View view = LayoutInflater.from(this).inflate(R.layout.toast_erro, null, false);
         TextView textView = view.findViewById(R.id.text);
         textView.setText(str);
         view.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         toast.setView(view);
-        toast.setGravity(Gravity.CENTER,0,0);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
     }
 
-    public static void openActivity(Context context, String words){
-        context.startActivity(new Intent(context,PhoneCodeActivity.class).putExtra("keyWord",words));
+    public static void openActivity(Context context, String words) {
+        context.startActivity(new Intent(context, PhoneCodeActivity.class).putExtra("keyWord", words));
+    }
+
+    @Override
+    public void checkSuccess() {
+        SetLoginPassActivity.openActivity(this, SetLoginPassActivity.class);
     }
 }

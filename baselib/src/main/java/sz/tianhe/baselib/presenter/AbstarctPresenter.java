@@ -83,7 +83,7 @@ public abstract class AbstarctPresenter implements IBasePresenter {
                     }
                 }).observeOn(AndroidSchedulers.mainThread())
                 .map(tResult -> {
-                    if (tResult.getCode() == 1) {
+                    if (tResult.getCode() == 0) {
                         if(isShow && dialog!=null){
                             dialog.dismiss();
                         }
