@@ -39,7 +39,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:text="UID:87571"
+            android:text=""
             android:textColor="@color/textHintColor"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
