@@ -13,10 +13,12 @@ import com.bumptech.glide.request.RequestOptions;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.utils.TokenUtil;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
+import sz.tianhe.etc_wallet.guide.view.GuideActivity;
 import sz.tianhe.etc_wallet.requst.vo.User;
 
 /**
@@ -61,6 +63,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         binding.rlTransfer.setOnClickListener(this);
         binding.userPermission.setOnClickListener(this);
         binding.aboutMe.setOnClickListener(this);
+        binding.quit.setOnClickListener(this);
         setUserInfo(MyApplication.user);
     }
 
@@ -80,13 +83,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 TransferHistoryActivity.openActivity(getContext(), TransferHistoryActivity.class);
                 break;
             case R.id.user_permission:
-
                 Intent intent = new Intent(getContext(), PrivacyActivity.class);
                 intent.putExtra("isSee", "dada");
                 startActivity(intent);
                 break;
             case R.id.about_me:
                 AboutActivity.openActivity(getContext(), AboutActivity.class);
+                break;
+            case R.id.quit:
+                TokenUtil.cleanToken(getContext());
+                GuideActivity.openActivity(getContext(),GuideActivity.class);
+                getActivity().finish();
                 break;
         }
     }

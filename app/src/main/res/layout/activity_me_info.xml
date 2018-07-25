@@ -68,7 +68,7 @@
                 android:background="@null"
                 android:enabled="false"
                 android:gravity="right|center_vertical"
-                android:text="我不是英雄"
+                android:text=""
                 android:textColor="#8E8E93" />
         </LinearLayout>
 
@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:gravity="right|center_vertical"
-                android:text="男"
+                android:text=""
                 android:drawablePadding="10dp"
                 android:drawableRight="@mipmap/ic_left_arrow"
                 android:textColor="#8E8E93" />
@@ -144,7 +144,7 @@
                 android:background="@null"
                 android:enabled="false"
                 android:gravity="right|center_vertical"
-                android:text="136xxxx1812"
+                android:text=""
                 android:drawablePadding="10dp"
                 android:textColor="#8E8E93" />
         </LinearLayout>

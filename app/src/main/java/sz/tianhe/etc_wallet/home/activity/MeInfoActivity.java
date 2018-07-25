@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -18,6 +20,7 @@ import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.baselib.weight.ActionSheetDialog;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityMeInfoBinding;
 
@@ -43,7 +46,6 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
                 ((TextView) v).setText("提交");
                 binding.tvUpdateHead.setText("更换头像");
                 binding.etName.setEnabled(true);
-                binding.etPhone.setEnabled(true);
                 binding.etSex.setOnClickListener(MeInfoActivity.this);
                 isEdit = true;
                 return;
@@ -59,6 +61,7 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
     public void initView() {
         binding.tvUpdateHead.setText("");
         binding.tvUpdateHead.setOnClickListener(this);
+        setUserInfo();
     }
 
     @Override
@@ -84,7 +87,7 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    private void chooseSex(){
+    private void chooseSex() {
         ActionSheetDialog dialog = new ActionSheetDialog(this).builder()
                 .addSheetItem("男", ActionSheetDialog.SheetItemColor.Blue, which -> binding.etSex.setText("男"))
                 .addSheetItem("女", ActionSheetDialog.SheetItemColor.Blue, which -> binding.etSex.setText("女"))
@@ -134,5 +137,15 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
                         .into(binding.imageView2);
             }
         }
+    }
+
+    private void setUserInfo(){
+        binding.etName.setText(MyApplication.user.getNickName());
+        binding.etPhone.setText(MyApplication.user.getPhoneNum());
+        binding.etSex.setText(MyApplication.user.getSex() == 0 ?"男":"女");
+        Glide.with(this)
+                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).placeholder(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL))
+                .load(MyApplication.user.getHeadImg())
+                .into(binding.imageView2);
     }
 }

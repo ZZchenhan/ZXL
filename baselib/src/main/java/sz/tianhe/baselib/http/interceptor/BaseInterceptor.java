@@ -45,9 +45,7 @@ public class BaseInterceptor implements Interceptor {
                 requestBuilder.addHeader(key, mHeaders.get(key));
             }
         }
-        if (token == null) {
-            token = TokenUtil.getToken(mContext);
-        }
+        token = TokenUtil.getToken(mContext);
         requestBuilder.addHeader("Accept", "application/json;charset=UTF-8");
         if (token != null) {
             requestBuilder.addHeader("token", token);
