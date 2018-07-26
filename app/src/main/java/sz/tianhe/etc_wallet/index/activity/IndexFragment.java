@@ -68,6 +68,7 @@ public class IndexFragment extends BaseFragment {
     @Override
     protected void initViews() {
         adapter = new IndeAdapter(data);
+        binding.getRoot().setBackgroundColor(getContext().getResources().getColor(R.color.bgColor));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
         View header = LayoutInflater.from(getContext())

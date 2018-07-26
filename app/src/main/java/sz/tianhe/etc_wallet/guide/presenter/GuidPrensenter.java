@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -29,11 +30,13 @@ import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.baselib.utils.VersionUtils;
 import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
+import sz.tianhe.etc_wallet.assets.activity.AssetsFragment;
 import sz.tianhe.etc_wallet.databinding.ActivityGuideBinding;
 import sz.tianhe.etc_wallet.guide.view.CreateWalletActivity;
 import sz.tianhe.etc_wallet.guide.view.FirstChooseActivity;
 import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.main.MainActivity;
+import sz.tianhe.etc_wallet.requst.api.QutaiorApi;
 
 /**
  * 引导页导航
@@ -113,6 +116,7 @@ public class GuidPrensenter extends AbstarctPresenter {
 
     @Override
     public void init() {
+
         loadVersion();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //6.0以上需要检查权限

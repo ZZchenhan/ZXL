@@ -25,6 +25,7 @@ public class IndeAdapter extends BaseQuickAdapter<AsssertBean,BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, AsssertBean item) {
+        helper.setBackgroundColor(R.id.root,mContext.getResources().getColor(R.color.bgColor));
         helper.setImageResource(R.id.circleImageView,item.getIconId())
                 .setText(R.id.coin_name,item.getCoinTilte())
                 .setText(R.id.coin_number,String.format("%.2f",item.getCoinNumber()))

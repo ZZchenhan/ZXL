@@ -42,6 +42,7 @@ public class TransferActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void findViews() {
+        binding.getRoot().setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         binding.address.addTextChangedListener(this);
         binding.numbers.addTextChangedListener(this);
         if (getIntent().getStringExtra(EXTRA_ADDRESS) != null) {

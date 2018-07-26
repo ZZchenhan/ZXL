@@ -1,5 +1,7 @@
 package sz.tianhe.etc_wallet.requst.api;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,14 +39,14 @@ public class QutaiorApi {
         BufferedReader reader = null;
         String result = null;
         StringBuffer sbf = new StringBuffer();
-        String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";// 模拟浏览器
+//        String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";// 模拟浏览器
 
         URL url = new URL(urlAll);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setReadTimeout(30000);
         connection.setConnectTimeout(30000);
-        connection.setRequestProperty("User-agent", userAgent);
+//        connection.setRequestProperty("User-agent", userAgent);
         connection.connect();
         InputStream is = connection.getInputStream();
         reader = new BufferedReader(new InputStreamReader(is, charset));
@@ -70,13 +72,17 @@ public class QutaiorApi {
                 if(maket.split("_").length<2){
                     continue;
                 }
-                // 请求地址
-                String url = "https://data.gateio.io/api2/1/ticker/" + markets.get(0).toLowerCase();
-                // 请求测试
-                String callback = get(url, "UTF-8");
-                QutaiorBean qutaiorBean = new Gson().fromJson(callback, QutaiorBean.class);
-                qutaiorBean.setCoinName(maket);
-                callbacks.add(qutaiorBean);
+                try {
+                    // 请求地址
+                    String url = "https://data.gateio.io/api2/1/ticker/" + maket.toLowerCase();
+                    // 请求测试
+                    String callback = get(url, "UTF-8");
+                    QutaiorBean qutaiorBean = new Gson().fromJson(callback, QutaiorBean.class);
+                    qutaiorBean.setCoinName(maket);
+                    callbacks.add(qutaiorBean);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             emitter.onNext(callbacks);
             emitter.onComplete();
@@ -86,15 +92,19 @@ public class QutaiorApi {
 
     public static Observable<Map<String, List<String>>> getMarkets() {
         return Observable.create((ObservableOnSubscribe<List<String>>) emitter -> {
+            Log.i("Load","开始请求时间"+System.currentTimeMillis());
             String url = "https://data.gateio.io/api2/1/pairs";
             String callback = get(url, "UTF-8");
+            Log.i("Load","请求结束时间"+System.currentTimeMillis());
             List<String> makerts = new Gson().fromJson(callback, new TypeToken<List<String>>() {
             }.getType());
             emitter.onNext(makerts);
             emitter.onComplete();
-        }).subscribeOn(Schedulers.io()).flatMap((Function<List<String>, ObservableSource<Map<String, List<String>>>>) strings -> Observable.create(emitter -> {
+        }).subscribeOn(Schedulers.newThread()).flatMap((Function<List<String>, ObservableSource<Map<String, List<String>>>>) strings -> Observable.create(emitter -> {
             //转换
+            Log.i("Load","开始转换时间"+System.currentTimeMillis());
             emitter.onNext(converMakets(strings));
+            Log.i("Load","转换结束"+System.currentTimeMillis());
             emitter.onComplete();
         })).flatMap((Function<Map<String, List<String>>, ObservableSource<Map<String, List<String>>>>) stringListMap -> Observable.create(emitter -> {
             //过滤

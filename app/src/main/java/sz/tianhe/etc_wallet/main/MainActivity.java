@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
                         newFragment = new IndexFragment();
                     }
                     if (index == 1) {
-                        newFragment = new AssetsFragment();
+                        newFragment = new AssertsDetailsFragment();
                     }
                     if (index == 2) {
                         newFragment = new HomeFragment();

@@ -6,6 +6,7 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import sz.tianhe.baselib.model.bean.Result;
@@ -22,19 +23,19 @@ import sz.tianhe.etc_wallet.requst.vo.User;
 
 public interface UserApi{
 
-    @GET("/common/mnemonit")
+    @GET("bechatwallet/common/mnemonit")
     Observable<Result<String>> mnemonit();
 
-    @POST("/common/register")
+    @POST("bechatwallet/common/register")
     Observable<Result<String>> register(@Query("phone")String phone,@Query("pass")String pass,@Query("invitationCode")String invitationCode,@Query("keyWords")String keyWords);
 
-    @POST("/common/login")
+    @POST("bechatwallet/common/login")
     Observable<Result<User>> login(@Query("tel") String tel,@Query("password") String password);
 
-    @GET("/user/user")
+    @GET("bechatwallet/user/user")
     Observable<Result<User>> getUserInfo();
 
-    @POST("/user/updateUserInfo")
+    @POST("bechatwallet/user/updateUserInfo")
     Observable<Result<String>> updateUserInfo(@Query("id") int id,@Query("name")String name,@Query("sex")int sex,@Query("pic")String pic);
 
 }

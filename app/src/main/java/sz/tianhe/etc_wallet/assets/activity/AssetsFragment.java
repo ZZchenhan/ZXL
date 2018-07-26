@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,8 @@ import sz.tianhe.etc_wallet.databinding.FragmentAssertBinding;
  * 创建时间:2018/7/12 11:05
  */
 public class AssetsFragment extends BaseFragment {
+
+   public static Map<String, List<String>> keysMarkets = new HashMap<>();
 
     FragmentAssertBinding binding;
 
@@ -61,7 +64,6 @@ public class AssetsFragment extends BaseFragment {
     protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
         if (binding == null) {
             binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
-            getMarkets();
         }
         return binding.getRoot();
     }
@@ -106,6 +108,7 @@ public class AssetsFragment extends BaseFragment {
         });
         binding.viewPage.setAdapter(adapter);
         binding.tabLayout.setupWithViewPager(binding.viewPage);
+        getMarkets();
     }
 
     private void initTab(Map<String, List<String>> keysMarkets){
@@ -126,27 +129,32 @@ public class AssetsFragment extends BaseFragment {
 
 
     private void getMarkets(){
-        QutaiorApi.getMarkets()
-        .subscribe(new Observer<Map<String, List<String>>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+        if(keysMarkets == null) {
+            QutaiorApi.getMarkets()
+                    .subscribe(new Observer<Map<String, List<String>>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-            }
+                        }
 
-            @Override
-            public void onNext(Map<String, List<String>> stringListMap) {
-                initTab(stringListMap);
-            }
+                        @Override
+                        public void onNext(Map<String, List<String>> stringListMap) {
+                            AssetsFragment.keysMarkets = stringListMap;
+                            initTab(stringListMap);
+                        }
 
-            @Override
-            public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-            }
+                        }
 
-            @Override
-            public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-            }
-        });
+                        }
+                    });
+        }else{
+            initTab(keysMarkets);
+        }
     }
 }

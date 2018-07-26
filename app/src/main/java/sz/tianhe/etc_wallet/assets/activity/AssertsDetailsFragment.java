@@ -51,8 +51,10 @@ public class AssertsDetailsFragment extends BaseFragment {
 
     @Override
     public IBaseNavagation navagation() {
-
-        return null;
+        adapterNavagation = new AdapterNavagation(getContext())
+                .setNavagationBackgroudColor(R.color.fragment_index_color)
+                .setTitle("行情", 16, R.color.white);
+        return adapterNavagation;
     }
 
     @Override
@@ -76,8 +78,13 @@ public class AssertsDetailsFragment extends BaseFragment {
     }
 
     private void getQutais() {
-       List<String> input =  getArguments().getStringArrayList("data");
-        QutaiorApi.getQutations(input)
+       List<String> input =  new ArrayList<>();
+       input.add("bts_usdt");
+       input.add("eos_usdt");
+       input.add("btc_usdt");
+       input.add("eth_usdt");
+       binding.swipeLayout.setRefreshing(true);
+       QutaiorApi.getQutations(input)
                 .subscribe(new Observer<List<QutaiorBean>>() {
                     @Override
                     public void onSubscribe(Disposable d) {

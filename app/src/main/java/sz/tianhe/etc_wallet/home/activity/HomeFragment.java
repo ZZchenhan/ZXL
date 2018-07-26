@@ -109,7 +109,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             return;
         }
         Glide.with(this)
-                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).placeholder(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL))
+                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL).dontAnimate())
                 .load(userInfo.getHeadImg())
                 .into(binding.head);
         binding.name.setText(userInfo.getNickName());
