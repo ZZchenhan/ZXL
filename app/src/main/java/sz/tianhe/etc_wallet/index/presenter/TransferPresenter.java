@@ -9,8 +9,10 @@ import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.requst.api.WalletApi;
 
 public class TransferPresenter extends AbstarctPresenter {
-    public TransferPresenter(Context context) {
+    OnTransferListener onTransferListener;
+    public TransferPresenter(Context context,OnTransferListener onTransferListener) {
         super(context);
+        this.onTransferListener = onTransferListener;
     }
 
     @Override
@@ -28,11 +30,12 @@ public class TransferPresenter extends AbstarctPresenter {
      */
     public void  transfer(int id,String amount,String address,String coinName,String remark){
         requst(MyApplication.retrofitClient.create(WalletApi.class)
-                .transfer(id, amount, address, coinName, remark), new IResultListener<String>() {
-            @Override
-            public void onListener(String s) {
+                .transfer(id, amount, address, coinName, remark), s -> {
+                    onTransferListener.onTransfer(s);
+                });
+    }
 
-            }
-        });
+    public interface  OnTransferListener{
+        void onTransfer(String string);
     }
 }

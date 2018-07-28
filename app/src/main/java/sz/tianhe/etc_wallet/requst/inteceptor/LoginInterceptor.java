@@ -48,7 +48,7 @@ public class LoginInterceptor implements Interceptor {
         }
 
         if(request.url().toString().contains("/login")){
-            if(code == 0){
+            if(code == 200){
                 TokenUtil.saveToken(context,response.header("token"));
             }
         }

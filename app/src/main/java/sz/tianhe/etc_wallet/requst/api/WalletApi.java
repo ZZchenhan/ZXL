@@ -2,14 +2,17 @@ package sz.tianhe.etc_wallet.requst.api;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.OPTIONS;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import sz.tianhe.baselib.model.bean.Result;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
+import sz.tianhe.etc_wallet.requst.vo.TanscationTotalBean;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 
 /**
@@ -36,4 +39,18 @@ public interface WalletApi {
 
     @POST("bechatwallet/wallet/modifyWalletTurnOut")
     Observable<Result<String>> transfer(@Query("id") int id,@Query("amount")String amount,@Query("address")String address,@Query("coinName")String coinName,@Query("remark")String remark);
+
+    /**
+     * 查询交易记录
+     * @return
+     */
+    @GET("bechatwallet/transaction/queryUserCoinTransactionListInfo")
+    Observable<Result<PageBean<TanscationBean>>> getTransferHistory(@Query("currentPage")
+                                                                                          int currentPage,
+                                                                                  @Query("currentSize")int currentSize,
+                                                                                  @Query("userId") int userId,@Query("startTime") String startTime);
+
+    @GET("bechatwallet/transaction/queryUserCoinTransactionTotal")
+    Observable<Result<List<TanscationTotalBean>>> getTransferTotal(@Query("userId") int userId, @Query("startTime") String startTime);
+
 }

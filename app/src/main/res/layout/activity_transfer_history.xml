@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="4dp"
-            android:text="支出 ¥863.21 收入 ¥7204.08"
+            android:text="支出 ¥0 收入 ¥0"
             android:textColor="@color/textHintColor"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/time"

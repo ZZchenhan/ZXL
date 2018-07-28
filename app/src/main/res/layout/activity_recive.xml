@@ -63,7 +63,7 @@
                 android:layout_marginBottom="18dp"
                 android:layout_marginTop="18dp"
                 android:gravity="center"
-                android:text="f4d5d5s29edd433f43s496ed24fs52safsfe6gr3tw"
+                android:text=""
                 android:textColor="@color/textHintColor"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"

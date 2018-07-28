@@ -32,6 +32,7 @@ public class LoginPresenter extends AbstarctPresenter {
     public void login(String phone, String pass) {
         requst(MyApplication.retrofitClient.create(UserApi.class).login(phone, pass), user -> {
             if(null != mIloginView){
+
                 mIloginView.loginSuccess();
             }
         }, false);

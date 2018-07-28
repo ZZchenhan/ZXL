@@ -10,6 +10,9 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityTransferFundsBinding;
 
+/**
+ * 转入转出资金
+ */
 public class TransferFundsActivity extends BaseActivity {
     public static final String TYPE = "TYPE";
     //转入

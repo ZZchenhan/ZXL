@@ -14,10 +14,8 @@ import com.blankj.utilcode.util.Utils;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import sz.tianhe.baselib.http.RetrofitClient;
-import sz.tianhe.baselib.http.interceptor.BaseInterceptor;
 import sz.tianhe.etc_wallet.requst.inteceptor.LoginInterceptor;
 import sz.tianhe.etc_wallet.requst.vo.User;
-import sz.tianhe.etc_wallet.utils.TokenUtil;
 
 /**
  * 项目名称:etc_wallet

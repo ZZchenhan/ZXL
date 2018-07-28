@@ -20,7 +20,7 @@ import sz.tianhe.etc_wallet.databinding.ActivityTransferBinding;
 import sz.tianhe.etc_wallet.index.presenter.TransferPresenter;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 
-public class TransferActivity extends BaseActivity implements TextWatcher {
+public class TransferActivity extends BaseActivity implements TextWatcher,TransferPresenter.OnTransferListener {
     public static final String EXTRA_ADDRESS = "ADDRESS";
     AdapterNavagation adapterNavagation;
 
@@ -37,7 +37,7 @@ public class TransferActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public IBasePresenter createPrensenter() {
-        transferPresenter = new TransferPresenter(this);
+        transferPresenter = new TransferPresenter(this,this);
         return super.createPrensenter();
     }
 
@@ -98,7 +98,7 @@ public class TransferActivity extends BaseActivity implements TextWatcher {
             binding.button2.setEnabled(false);
         } else {
             binding.button2.setEnabled(true);
-            if(new BigDecimal(binding.numbers.getText().toString()).compareTo(canUse)<0){
+            if(new BigDecimal(binding.numbers.getText().toString()).compareTo(canUse)>0){
                 binding.value.setText("最大可提现："+canUse.setScale(4,BigDecimal.ROUND_DOWN).toString());
                 binding.value.setTextColor(Color.RED);
                 binding.button2.setEnabled(false);
@@ -110,5 +110,11 @@ public class TransferActivity extends BaseActivity implements TextWatcher {
 
     public void submit(){
         transferPresenter.transfer(1,binding.numbers.getText().toString(),binding.address.getText().toString(),walletItemBean.getCoinName(),binding.reamark.getText().toString());
+    }
+
+    @Override
+    public void onTransfer(String string) {
+        toast(string);
+        finish();
     }
 }

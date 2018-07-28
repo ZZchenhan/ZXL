@@ -29,13 +29,13 @@ public class IndexPresenter extends AbstarctPresenter {
      * 获取用户总资金
      */
     public void getTotal(){
-        requst(MyApplication.retrofitClient.create(WalletApi.class).queryUserWalletTotal(1), bigDecimal -> {
+        requst(MyApplication.retrofitClient.create(WalletApi.class).queryUserWalletTotal(MyApplication.user.getId()), bigDecimal -> {
             this.mOnIndexFragmentView.totalNumber(bigDecimal);
         },false);
     }
 
     public void getWalletList(int page){
-        requst(MyApplication.retrofitClient.create(WalletApi.class).queryUserWalletCoinList(page, 20, 1), s -> {
+        requst(MyApplication.retrofitClient.create(WalletApi.class).queryUserWalletCoinList(page, 20, MyApplication.user.getId()), s -> {
             this.mOnIndexFragmentView.walletList(s);
         }, false);
     }

@@ -8,11 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-
-import com.blankj.utilcode.util.ToastUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,7 +20,6 @@ import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentIndexBinding;
 import sz.tianhe.etc_wallet.index.adapter.IndeAdapter;
-import sz.tianhe.etc_wallet.index.bean.AsssertBean;
 import sz.tianhe.etc_wallet.index.presenter.IndexPresenter;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
@@ -93,8 +88,9 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
             intent.putExtra("data",data.get(position));
             startActivity(intent);
         });
-        View empty = LayoutInflater.from(getContext()).inflate(R.layout.layout_empty,null);
-        adapter.setEmptyView(empty);
+        adapter.setOnLoadMoreListener(() -> {
+            this.indexPresenter.getWalletList(page);
+        },binding.recyclerView);
     }
 
 

@@ -81,6 +81,7 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
         binding.rlTranscation.setOnClickListener(this);
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             this.page = 1;
+            this.data.clear();
             this.walletInfoPresenter.getTranList( this.page, this.walletItemBean.getCoinName());
         });
         adaper.setOnLoadMoreListener(() -> {

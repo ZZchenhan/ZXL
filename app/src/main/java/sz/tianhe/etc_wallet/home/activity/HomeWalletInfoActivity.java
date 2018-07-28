@@ -18,10 +18,11 @@ import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityHomeWalletInfoBinding;
 import sz.tianhe.etc_wallet.home.adapter.ManageTransferAdapter;
 import sz.tianhe.etc_wallet.home.adapter.ManagerAdapter;
+import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 
 public class HomeWalletInfoActivity extends BaseActivity implements View.OnClickListener {
     AdapterNavagation adapterNavagation;
-    private List<String> data = new ArrayList<>();
+    private List<TanscationBean> data = new ArrayList<>();
     private ManageTransferAdapter adapter = null;
     ActivityHomeWalletInfoBinding  binding;
     @Override
@@ -40,7 +41,7 @@ public class HomeWalletInfoActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void initView() {
-        test();
+
     }
 
     @Override
@@ -52,14 +53,7 @@ public class HomeWalletInfoActivity extends BaseActivity implements View.OnClick
         binding.rlTranscation.setOnClickListener(this);
     }
 
-    public void test(){
-        data.add("0");
-        data.add("3");
-        data.add("2");
-        data.add("3");
-        data.add("1");
-        adapter.notifyDataSetChanged();
-    }
+
 
     @Override
     protected View bindViews() {

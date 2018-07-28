@@ -39,17 +39,9 @@ public class MsgActivity extends BaseActivity {
         adapter = new MsgAdapter(data);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
-        test();
     }
 
-    private void test(){
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        data.add("");
-        adapter.notifyDataSetChanged();
-    }
+
 
     @Override
     public void findViews() {

@@ -22,11 +22,11 @@ public class TanscationBean {
              */
 
             private int id;
-    /**
-     * 1 转入
-     * 2 转出
-     */
-    private int txType;
+            /**
+             * 1 转入
+             * 2 转出
+             */
+             private int txType;
             private BigDecimal amount;
             private String to;
             private String hash;

@@ -58,7 +58,9 @@ public class ReciveActivity extends BaseActivity {
     public void initView() {
 //        binding.icCoin.setImageResource(asssertBean.getCoinId());
         binding.coinTitle.setText(MyApplication.user.getNickName());
-        Glide.with(this).setDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+        Glide.with(this).
+                setDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).
+                        placeholder(R.mipmap.ic_me_head).error(R.mipmap.ic_me_head))
                 .load(MyApplication.user.getHeadImg())
                 .into(binding.icCoin);
         binding.address.setText(asssertBean.getAddress());
@@ -95,7 +97,7 @@ public class ReciveActivity extends BaseActivity {
             //获取剪贴板管理器：
             ClipboardManager cm = (ClipboardManager) ReciveActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
             // 创建普通字符型ClipData
-            ClipData mClipData = ClipData.newPlainText("Label", "这里是要复制的文字");
+            ClipData mClipData = ClipData.newPlainText("Label", binding.address.getText().toString());
             // 将ClipData内容放到系统剪贴板里。
             cm.setPrimaryClip(mClipData);
             toast("复制成功");
