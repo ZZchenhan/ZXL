@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">钱包</string>
+    <string name="app_name">VAH</string>
     <string name="guild_surplus_times">剩余%d秒</string>
     <string name="phone_erro">手机号码错误</string>
     <string name="pass_erro">手机号与密码不匹配</string>

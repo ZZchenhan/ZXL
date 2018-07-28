@@ -126,7 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="11dp"
-                        android:text="转出"
+                        android:text="退出委托资产"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
                 </LinearLayout>
@@ -155,7 +155,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="11dp"
-                        android:text="转入"
+                        android:text="委托智慧小马"
                         android:textColor="@color/white"
                         android:textSize="17sp" />
                 </LinearLayout>

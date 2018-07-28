@@ -135,5 +135,9 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
             HomeFragment homeFragment = (HomeFragment) fragmentManager.findFragmentByTag(fragmentTitles[2]);
             homeFragment.setUserInfo(user);
         }
+        if(null != fragmentManager.findFragmentByTag(fragmentTitles[0])){
+            IndexFragment indexFragment = (IndexFragment) fragmentManager.findFragmentByTag(fragmentTitles[0]);
+            indexFragment.getData();
+        }
     }
 }

@@ -2,30 +2,34 @@ package sz.tianhe.etc_wallet.index.activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.blankj.utilcode.util.ToastUtils;
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityWalletInfoBinding;
-import sz.tianhe.etc_wallet.decode.Intents;
 import sz.tianhe.etc_wallet.index.adapter.TanscationAdaper;
-import sz.tianhe.etc_wallet.index.bean.AsssertBean;
-import sz.tianhe.etc_wallet.index.bean.TanscationBean;
+import sz.tianhe.etc_wallet.requst.vo.PageBean;
+import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
+import sz.tianhe.etc_wallet.index.presenter.WalletInfoPresenter;
+import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 
-public class WalletInfoActivity extends BaseActivity implements View.OnClickListener{
+public class WalletInfoActivity extends BaseActivity implements View.OnClickListener,WalletInfoPresenter.IWlletInfoView {
 
     AdapterNavagation adapterNavagation;
 
-    AsssertBean asssertBean;
+    WalletItemBean walletItemBean;
 
     ActivityWalletInfoBinding binding;
 
@@ -33,10 +37,20 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
 
     List<TanscationBean> data = new ArrayList<>();
 
+    WalletInfoPresenter walletInfoPresenter;
+
+    private int page = 1;
+
     @Override
     public void getIntenData() {
         super.getIntenData();
-        asssertBean = (AsssertBean) getIntent().getSerializableExtra("data");
+        walletItemBean = (WalletItemBean) getIntent().getSerializableExtra("data");
+    }
+
+    @Override
+    public IBasePresenter createPrensenter() {
+        walletInfoPresenter = new WalletInfoPresenter(this,this);
+        return super.createPrensenter();
     }
 
     @Override
@@ -49,33 +63,34 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
         adapterNavagation = new AdapterNavagation(this)
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setBack()
-                .setTitle(asssertBean.getCoinTilte(), 16, R.color.white)
+                .setTitle(walletItemBean.getCoinName(), 16, R.color.white)
                 .setRightImage(R.mipmap.ic_scan, v -> {ScanActivity.openActivity(WalletInfoActivity.this, ScanActivity.class);});
         return adapterNavagation;
     }
 
     @Override
     public void initView() {
-        binding.icon.setImageResource(asssertBean.getIconId());
-        binding.coinNumber.setText(String.format("%.4f",asssertBean.getCoinNumber()));
-        binding.value.setText(String.format("≈%.4f",asssertBean.getValue())+"￥");
+        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
+        binding.coinNumber.setText("总量："+walletItemBean.getAmount().setScale(4).toString());
+        binding.value.setText("冻结："+walletItemBean.getFreeAmount().setScale(4).toString());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adaper = new TanscationAdaper(data);
         binding.recyclerView.setAdapter(adaper);
 
         binding.rlRecive.setOnClickListener(this);
         binding.rlTranscation.setOnClickListener(this);
-        test();
+        binding.swipeRefreshLayout.setOnRefreshListener(() -> {
+            this.page = 1;
+            this.walletInfoPresenter.getTranList( this.page, this.walletItemBean.getCoinName());
+        });
+        adaper.setOnLoadMoreListener(() -> {
+            this.walletInfoPresenter.getTranList(this.page,this.walletItemBean.getCoinName());
+        },binding.recyclerView);
+//        View empty = LayoutInflater.from(this).inflate(R.layout.layout_empty,null);
+//        adaper.setEmptyView(empty);
     }
 
-    private void test(){
-        data.add(new TanscationBean("0x715d456ds15748das53465da13fg",0,"2017/04/01 13:41:01",20));
-        data.add(new TanscationBean("0x7ffafasds15748das53465da13a7",1,"2016/05/04 09:40:01",25));
-//        data.add(new TanscationBean("0x615d456dadadadassda465da1326",0,"2016/01/04 12:05:01",23));
-//        data.add(new TanscationBean("0x115d456ds15748das53465da1327",0,"2014/10/01 09:03:01",100));
-//        data.add(new TanscationBean("0x515ad45f7aga48ddasads5aa327g",1,"2014/09/25 11:20:01",1000));
-        adaper.notifyDataSetChanged();
-    }
+
 
     @Override
     public void findViews() {
@@ -92,7 +107,7 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
-        intent.putExtra("data",asssertBean);
+        intent.putExtra("data", walletItemBean);
         switch (view.getId()){
             case R.id.rl_transcation:
                 intent.setClass(this,TransferActivity.class);
@@ -103,5 +118,39 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    public void getData(){
+        this.walletInfoPresenter.getDetails(walletItemBean.getCoinName());
+        this.walletInfoPresenter.getTranList(page,walletItemBean.getCoinName());
+    }
+
+
+
+    @Override
+    public void details(WalletItemBean walletItemBean) {
+        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
+        binding.coinNumber.setText("总量："+walletItemBean.getAmount().setScale(4).toString());
+        binding.value.setText("冻结："+walletItemBean.getFreeAmount().setScale(4).toString());
+    }
+
+
+
+    @Override
+    public void transcationList(PageBean<TanscationBean> pageBean) {
+        this.binding.swipeRefreshLayout.setRefreshing(false);
+        this.data.addAll(pageBean.getItems());
+        this.adaper.notifyDataSetChanged();
+        this.adaper.loadMoreComplete();
+        if(pageBean.getItems().size() == 0){
+            this.adaper.loadMoreEnd();
+        }
+        this.page = pageBean.getCurrentPage()+1;
     }
 }

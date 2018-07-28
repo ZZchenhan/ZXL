@@ -79,10 +79,11 @@ public class AssertsDetailsFragment extends BaseFragment {
 
     private void getQutais() {
        List<String> input =  new ArrayList<>();
-       input.add("bts_usdt");
-       input.add("eos_usdt");
-       input.add("btc_usdt");
-       input.add("eth_usdt");
+       //[btc_qc, eth_qc, bts_qc, eos_qc]
+       input.add("btc_qc");
+       input.add("eth_qc");
+       input.add("bts_qc");
+       input.add("eos_qc");
        binding.swipeLayout.setRefreshing(true);
        QutaiorApi.getQutations(input)
                 .subscribe(new Observer<List<QutaiorBean>>() {

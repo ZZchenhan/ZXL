@@ -1,7 +1,5 @@
 package sz.tianhe.etc_wallet.requst.vo;
 
-import java.util.Date;
-
 /**
  * create User by huc
  * 2018/4/20  下午2:16

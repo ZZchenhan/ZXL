@@ -130,29 +130,7 @@ public class AssetsFragment extends BaseFragment {
 
     private void getMarkets(){
         if(keysMarkets == null) {
-            QutaiorApi.getMarkets()
-                    .subscribe(new Observer<Map<String, List<String>>>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
 
-                        }
-
-                        @Override
-                        public void onNext(Map<String, List<String>> stringListMap) {
-                            AssetsFragment.keysMarkets = stringListMap;
-                            initTab(stringListMap);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
         }else{
             initTab(keysMarkets);
         }

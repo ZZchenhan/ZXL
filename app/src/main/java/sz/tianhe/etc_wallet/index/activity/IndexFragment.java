@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,9 @@ import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentIndexBinding;
 import sz.tianhe.etc_wallet.index.adapter.IndeAdapter;
 import sz.tianhe.etc_wallet.index.bean.AsssertBean;
+import sz.tianhe.etc_wallet.index.presenter.IndexPresenter;
+import sz.tianhe.etc_wallet.requst.vo.PageBean;
+import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 
 /**
  * 项目名称:etc_wallet
@@ -33,7 +37,7 @@ import sz.tianhe.etc_wallet.index.bean.AsssertBean;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:01
  */
-public class IndexFragment extends BaseFragment {
+public class IndexFragment extends BaseFragment implements IndexPresenter.OnIndexFragmentView{
 
     FragmentIndexBinding binding;
 
@@ -43,7 +47,11 @@ public class IndexFragment extends BaseFragment {
 
     private IndeAdapter adapter;
 
-    private List<AsssertBean> data = new ArrayList<>();
+    private List<WalletItemBean> data = new ArrayList<>();
+
+    IndexPresenter indexPresenter;
+
+    int page = 1;
 
     @Override
     public int layoutId() {
@@ -59,6 +67,7 @@ public class IndexFragment extends BaseFragment {
         return adapterNavagation;
     }
 
+
     @Override
     protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_index, container, false);
@@ -67,10 +76,12 @@ public class IndexFragment extends BaseFragment {
 
     @Override
     protected void initViews() {
+        indexPresenter = new IndexPresenter(getContext(),this);
         adapter = new IndeAdapter(data);
         binding.getRoot().setBackgroundColor(getContext().getResources().getColor(R.color.bgColor));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
+//        binding.swipeLayout.setVisble(false);
         View header = LayoutInflater.from(getContext())
                 .inflate(R.layout.layout_index_head, null, false);
         tvNumbers = header.findViewById(R.id.total);
@@ -82,14 +93,30 @@ public class IndexFragment extends BaseFragment {
             intent.putExtra("data",data.get(position));
             startActivity(intent);
         });
-        test();
+        View empty = LayoutInflater.from(getContext()).inflate(R.layout.layout_empty,null);
+        adapter.setEmptyView(empty);
     }
 
-    private void test() {
-        data.add(new AsssertBean(R.mipmap.ic_coin1,"EOS",200,100));
-        data.add(new AsssertBean(R.mipmap.ic_coin2,"ETH",12,3000));
-        data.add(new AsssertBean(R.mipmap.ic_coin3,"XRP",1000,3000));
 
-        adapter.notifyDataSetChanged();
+
+    public void getData(){
+        this.indexPresenter.getTotal();
+        this.indexPresenter.getWalletList(page);
+    }
+
+    @Override
+    public void totalNumber(BigDecimal total) {
+        this.tvNumbers.setText(total.setScale(4).toString());
+    }
+
+    @Override
+    public void walletList(PageBean<WalletItemBean> pageBean) {
+        this.data.addAll(pageBean.getItems());
+        this.adapter.notifyDataSetChanged();
+        this.adapter.loadMoreComplete();
+        if(pageBean.getItems().size() == 0){
+            this.adapter.loadMoreEnd();
+        }
+        this.page = pageBean.getCurrentSize() +1;
     }
 }

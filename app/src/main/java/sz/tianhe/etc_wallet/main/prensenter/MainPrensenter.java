@@ -79,7 +79,7 @@ public class MainPrensenter extends AbstarctPresenter {
                 user -> {
                     MyApplication.user = user;
                     onRefreshUser.onRefreh(user);
-                }, true
+                }, false
         );
     }
 

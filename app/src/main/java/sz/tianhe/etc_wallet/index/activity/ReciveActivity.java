@@ -8,15 +8,20 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.google.zxing.WriterException;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityReciveBinding;
 import sz.tianhe.etc_wallet.index.bean.AsssertBean;
+import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 import sz.tianhe.etc_wallet.utils.QRCodeUtils;
 
 public class ReciveActivity extends BaseActivity {
@@ -25,14 +30,14 @@ public class ReciveActivity extends BaseActivity {
 
     ActivityReciveBinding binding;
 
-    AsssertBean asssertBean;
+    WalletItemBean asssertBean;
 
     Bitmap bitmap;
 
     @Override
     public void getIntenData() {
         super.getIntenData();
-        asssertBean = (AsssertBean) getIntent().getSerializableExtra("data");
+        asssertBean = (WalletItemBean) getIntent().getSerializableExtra("data");
     }
 
     @Override
@@ -51,8 +56,12 @@ public class ReciveActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        binding.icCoin.setImageResource(asssertBean.getIconId());
-        binding.coinTitle.setText(asssertBean.getCoinTilte());
+//        binding.icCoin.setImageResource(asssertBean.getCoinId());
+        binding.coinTitle.setText(MyApplication.user.getNickName());
+        Glide.with(this).setDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+                .load(MyApplication.user.getHeadImg())
+                .into(binding.icCoin);
+        binding.address.setText(asssertBean.getAddress());
     }
 
     @Override
