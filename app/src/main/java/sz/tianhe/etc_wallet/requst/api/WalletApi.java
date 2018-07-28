@@ -10,10 +10,12 @@ import retrofit2.http.OPTIONS;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import sz.tianhe.baselib.model.bean.Result;
+import sz.tianhe.etc_wallet.requst.vo.ManagerItem;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationTotalBean;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
+import sz.tianhe.etc_wallet.requst.vo.YesterDayProfit;
 
 /**
  * 钱包接口相关接口
@@ -52,5 +54,17 @@ public interface WalletApi {
 
     @GET("bechatwallet/transaction/queryUserCoinTransactionTotal")
     Observable<Result<List<TanscationTotalBean>>> getTransferTotal(@Query("userId") int userId, @Query("startTime") String startTime);
+
+
+    @GET("bechatwallet/wallet/queryUserWalletCoinStraightOrInterest")
+    Observable<Result<PageBean<ManagerItem>>> getManager(@Query("currentPage") int currentPage,@Query("currentSize") int currentSize,@Query("userId") int userId);
+
+
+    @GET("bechatwallet/wallet/queryYesterdayProfit")
+    Observable<Result<List<YesterDayProfit>>> getYestdatProfit(@Query("userId") int userId, @Query("coinId") int coinId);
+
+
+    @GET("bechatwallet/transaction/queryWalletUserCoinTransactionList")
+    Observable<Result<PageBean<TanscationBean>>> getManagerList(@Query("currentPage") int currentPage,@Query("currentSize") int currentSize,@Query("userId") int userId,@Query("coinType")String coinType);
 
 }

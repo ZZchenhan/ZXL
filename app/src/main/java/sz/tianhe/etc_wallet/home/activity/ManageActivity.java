@@ -15,15 +15,19 @@ import java.util.List;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
+import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityMainBinding;
 import sz.tianhe.etc_wallet.databinding.ActivityManageBinding;
 import sz.tianhe.etc_wallet.guide.view.CreateWalletActivity;
 import sz.tianhe.etc_wallet.home.adapter.ManagerAdapter;
+import sz.tianhe.etc_wallet.home.presenter.ManagerPreseter;
 import sz.tianhe.etc_wallet.home.view.MangerPopDialog;
+import sz.tianhe.etc_wallet.requst.vo.ManagerItem;
+import sz.tianhe.etc_wallet.requst.vo.PageBean;
 
-public class ManageActivity extends BaseActivity {
+public class ManageActivity extends BaseActivity implements ManagerPreseter.OnManagerListener {
 
     ActivityManageBinding binding;
 
@@ -31,11 +35,19 @@ public class ManageActivity extends BaseActivity {
 
     private ManagerAdapter managerAdapter;
 
-    private List<String> datas = new ArrayList<>();
+    private List<ManagerItem> datas = new ArrayList<>();
+
+    private ManagerPreseter managerPreseter;
 
     @Override
     public int layoutId() {
         return R.layout.activity_manage;
+    }
+
+    @Override
+    public IBasePresenter createPrensenter() {
+        managerPreseter = new ManagerPreseter(this,this);
+        return super.createPrensenter();
     }
 
     @Override
@@ -54,12 +66,14 @@ public class ManageActivity extends BaseActivity {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(managerAdapter);
         binding.swipeRefreshLayout.setRefreshing(true);
-        binding.swipeRefreshLayout.postDelayed(() -> initData(), 500);
-
+        binding.swipeRefreshLayout.postDelayed(() -> {page = 1;initData();}, 500);
 
         managerAdapter.setOnItemClickListener((adapter, view, position) -> {
-            HomeWalletInfoActivity.openActivity(ManageActivity.this, HomeWalletInfoActivity.class);
+            Intent intent = new Intent(ManageActivity.this,HomeWalletInfoActivity.class);
+            intent.putExtra("data",datas.get(position));
+            startActivity(intent);
         });
+
     }
 
     @Override
@@ -70,14 +84,9 @@ public class ManageActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
-        datas.clear();
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        datas.add("");
-        managerAdapter.notifyDataSetChanged();
-        binding.swipeRefreshLayout.setRefreshing(false);
+        managerPreseter.getList(page);
     }
+    int page = 1;
 
     @Override
     protected View bindViews() {
@@ -88,5 +97,17 @@ public class ManageActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onManagerListen(PageBean<ManagerItem> pageBean) {
+        this.binding.swipeRefreshLayout.setRefreshing(false);
+        this.datas.addAll(pageBean.getItems());
+        this.managerAdapter.notifyDataSetChanged();
+        this.managerAdapter.loadMoreComplete();
+        if(pageBean.getItems().size() < pageBean.getCurrentSize()){
+            this.managerAdapter.loadMoreEnd();
+        }
+        page = page+1;
     }
 }

@@ -15,6 +15,7 @@ import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityTransferBinding;
 import sz.tianhe.etc_wallet.index.presenter.TransferPresenter;
@@ -64,8 +65,8 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
         binding.numbers.addTextChangedListener(this);
         if (getIntent().getStringExtra(EXTRA_ADDRESS) != null) {
             String jsonString = getIntent().getStringExtra(EXTRA_ADDRESS);
-            walletItemBean = new Gson().fromJson(jsonString,WalletItemBean.class);
-            binding.address.setText(walletItemBean.getAddress());
+            WalletItemBean scan = new Gson().fromJson(jsonString,WalletItemBean.class);
+            binding.address.setText(scan.getAddress());
         }
         adapterNavagation.setTitle(walletItemBean.getCoinName()+"转账",16,R.color.white);
         binding.button2.setOnClickListener(view -> submit());
@@ -109,7 +110,7 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
     }
 
     public void submit(){
-        transferPresenter.transfer(1,binding.numbers.getText().toString(),binding.address.getText().toString(),walletItemBean.getCoinName(),binding.reamark.getText().toString());
+        transferPresenter.transfer(MyApplication.user.getId(),binding.numbers.getText().toString(),binding.address.getText().toString(),walletItemBean.getCoinName(),binding.reamark.getText().toString());
     }
 
     @Override
