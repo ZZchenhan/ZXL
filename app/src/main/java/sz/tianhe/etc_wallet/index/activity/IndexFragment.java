@@ -96,6 +96,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
 
     public void getData(){
+        this.data.clear();
         this.indexPresenter.getTotal();
         this.indexPresenter.getWalletList(page);
     }
@@ -110,7 +111,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         this.data.addAll(pageBean.getItems());
         this.adapter.notifyDataSetChanged();
         this.adapter.loadMoreComplete();
-        if(pageBean.getItems().size() == 0){
+        if(pageBean.getItems().size()<pageBean.getCurrentSize()){
             this.adapter.loadMoreEnd();
         }
         this.page = pageBean.getCurrentSize() +1;

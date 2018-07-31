@@ -197,7 +197,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="      1.	如您是中华人民共和国以外的用户，您需要全面了解并遵守您所在司法辖区与使用VAH服务所有相关法律、法规及规则。\n      2.	本政策的任何译文版本仅为方便用户提供，无意对本政策的条款进行修改。如果本政策的中文版本与非中文版本之间存在冲突，应以中文为准。\n      3.	本政策自2017年9月26日起适用。\n      本政策未尽事宜，您需要遵守VAH更新的公告和相关规则"
+                    android:text="      1.	如您是中华人民共和国以外的用户，您需要全面了解并遵守您所在司法辖区与使用VAH服务所有相关法律、法规及规则。\n      2.	本政策的任何译文版本仅为方便用户提供，无意对本政策的条款进行修改。如果本政策的中文版本与非中文版本之间存在冲突，应以中文为准。\n           本政策未尽事宜，您需要遵守VAH更新的公告和相关规则"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:lineSpacingExtra="4dp"

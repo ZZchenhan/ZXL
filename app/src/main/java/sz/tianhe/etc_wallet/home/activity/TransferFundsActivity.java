@@ -30,7 +30,7 @@ public class TransferFundsActivity extends BaseActivity {
     @Override
     public IBaseNavagation navagation() {
         adapterNavagation = new AdapterNavagation(this);
-        adapterNavagation.setTitle(TYPE_IN == getIntent().getIntExtra(TYPE,0)?"转入":"转出",
+        adapterNavagation.setTitle(TYPE_IN == getIntent().getIntExtra(TYPE,0)?"确定委托":"退出委托",
                 16, R.color.white);
         adapterNavagation.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
         adapterNavagation.setBack();
@@ -44,8 +44,8 @@ public class TransferFundsActivity extends BaseActivity {
 
     @Override
     public void findViews() {
-        binding.button2.setText(getIntent().getIntExtra(TYPE,0) == TYPE_IN?"确定转入":"确定转出");
-        binding.value.setText("最大可"+(getIntent().getIntExtra(TYPE,0) == TYPE_IN?"转入":"转出")+"1000");
+        binding.button2.setText(getIntent().getIntExtra(TYPE,0) == TYPE_IN?"确定委托":"退出委托");
+        binding.value.setText("最大可"+(getIntent().getIntExtra(TYPE,0) == TYPE_IN?"委托":"退出")+"0");
     }
 
     @Override

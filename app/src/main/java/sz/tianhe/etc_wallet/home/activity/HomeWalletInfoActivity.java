@@ -111,8 +111,13 @@ public class HomeWalletInfoActivity extends BaseActivity implements View.OnClick
         if(profit == null){
             return;
         }
-        binding.tvProfit.setText(profit.getYesterdayProfit().setScale(4)!=null?profit.getYesterdayProfit().setScale(4).toString():"0");
-        binding.total.setText("总量 "+profit.getFreeAmount().setScale(4).toString()+" "+managerItem.getCoinName());
+        binding.tvProfit.setText(profit.getYesterdayProfit()!=null?profit.getYesterdayProfit().setScale(4).toString():"0");
+        if(profit.getFreeAmount() == null){
+            binding.total.setText("总量 " + 0 + " " + managerItem.getCoinName());
+            return;
+        }else {
+            binding.total.setText("总量 " + profit.getFreeAmount().setScale(4).toString() + " " + managerItem.getCoinName());
+        }
     }
 
     @Override
