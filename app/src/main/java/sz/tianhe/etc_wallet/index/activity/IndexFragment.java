@@ -93,16 +93,18 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         }, binding.recyclerView);
         binding.swipeLayout.setOnRefreshListener(() -> {
             page = 1;
-            getData();
+            getData(page);
         });
     }
 
 
-    public void getData() {
+    public void getData(int page) {
+        this.page = page;
         this.data.clear();
         this.indexPresenter.getTotal();
         this.indexPresenter.getWalletList(page);
     }
+
 
     @Override
     public void totalNumber(BigDecimal total) {

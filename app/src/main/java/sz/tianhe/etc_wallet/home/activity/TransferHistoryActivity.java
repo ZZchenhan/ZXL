@@ -1,5 +1,6 @@
 package sz.tianhe.etc_wallet.home.activity;
 
+import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,13 +26,14 @@ import sz.tianhe.etc_wallet.home.view.TransferListPopDialog;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationTotalBean;
+import sz.tianhe.etc_wallet.weight.MonthDialog;
 
 public class TransferHistoryActivity extends BaseActivity implements TransferHistoryPresenter.ITransfer {
     ActivityTransferHistoryBinding binding;
     AdapterNavagation adapterNavagation;
     private ManageTransferAdapter adapter = null;
     private List<TanscationBean> data = new ArrayList<>();
-    TransferListPopDialog popDialog;
+    Dialog popDialog;
 
     TransferHistoryPresenter transferHistoryPresenter;
 
@@ -62,20 +64,17 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
         binding.recyclerView.setAdapter(adapter);
         binding.time.setOnClickListener(view -> {
             if(popDialog == null){
-                popDialog = new TransferListPopDialog(TransferHistoryActivity.this);
-                popDialog.setmOnSelectedListener(string -> {
-                    binding.time.setText(string);//数据
-                    popDialog.dismiss();
-                    page = 1;
-                    getData();
-                    transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
-                });
-                popDialog.setOnDismissListener(() -> {
-                    drawbackgroud(1);
-                });
+                popDialog = new MonthDialog.Builder(TransferHistoryActivity.this).onConfirmListenr(new MonthDialog.Builder.OnComfirmListener() {
+                    @Override
+                    public void onCofirmListenr(String coinBean) {
+                        page = 1;
+                        getData();
+                        transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
+                    }
+                }).Builder();
+
             }
-            popDialog.showAsDropDown(view);
-            drawbackgroud(0.4f);
+            popDialog.show();
         });
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             this.data.clear();

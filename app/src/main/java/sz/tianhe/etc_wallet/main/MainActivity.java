@@ -26,13 +26,13 @@ import sz.tianhe.etc_wallet.requst.vo.User;
 
 public class MainActivity extends BaseActivity implements MainPrensenter.OnRefreshUser {
 
-    private String[] fragmentTitles = new String[]{"钱包", "行情", "我的"};
+    private String[] fragmentTitles = new String[]{"钱包", "我的"};
     ActivityMainBinding binding;
 
     MainPrensenter prensenter;
 
     private IndexFragment indexFragment;
-    private AssetsFragment assetsFragment;
+//    private AssetsFragment assetsFragment;
     private HomeFragment homeFragment;
 
     @Override
@@ -66,8 +66,8 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
     private void initBottom() {
         controller = binding.bootm.custom()
                 .addItem(newItem(R.mipmap.ic_nagavation_assert_nomarl, R.mipmap.ic_nagavation_assert_select, fragmentTitles[0]))
-                .addItem(newItem(R.mipmap.ic_nagavation_quotation_nomarl, R.mipmap.ic_nagavation_quotation_select, fragmentTitles[1]))
-                .addItem(newItem(R.mipmap.ic_nagavation_me_nomarl, R.mipmap.ic_nagavation_me_select, fragmentTitles[2]))
+//                .addItem(newItem(R.mipmap.ic_nagavation_quotation_nomarl, R.mipmap.ic_nagavation_quotation_select, fragmentTitles[1]))
+                .addItem(newItem(R.mipmap.ic_nagavation_me_nomarl, R.mipmap.ic_nagavation_me_select, fragmentTitles[1]))
                 .build();
         controller.addTabItemSelectedListener(new OnTabItemSelectedListener() {
             @Override
@@ -82,10 +82,8 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
                     if (index == 0) {
                         newFragment = new IndexFragment();
                     }
+
                     if (index == 1) {
-                        newFragment = new AssertsDetailsFragment();
-                    }
-                    if (index == 2) {
                         newFragment = new HomeFragment();
                     }
                     transaction.add(R.id.content, newFragment, fragmentTitles[index]);
@@ -131,13 +129,13 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
     public void onRefreh(User user) {
         //刷新用户页面
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (null != fragmentManager.findFragmentByTag(fragmentTitles[2])) {
-            HomeFragment homeFragment = (HomeFragment) fragmentManager.findFragmentByTag(fragmentTitles[2]);
+        if (null != fragmentManager.findFragmentByTag(fragmentTitles[1])) {
+            HomeFragment homeFragment = (HomeFragment) fragmentManager.findFragmentByTag(fragmentTitles[1]);
             homeFragment.setUserInfo(user);
         }
         if(null != fragmentManager.findFragmentByTag(fragmentTitles[0])){
             IndexFragment indexFragment = (IndexFragment) fragmentManager.findFragmentByTag(fragmentTitles[0]);
-            indexFragment.getData();
+            indexFragment.getData(1);
         }
     }
 }

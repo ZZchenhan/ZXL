@@ -33,7 +33,7 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
+        
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
@@ -41,14 +41,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".main.MainActivity"
-            android:hardwareAccelerated="false">
-        </activity>
+            ></activity>
         <activity
             android:name=".home.activity.UserInfoActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".guide.view.GuideActivity"
-            android:hardwareAccelerated="false" >
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,60 +56,65 @@
         </activity>
         <activity
             android:name=".guide.view.LoginActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".guide.view.CreateWalletActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".guide.view.CreateMemorizingActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".home.activity.ManageActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".home.activity.MsgActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".guide.view.FirstChooseActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".home.activity.PrivacyActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".guide.view.ConfirmMemoriActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".guide.view.PhoneCodeActivity"
-            android:hardwareAccelerated="false" >
-
-        </activity>
+            ></activity>
         <activity
             android:name=".guide.view.SetLoginPassActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".guide.view.ConfirmPassActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".index.activity.WalletInfoActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".index.activity.ReciveActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".index.activity.ScanActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".index.activity.TransferActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".home.activity.MeInfoActivity"
-            android:hardwareAccelerated="false" />
+             />
         <activity
             android:name=".home.activity.HomeWalletInfoActivity"
-            android:hardwareAccelerated="false" />
-        <activity android:name=".home.activity.TransferHistoryActivity" />
-        <activity android:name=".home.activity.TransferFundsActivity" />
-        <activity android:name=".home.activity.AboutActivity"></activity>
+             />
+        <activity
+            android:name=".home.activity.TransferHistoryActivity"
+             />
+        <activity
+            android:name=".home.activity.TransferFundsActivity"
+             />
+        <activity
+            android:name=".home.activity.AboutActivity"
+             />
+        <activity android:name=".index.activity.TestActivity"></activity>
     </application>
 
 </manifest>

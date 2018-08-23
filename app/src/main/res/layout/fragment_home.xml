@@ -3,225 +3,123 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bgColor">
-
-        <sz.tianhe.baselib.weight.CircleImageView
-            android:id="@+id/head"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/ic_me_head" />
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
-            android:textColor="@color/textColor"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/head" />
-
-        <TextView
-            android:id="@+id/user_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text=""
-            android:textColor="@color/textHintColor"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name" />
 
         <LinearLayout
-            android:id="@+id/ll_linear_layout"
-            android:layout_width="395dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_id">
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@color/bgColor"
+            android:layout_height="match_parent">
+            <sz.tianhe.baselib.weight.CircleImageView
+                android:id="@+id/head"
+                android:layout_width="72dp"
+                android:layout_marginTop="20dp"
+                android:layout_height="72dp"
+                />
 
-            <RelativeLayout
-                android:id="@+id/rl_wallet"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="18dp"
+                android:textColor="@color/textColor"
+                android:textSize="17sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rl_head" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ic_me_wallet" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="管理钱包"
-                    android:textColor="@color/textColor"
-                    android:textSize="12sp" />
-            </RelativeLayout>
-
-            <View
-                android:layout_width="0.3dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:background="@color/textHintColor" />
-
-            <RelativeLayout
-                android:id="@+id/rl_transfer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ic_me_transfer" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="交易记录"
-                    android:textColor="@color/textColor"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+            <TextView
+                android:id="@+id/user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="4dp"
+                android:text=""
+                android:textColor="@color/textHintColor"
+                android:textSize="12sp"
+            />
 
             <View
-                android:layout_width="0.3dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0"
-                android:background="@color/textHintColor" />
-
-            <RelativeLayout
-                android:id="@+id/rl_msg"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_height="0.3dp"
+                android:layout_marginTop="17dp"
+                android:background="@color/textHintColor"
+                />
+            <TextView
+                android:id="@+id/transcation"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:drawableRight="@mipmap/ic_left_arrow"
+                android:gravity="center_vertical"
+                android:text="交易记录"
+                android:textColor="@color/textColor"
+                android:textSize="17sp"
+                />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ic_me_notify" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/textHintColor"
+                />
+            <TextView
+                android:id="@+id/user_permission"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:drawableRight="@mipmap/ic_left_arrow"
+                android:gravity="center_vertical"
+                android:text="用户协议"
+                android:textColor="@color/textColor"
+                android:textSize="17sp"
+               />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="消息"
-                    android:textColor="@color/textColor"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+            <View
+                android:id="@+id/view11"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/textHintColor"
+                 />
+
+            <TextView
+                android:id="@+id/about_me"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:drawableRight="@mipmap/ic_left_arrow"
+                android:gravity="center_vertical"
+                android:text="关于我们"
+                android:textColor="@color/textColor"
+                android:textSize="17sp"
+               />
+            <View
+                android:id="@+id/view12"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="0dp"
+                android:background="@color/textHintColor"
+               />
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="match_parent" />
+            <Button
+                android:id="@+id/quit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="退出登陆"
+                android:background="@drawable/bg_first_btn_create"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                />
         </LinearLayout>
-
-        <View
-            android:id="@+id/view9"
-            android:layout_width="0dp"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/textHintColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ll_linear_layout" />
-
-
-        <View
-            android:id="@+id/view10"
-            android:layout_width="0dp"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="17dp"
-            android:background="@color/textHintColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view9" />
-
-        <TextView
-            android:id="@+id/user_permission"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:drawableRight="@mipmap/ic_left_arrow"
-            android:gravity="center_vertical"
-            android:text="用户协议"
-            android:textColor="@color/textColor"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view10" />
-
-        <View
-            android:id="@+id/view11"
-            android:layout_width="0dp"
-            android:layout_height="0.3dp"
-            android:background="@color/textHintColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/user_permission"
-            app:layout_constraintTop_toBottomOf="@+id/user_permission" />
-
-        <TextView
-            android:id="@+id/about_me"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:drawableRight="@mipmap/ic_left_arrow"
-            android:gravity="center_vertical"
-            android:text="关于我们"
-            android:textColor="@color/textColor"
-            android:textSize="17sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view11" />
-        <View
-            android:id="@+id/view12"
-            android:layout_width="0dp"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="0dp"
-            android:background="@color/textHintColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_me" />
-
-        <Button
-            android:id="@+id/quit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginStart="30dp"
-            android:text="退出登陆"
-            android:background="@drawable/bg_first_btn_create"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/about_me"
-            app:layout_constraintStart_toStartOf="@+id/about_me" />
-    </android.support.constraint.ConstraintLayout>
 </layout>
