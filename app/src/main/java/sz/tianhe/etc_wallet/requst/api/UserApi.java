@@ -29,7 +29,7 @@ public interface UserApi{
     @POST("bechatwallet/common/register")
     Observable<Result<String>> register(@Query("phone")String phone,@Query("pass")String pass,@Query("invitationCode")String invitationCode,@Query("keyWords")String keyWords);
 
-    @POST("bechatwallet/common/login")
+    @GET("bechatwallet/common/login")
     Observable<Result<User>> login(@Query("tel") String tel,@Query("password") String password);
 
     @GET("bechatwallet/user/user")

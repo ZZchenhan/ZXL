@@ -30,8 +30,8 @@ public class MyApplication extends Application{
 
     public static String deviceId;
 
-    public static String baseUrl = "http://103.65.180.165:8080/";
-//    public static String baseUrl = "http://192.168.10.10:8080/";
+//    public static String baseUrl = "http://103.65.180.165:8080/";
+    public static String baseUrl = "http://192.168.10.10:8080/";
 
     public static User user;
 
