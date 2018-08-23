@@ -71,12 +71,12 @@
                     android:id="@+id/wait"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_marginTop="20dp"
                     android:padding="10dp"
                     android:text="稍后抄记"
                     android:layout_gravity="center"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/first_btn_color"
                     />
         </LinearLayout>
     </ScrollView>

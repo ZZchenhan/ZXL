@@ -64,6 +64,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         binding.userPermission.setOnClickListener(this);
         binding.aboutMe.setOnClickListener(this);
         binding.quit.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         setUserInfo(MyApplication.user);
     }
 
@@ -109,11 +114,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             return;
         }
         Glide.with(this)
-                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL).dontAnimate())
+                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL).
+                        dontAnimate())
                 .load(userInfo.getHeadImg())
                 .into(binding.head);
         binding.name.setText(userInfo.getNickName());
-        binding.userId.setText("我的邀请码:"+userInfo.getInvitationCode());
+        binding.userId.setText("手机号:"+userInfo.getPhoneNum());
     }
 
     

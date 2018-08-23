@@ -3,6 +3,7 @@ package sz.tianhe.etc_wallet.index.activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +33,7 @@ import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:01
  */
-public class IndexFragment extends BaseFragment implements IndexPresenter.OnIndexFragmentView{
+public class IndexFragment extends BaseFragment implements IndexPresenter.OnIndexFragmentView {
 
     FragmentIndexBinding binding;
 
@@ -58,7 +59,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         adapterNavagation = new AdapterNavagation(getContext())
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setTitle("钱包", 16, R.color.white)
-                .setRightImage(R.mipmap.ic_scan, v -> startActivity(new Intent(getContext(),ScanActivity.class)));
+                .setRightImage(R.mipmap.ic_scan, v -> startActivity(new Intent(getContext(), ScanActivity.class)));
         return adapterNavagation;
     }
 
@@ -71,12 +72,11 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
     @Override
     protected void initViews() {
-        indexPresenter = new IndexPresenter(getContext(),this);
+        indexPresenter = new IndexPresenter(getContext(), this);
         adapter = new IndeAdapter(data);
         binding.getRoot().setBackgroundColor(getContext().getResources().getColor(R.color.bgColor));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
-//        binding.swipeLayout.setVisble(false);
         View header = LayoutInflater.from(getContext())
                 .inflate(R.layout.layout_index_head, null, false);
         tvNumbers = header.findViewById(R.id.total);
@@ -84,18 +84,21 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         adapter.addHeaderView(header);
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            Intent intent = new Intent(getContext(),WalletInfoActivity.class);
-            intent.putExtra("data",data.get(position));
+            Intent intent = new Intent(getContext(), WalletInfoActivity.class);
+            intent.putExtra("data", data.get(position));
             startActivity(intent);
         });
         adapter.setOnLoadMoreListener(() -> {
             this.indexPresenter.getWalletList(page);
-        },binding.recyclerView);
+        }, binding.recyclerView);
+        binding.swipeLayout.setOnRefreshListener(() -> {
+            page = 1;
+            getData();
+        });
     }
 
 
-
-    public void getData(){
+    public void getData() {
         this.data.clear();
         this.indexPresenter.getTotal();
         this.indexPresenter.getWalletList(page);
@@ -111,9 +114,10 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         this.data.addAll(pageBean.getItems());
         this.adapter.notifyDataSetChanged();
         this.adapter.loadMoreComplete();
-        if(pageBean.getItems().size()<pageBean.getCurrentSize()){
+        this.binding.swipeLayout.setRefreshing(false);
+        if (pageBean.getItems().size() < pageBean.getCurrentSize()) {
             this.adapter.loadMoreEnd();
         }
-        this.page = pageBean.getCurrentSize() +1;
+        this.page = pageBean.getCurrentSize() + 1;
     }
 }

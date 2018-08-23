@@ -210,7 +210,8 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="bottom"
-            android:background="#1F000000"
+            android:background="#FFFFFF"
+            android:elevation="1dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
