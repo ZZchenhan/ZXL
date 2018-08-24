@@ -1,6 +1,8 @@
 package sz.tianhe.etc_wallet.index.presenter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 import sz.tianhe.baselib.http.IResultListener;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.etc_wallet.MyApplication;
+import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.requst.api.WalletApi;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;

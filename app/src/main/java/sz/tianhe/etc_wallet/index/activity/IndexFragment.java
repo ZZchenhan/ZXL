@@ -1,5 +1,6 @@
 package sz.tianhe.etc_wallet.index.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
@@ -18,8 +19,10 @@ import java.util.List;
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentIndexBinding;
+import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.index.adapter.IndeAdapter;
 import sz.tianhe.etc_wallet.index.presenter.IndexPresenter;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
@@ -95,12 +98,21 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
             page = 1;
             getData(page);
         });
+        binding.swipeLayout.postDelayed(() -> {
+            //getData(page);
+            binding.swipeLayout.setRefreshing(true);
+        },200);
     }
 
 
     public void getData(int page) {
         this.page = page;
         this.data.clear();
+        if(MyApplication.user == null){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            (getActivity()).finish();
+            return;
+        }
         this.indexPresenter.getTotal();
         this.indexPresenter.getWalletList(page);
     }

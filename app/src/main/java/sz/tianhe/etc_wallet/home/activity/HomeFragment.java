@@ -1,5 +1,6 @@
 package sz.tianhe.etc_wallet.home.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
 import sz.tianhe.etc_wallet.guide.view.GuideActivity;
+import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.requst.vo.User;
 
 /**
@@ -72,6 +74,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+        if(MyApplication.user == null){
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
+            return;
+        }
         switch (view.getId()) {
             case R.id.head:
                 MeInfoActivity.openActivity(getContext(), MeInfoActivity.class);

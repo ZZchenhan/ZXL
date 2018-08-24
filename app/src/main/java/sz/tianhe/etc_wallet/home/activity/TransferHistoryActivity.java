@@ -64,13 +64,11 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
         binding.recyclerView.setAdapter(adapter);
         binding.time.setOnClickListener(view -> {
             if(popDialog == null){
-                popDialog = new MonthDialog.Builder(TransferHistoryActivity.this).onConfirmListenr(new MonthDialog.Builder.OnComfirmListener() {
-                    @Override
-                    public void onCofirmListenr(String coinBean) {
-                        page = 1;
-                        getData();
-                        transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
-                    }
+                popDialog = new MonthDialog.Builder(TransferHistoryActivity.this).onConfirmListenr(coinBean -> {
+                    page = 1;
+                    binding.time.setText(coinBean);
+                    getData();
+                    transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
                 }).Builder();
 
             }
@@ -128,15 +126,6 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
     }
 
     public String change(String moth){
-        if(moth.equals("全部")){
-            return "";
-        }
-        moth.replace("年","-");
-        moth.replace("月","");
-        StringBuffer sb = new StringBuffer();
-        sb.append(moth.substring(0,4));
-        sb.append("-");
-        sb.append(moth.substring(5,moth.length()-1));
-        return sb.toString();
+        return moth;
     }
 }

@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:background="#FFD1CDCD"
         android:layout_height="0.1dp"/>
-        <com.th.qcloud.wetalk.ui.customview.MonthWheelView
+        <sz.tianhe.etc_wallet.weight.MonthWheelView
             android:id="@+id/coin_wheel_view"
             android:layout_width="match_parent"
             app:halfVisibleItemCount="2"
