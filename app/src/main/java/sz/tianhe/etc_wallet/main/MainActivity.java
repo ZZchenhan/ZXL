@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
     @Override
     protected void onResume() {
         super.onResume();
-//        prensenter.refreshUserInfo();
+        prensenter.refreshUserInfo();
     }
 
     @Override
