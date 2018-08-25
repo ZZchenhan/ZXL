@@ -61,8 +61,17 @@ public class IndexPresenter extends AbstarctPresenter {
                     @Override
                     public void subscribe(ObservableEmitter<List<WalletItemBean>> emitter) throws Exception {
                         for (WalletItemBean walletItemBean : pageBeanResult.getData()) {
-                            walletItemBean.setBanlance(MyApplication.tranferClient.create(WalletApi.class).getSynchronizationETHBanlance("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f")
-                                    .execute().body().getResult());
+                            try {
+                                if (walletItemBean.getContractAddr() == null || walletItemBean.getContractAddr().equals("")) {
+                                    walletItemBean.setBanlance(MyApplication.tranferClient.create(WalletApi.class).getSynchronizationETHBanlance(walletItemBean.getAddress())
+                                            .execute().body().getResult());
+                                } else {
+                                    walletItemBean.setBanlance(MyApplication.tranferClient.create(WalletApi.class).getSynchronizationtContactBanlance(walletItemBean.getContractAddr(), walletItemBean.getAddress())
+                                            .execute().body().getBody().getBalance());
+                                }
+                            }catch (Exception e){
+                                walletItemBean.setBanlance("0");
+                            }
                         }
                         emitter.onNext(pageBeanResult.getData());
                     }

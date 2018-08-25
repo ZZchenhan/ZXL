@@ -44,7 +44,8 @@ public class AdapterNavagation extends RelativeLayout implements IBaseNavagation
     }
 
     public AdapterNavagation setBack() {
-       setLeftImage(R.drawable.icon_back,v->{  ((Activity)getContext()).finish();});
+       setLeftImage(R.drawable.icon_back,v->{
+           ((Activity)getContext()).finish();});
         return this;
     }
 

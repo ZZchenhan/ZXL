@@ -33,92 +33,44 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".main.MainActivity"
-            ></activity>
-        <activity
-            android:name=".home.activity.UserInfoActivity"
-             />
-        <activity
-            android:name=".guide.view.GuideActivity"
-            >
+        <activity android:name=".main.MainActivity" />
+        <activity android:name=".home.activity.UserInfoActivity" />
+        <activity android:name=".guide.view.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".guide.view.LoginActivity"
-             />
-        <activity
-            android:name=".guide.view.CreateWalletActivity"
-             />
-        <activity
-            android:name=".guide.view.CreateMemorizingActivity"
-             />
-        <activity
-            android:name=".home.activity.ManageActivity"
-             />
-        <activity
-            android:name=".home.activity.MsgActivity"
-             />
-        <activity
-            android:name=".guide.view.FirstChooseActivity"
-             />
-        <activity
-            android:name=".home.activity.PrivacyActivity"
-             />
-        <activity
-            android:name=".guide.view.ConfirmMemoriActivity"
-             />
-        <activity
-            android:name=".guide.view.PhoneCodeActivity"
-            ></activity>
-        <activity
-            android:name=".guide.view.SetLoginPassActivity"
-             />
-        <activity
-            android:name=".guide.view.ConfirmPassActivity"
-             />
-        <activity
-            android:name=".index.activity.WalletInfoActivity"
-             >
-
-        </activity>
-        <activity
-            android:name=".index.activity.ReciveActivity"
-             />
-        <activity
-            android:name=".index.activity.ScanActivity"
-             />
-        <activity
-            android:name=".index.activity.TransferActivity"
-             />
-        <activity
-            android:name=".home.activity.MeInfoActivity"
-             />
-        <activity
-            android:name=".home.activity.HomeWalletInfoActivity"
-             />
-        <activity
-            android:name=".home.activity.TransferHistoryActivity"
-             />
-        <activity
-            android:name=".home.activity.TransferFundsActivity"
-             />
-        <activity
-            android:name=".home.activity.AboutActivity"
-             />
-        <activity android:name=".index.activity.TestActivity"/>
-        <activity android:name=".home.activity.SetWalletPassActivity"/>
-        <activity android:name=".home.activity.ConfirmWallentPassActivity"/>
+        <activity android:name=".guide.view.LoginActivity" />
+        <activity android:name=".guide.view.CreateWalletActivity" />
+        <activity android:name=".guide.view.CreateMemorizingActivity" />
+        <activity android:name=".home.activity.ManageActivity" />
+        <activity android:name=".home.activity.MsgActivity" />
+        <activity android:name=".guide.view.FirstChooseActivity" />
+        <activity android:name=".home.activity.PrivacyActivity" />
+        <activity android:name=".guide.view.ConfirmMemoriActivity" />
+        <activity android:name=".guide.view.PhoneCodeActivity" />
+        <activity android:name=".guide.view.SetLoginPassActivity" />
+        <activity android:name=".guide.view.ConfirmPassActivity" />
+        <activity android:name=".index.activity.WalletInfoActivity"></activity>
+        <activity android:name=".index.activity.ReciveActivity" />
+        <activity android:name=".index.activity.ScanActivity" />
+        <activity android:name=".index.activity.TransferActivity" />
+        <activity android:name=".home.activity.MeInfoActivity" />
+        <activity android:name=".home.activity.HomeWalletInfoActivity" />
+        <activity android:name=".home.activity.TransferHistoryActivity" />
+        <activity android:name=".home.activity.TransferFundsActivity" />
+        <activity android:name=".home.activity.AboutActivity" />
+        <activity android:name=".index.activity.TestActivity" />
+        <activity android:name=".home.activity.SetWalletPassActivity" />
+        <activity android:name=".home.activity.ConfirmWallentPassActivity" />
+        <activity android:name=".index.activity.AddCoinActivity"></activity>
     </application>
 
 </manifest>

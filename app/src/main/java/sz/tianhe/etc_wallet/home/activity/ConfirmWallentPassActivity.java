@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.presenter.IBasePresenter;
@@ -57,7 +59,7 @@ public class ConfirmWallentPassActivity extends BaseActivity implements TextWatc
         binding.textView5.setText("再次确认支付密码");
         binding.textView6.setOnClickListener(v -> finish());
         binding.textView6.setVisibility(View.VISIBLE);
-        SoftUtils.showSoftInputFromWindow(this,binding.input);
+        SoftUtils.showSoftInputFromWindow(binding.input);
     }
 
     @Override
@@ -91,6 +93,7 @@ public class ConfirmWallentPassActivity extends BaseActivity implements TextWatc
 
     @Override
     public void onConfimrSuccess() {
+        ToastUtils.showShort("创建钱包成功，请牢记你的支付密码");
         finish();
     }
 }

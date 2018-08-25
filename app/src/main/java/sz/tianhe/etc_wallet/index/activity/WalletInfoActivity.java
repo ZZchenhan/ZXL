@@ -64,32 +64,28 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
         adapterNavagation = new AdapterNavagation(this)
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setBack()
-                .setTitle("", 16, R.color.white)
+                .setTitle(walletItemBean.getCoinName(), 16, R.color.white)
                 .setRightImage(R.mipmap.ic_scan, v -> {ScanActivity.openActivity(WalletInfoActivity.this, ScanActivity.class);});
         return adapterNavagation;
     }
 
     @Override
     public void initView() {
-//        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
-//        binding.coinNumber.setText("总量："+walletItemBean.getAmount().setScale(4).toString());
-//        binding.value.setText("冻结："+walletItemBean.getFreeAmount().setScale(4).toString());
+        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
+        binding.coinNumber.setText("总量："+walletItemBean.getBanlance());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adaper = new TanscationAdaper(data);
         binding.recyclerView.setAdapter(adaper);
-        adaper.setMeAddress("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
+        adaper.setMeAddress(walletItemBean.getAddress());
         binding.rlRecive.setOnClickListener(this);
         binding.rlTranscation.setOnClickListener(this);
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             this.page = 1;
             this.data.clear();
-            //this.walletInfoPresenter.getTranList( this.page, this.walletItemBean.getCoinName());
+            this.walletInfoPresenter.getTranList( this.page, this.walletItemBean.getCoinName());
         });
-        adaper.setOnLoadMoreListener(() -> {
-            //this.walletInfoPresenter.getTranList(this.page,this.walletItemBean.getCoinName());
-        },binding.recyclerView);
-//        View empty = LayoutInflater.from(this).inflate(R.layout.layout_empty,null);
-//        adaper.setEmptyView(empty);
+        View empty = LayoutInflater.from(this).inflate(R.layout.layout_empty,null);
+        adaper.setEmptyView(empty);
     }
 
 
@@ -129,8 +125,15 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void getData(){
-        this.walletInfoPresenter.getDetails("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
-        this.walletInfoPresenter.getTranList(page,"0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
+
+        if(walletItemBean.getContractAddr()== null || walletItemBean.getContractAddr().equals("")){
+            this.walletInfoPresenter.getTranList(page,walletItemBean.getAddress());
+            this.walletInfoPresenter.getDetails(walletItemBean.getAddress());
+            return;
+        }else{
+            this.walletInfoPresenter.getToken(walletItemBean.getContractAddr(),walletItemBean.getAddress());
+            this.walletInfoPresenter.getTokenList(walletItemBean.getContractAddr(),walletItemBean.getAddress());
+        }
     }
 
 
@@ -144,13 +147,9 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void transcationList(ETHList pageBean) {
+        this.data.clear();
         this.binding.swipeRefreshLayout.setRefreshing(false);
         this.data.addAll(pageBean.getResult());
         this.adaper.notifyDataSetChanged();
-//        this.adaper.loadMoreComplete();
-//        if(pageBean.getItems().size() == 0){
-//            this.adaper.loadMoreEnd();
-//        }
-//        this.page = pageBean.getCurrentPage()+1;
     }
 }

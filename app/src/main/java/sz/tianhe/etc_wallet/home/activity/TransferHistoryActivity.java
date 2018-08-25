@@ -18,6 +18,7 @@ import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
+import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityTransferHistoryBinding;
 import sz.tianhe.etc_wallet.home.adapter.ManageTransferAdapter;
@@ -104,7 +105,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
 
 
     public void getData(){
-        transferHistoryPresenter.getList("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
+        transferHistoryPresenter.getList(MyApplication.user.getAddress());
     }
 
 

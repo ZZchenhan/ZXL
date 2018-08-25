@@ -37,7 +37,7 @@ public class IndeAdapter extends BaseQuickAdapter<WalletItemBean, BaseViewHolder
     @Override
     protected void convert(BaseViewHolder helper, WalletItemBean item) {
         helper.setBackgroundColor(R.id.root, mContext.getResources().getColor(R.color.bgColor));
-        Glide.with(mContext).applyDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+        Glide.with(mContext)
                 .load(item.getCoinImg()).into((ImageView) helper.getView(R.id.circleImageView));
         helper.setText(R.id.coin_name, item.getCoinName()).setText(R.id.coin_number, item.getBanlance());
     }

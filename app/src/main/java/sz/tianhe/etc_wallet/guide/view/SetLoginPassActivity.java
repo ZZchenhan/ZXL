@@ -42,7 +42,7 @@ public class SetLoginPassActivity extends BaseActivity implements TextWatcher{
     @Override
     public void initView() {
         binding.input.addTextChangedListener(this);
-        SoftUtils.showSoftInputFromWindow(this,binding.input);
+        SoftUtils.showSoftInputFromWindow(binding.input);
     }
 
     @Override

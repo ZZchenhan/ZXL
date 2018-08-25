@@ -45,7 +45,7 @@ public class SetWalletPassActivity extends BaseActivity implements TextWatcher{
         binding.textView5.setText("支付密码用于转账");
         binding.textView6.setOnClickListener(v -> finish());
         binding.textView6.setVisibility(View.VISIBLE);
-        SoftUtils.showSoftInputFromWindow(this,binding.input);
+        SoftUtils.showSoftInputFromWindow(binding.input);
     }
 
     @Override

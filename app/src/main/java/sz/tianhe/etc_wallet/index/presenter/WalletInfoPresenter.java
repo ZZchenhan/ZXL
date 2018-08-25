@@ -11,6 +11,7 @@ import sz.tianhe.baselib.http.IResultListener;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.baselib.weight.ProgrossDialog;
 import sz.tianhe.etc_wallet.MyApplication;
+import sz.tianhe.etc_wallet.index.bean.ETHConcatBanclance;
 import sz.tianhe.etc_wallet.requst.api.WalletApi;
 import sz.tianhe.etc_wallet.requst.vo.EHBBanlance;
 import sz.tianhe.etc_wallet.requst.vo.ETHList;
@@ -31,7 +32,7 @@ public class WalletInfoPresenter extends AbstarctPresenter {
     }
 
     /**
-     * 获取钱包详情
+     * 获取ETH详情
      */
     public void getDetails(String adress) {
         MyApplication.tranferClient.create(WalletApi.class)
@@ -48,7 +49,6 @@ public class WalletInfoPresenter extends AbstarctPresenter {
                     @Override
                     public void onNext(EHBBanlance s) {
                         dialog.dismiss();
-                        dialog.cancel();
                         if (mIWlletInfoView != null) {
                             mIWlletInfoView.details(s.getResult());
                         }
@@ -57,7 +57,6 @@ public class WalletInfoPresenter extends AbstarctPresenter {
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
-                        dialog.cancel();
                         erro(e);
                     }
 
@@ -69,19 +68,50 @@ public class WalletInfoPresenter extends AbstarctPresenter {
     }
 
 
+    /**
+     * 获取ETH列表
+     * @param page
+     * @param adress
+     */
     public void getTranList(int page, String adress) {
-//        requst(MyApplication.retrofitClient.create(WalletApi.class)
-//                .queryUserCoinTransactionList(page, 10, MyApplication.user.getId(), adress), new IResultListener<PageBean<TanscationBean>>() {
-//            @Override
-//            public void onListener(PageBean<TanscationBean> tanscationBeanPageBean) {
-//                mIWlletInfoView.transcationList(tanscationBeanPageBean);
-//            }
-//        });
-
         MyApplication.tranferClient.create(WalletApi.class).getETHList(adress)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ETHList>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onNext(ETHList ethList) {
+                        if (mIWlletInfoView != null) {
+                            mIWlletInfoView.transcationList(ethList);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        erro(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
+    /**
+     *
+     * @param contactAdreess
+     * @param address
+     */
+    public void getToken(String contactAdreess,String address){
+        MyApplication.tranferClient.create(WalletApi.class)
+                .getContactBanlance(contactAdreess,address).subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ETHConcatBanclance>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         if (dialog == null)
@@ -90,18 +120,16 @@ public class WalletInfoPresenter extends AbstarctPresenter {
                     }
 
                     @Override
-                    public void onNext(ETHList ethList) {
+                    public void onNext(ETHConcatBanclance s) {
                         dialog.dismiss();
-                        dialog.cancel();
                         if (mIWlletInfoView != null) {
-                            mIWlletInfoView.transcationList(ethList);
+                            mIWlletInfoView.details(s.getBody().getBalance());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         dialog.dismiss();
-                        dialog.cancel();
                         erro(e);
                     }
 
@@ -112,7 +140,11 @@ public class WalletInfoPresenter extends AbstarctPresenter {
                 });
     }
 
-
+    /**
+     *
+     * @param contactAdreess
+     * @param address
+     */
     public void getTokenList(String contactAdreess,String address){
         MyApplication.tranferClient.create(WalletApi.class).getTokenList(contactAdreess,address)
                 .subscribeOn(Schedulers.newThread())
@@ -120,15 +152,10 @@ public class WalletInfoPresenter extends AbstarctPresenter {
                 .subscribe(new Observer<ETHList>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        if (dialog == null)
-                            dialog = new ProgrossDialog(mContext);
-                        dialog.show();
                     }
 
                     @Override
                     public void onNext(ETHList ethList) {
-                        dialog.dismiss();
-                        dialog.cancel();
                         if (mIWlletInfoView != null) {
                             mIWlletInfoView.transcationList(ethList);
                         }
@@ -136,8 +163,6 @@ public class WalletInfoPresenter extends AbstarctPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        dialog.dismiss();
-                        dialog.cancel();
                         erro(e);
                     }
 

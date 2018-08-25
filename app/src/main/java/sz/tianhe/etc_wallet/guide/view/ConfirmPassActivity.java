@@ -50,7 +50,7 @@ public class ConfirmPassActivity extends BaseActivity implements TextWatcher,Reg
     @Override
     public void findViews() {
         binding.input.addTextChangedListener(this);
-        SoftUtils.showSoftInputFromWindow(this,binding.input);
+        SoftUtils.showSoftInputFromWindow(binding.input);
     }
 
     @Override

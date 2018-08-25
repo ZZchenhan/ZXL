@@ -72,8 +72,8 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
         binding.button2.setOnClickListener(view -> submit());
         binding.button2.setEnabled(false);
         //可转出
-//        canUse = walletItemBean.getAmount().subtract(walletItemBean.getFreeAmount());
-        binding.value.setText("可提现："+canUse.setScale(4,BigDecimal.ROUND_DOWN).toString());
+        canUse = new BigDecimal(walletItemBean.getBanlance() == null?"0":walletItemBean.getBanlance());
+        binding.value.setText("可提现："+canUse.toString());
     }
 
 
@@ -100,7 +100,7 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
         } else {
             binding.button2.setEnabled(true);
             if(new BigDecimal(binding.numbers.getText().toString()).compareTo(canUse)>0){
-                binding.value.setText("最大可提现："+canUse.setScale(4,BigDecimal.ROUND_DOWN).toString());
+                binding.value.setText("最大可提现："+canUse.toString());
                 binding.value.setTextColor(Color.RED);
                 binding.button2.setEnabled(false);
             }else{
@@ -110,7 +110,27 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
     }
 
     public void submit(){
-        transferPresenter.transfer(MyApplication.user.getId(),binding.numbers.getText().toString(),binding.address.getText().toString(),walletItemBean.getCoinName(),binding.reamark.getText().toString());
+        if(binding.address.getText().length() != 30 || binding.address.getText().length()!=32){
+            toast("请输入正确的地址");
+            return;
+        }
+        if(binding.address.getText().toString().length() == 32) {
+            if (!(binding.address.getText().toString().startsWith("0x") || binding.address.getText().toString().startsWith("0X"))){
+                toast("请输入正确的地址");
+                return;
+            }
+        }
+        if(binding.numbers.getText().toString().length() == 0){
+            toast("输入正确的金额");
+            return;
+        }
+        if(binding.pass.getText().toString().length() != 6){
+            toast("输入正确的交易密码格式");
+            return;
+        }
+        //弹出支付密码框
+        transferPresenter.transfer(MyApplication.user.getId(),binding.numbers.getText().toString(),
+                binding.address.getText().toString(),walletItemBean.getCoinName(),binding.reamark.getText().toString(),binding.pass.getText().toString());
     }
 
     @Override

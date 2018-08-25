@@ -28,6 +28,7 @@ import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.home.activity.SetWalletPassActivity;
 import sz.tianhe.etc_wallet.index.adapter.IndeAdapter;
 import sz.tianhe.etc_wallet.index.presenter.IndexPresenter;
+import sz.tianhe.etc_wallet.requst.api.WalletApi;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 
@@ -65,7 +66,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         adapterNavagation = new AdapterNavagation(getContext())
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setTitle("钱包", 16, R.color.white)
-                .setRightImage(R.mipmap.ic_scan, v -> startActivity(new Intent(getContext(), ScanActivity.class)));
+                .setRightImage(R.mipmap.ic_scan, v -> startActivity(new Intent(getContext(), AddCoinActivity.class)));
         return adapterNavagation;
     }
 
@@ -90,6 +91,9 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
                 ViewGroup.LayoutParams.WRAP_CONTENT));
         adapter.addHeaderView(header);
         adapter.setOnItemClickListener((adapter, view, position) -> {
+            if(data.size() == 0){
+                return;
+            }
             Intent intent = new Intent(getContext(), WalletInfoActivity.class);
             intent.putExtra("data", data.get(position));
             startActivity(intent);
@@ -104,6 +108,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
     public void getData(int page) {
         this.page = page;
         this.data.clear();
+        binding.swipeLayout.setRefreshing(true);
         if (MyApplication.user == null) {
             startActivity(new Intent(getContext(), LoginActivity.class));
             (getActivity()).finish();
@@ -130,10 +135,21 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
                 return;
             }
         }
+
+        this.data.clear();
         isFirst = false;
         this.data.addAll(pageBean);
+        setAll(this.data);
         this.adapter.notifyDataSetChanged();
-        this.adapter.loadMoreComplete();
         this.binding.swipeLayout.setRefreshing(false);
+    }
+
+
+    private void setAll(List<WalletItemBean> data){
+        BigDecimal bigDecimal = new BigDecimal(0);
+        for(WalletItemBean item:data){
+            bigDecimal = bigDecimal.add(new BigDecimal(item.getBanlance()));
+        }
+        tvNumbers.setText(bigDecimal.toString());
     }
 }

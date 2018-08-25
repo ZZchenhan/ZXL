@@ -36,6 +36,19 @@ public class User {
 
     private String mnemonit;
 
+    /**
+     * ETH地址
+     */
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getInvitationCode() {
         return invitationCode;
     }

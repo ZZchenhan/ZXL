@@ -14,6 +14,11 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sz.tianhe.baselib.model.bean.Result;
 import sz.tianhe.etc_wallet.home.bean.SetPassVo;
+import sz.tianhe.etc_wallet.home.bean.TransferVo;
+import sz.tianhe.etc_wallet.index.bean.AddCoinVo;
+import sz.tianhe.etc_wallet.index.bean.ETHCoinVo;
+import sz.tianhe.etc_wallet.index.bean.ETHConcatBanclance;
+import sz.tianhe.etc_wallet.index.bean.SelectCoinVo;
 import sz.tianhe.etc_wallet.requst.vo.EHBBanlance;
 import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.ManagerItem;
@@ -102,6 +107,55 @@ public interface WalletApi {
     Observable<ETHList> getTokenList(@Path("contractAddress")String contractAddress,@Path("address")String address);
 
 
+    /**
+     * 创建ETH钱包
+     * @param user
+     * @return
+     */
     @POST("/bechatwallet/wallet/createWalletInfo")
     Observable<Result<String>> createETHWallet(@Body SetPassVo user);
+
+
+    /**
+     * 转账
+     * @param vo
+     * @return
+     */
+    @POST("/bechatwallet/wallet/modifyWithdrawMoney")
+    Observable<Result<String>> transferETH(@Body TransferVo vo);
+
+    /**
+     * 查询币种
+     */
+    @GET("/token/searchHandler/{item}")
+    Observable<List<ETHCoinVo>> searchItem(@Path("item")String coinName);
+
+
+    /**
+     * 添加合约币到数据
+     */
+    @POST("/bechatwallet/wallet/createContractWalletInfo")
+    Observable<Result<String>> addEthCoint(@Body AddCoinVo addCoinVo);
+
+
+    /**
+     * 获取合约币余额
+     * @return
+     */
+    @GET("/token/balance/{contractAddr}/{from}")
+    Observable<ETHConcatBanclance> getContactBanlance(@Path("contractAddr")String contractAddr, @Path("from")String address);
+
+    /**
+     * 同步获取合约币余额
+     * @return
+     */
+    @GET("/token/balance/{contractAddr}/{from}")
+    Call<ETHConcatBanclance> getSynchronizationtContactBanlance(@Path("contractAddr")String contractAddr,@Path("from")String address);
+
+
+    /**
+     * 查询添加的合约币
+     */
+    @GET("/bechatwallet/wallet/queryUserWalletListStatus")
+    Call<Result<List<SelectCoinVo>>> querySelector(@Query("userId") long  userId,@Query("list") String list);
 }
