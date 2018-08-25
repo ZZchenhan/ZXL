@@ -46,7 +46,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
 
     @Override
     public IBasePresenter createPrensenter() {
-        transferHistoryPresenter = new TransferHistoryPresenter(this,this);
+        transferHistoryPresenter = new TransferHistoryPresenter(this, this);
         return super.createPrensenter();
     }
 
@@ -66,7 +66,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
         binding.time.setOnClickListener(view -> {
-            if(popDialog == null){
+            if (popDialog == null) {
                 popDialog = new MonthDialog.Builder(TransferHistoryActivity.this).onConfirmListenr(coinBean -> {
                     page = 1;
                     binding.time.setText(coinBean);
@@ -99,22 +99,22 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
 
     @Override
     protected View bindViews() {
-        binding =    DataBindingUtil.inflate(LayoutInflater.from(this),layoutId(),null,false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         return binding.getRoot();
     }
 
 
-    public void getData(){
+    public void getData() {
         transferHistoryPresenter.getList(MyApplication.user.getAddress());
     }
 
 
     @Override
     public void total(TanscationTotalBean total) {
-        if(null == total){
+        if (null == total) {
             return;
         }
-        binding.textView9.setText(String.format("支出 ¥%s 收入 ¥%s",total.getTurnTo().setScale(4).toString(),total.getToChangeInto().setScale(4).toString()));
+        binding.textView9.setText(String.format("支出 ¥%s 收入 ¥%s", total.getTurnTo().setScale(4).toString(), total.getToChangeInto().setScale(4).toString()));
     }
 
     @Override
@@ -126,7 +126,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
 
     }
 
-    public String change(String moth){
+    public String change(String moth) {
         return moth;
     }
 }

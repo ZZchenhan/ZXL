@@ -65,8 +65,8 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
         binding.numbers.addTextChangedListener(this);
         if (getIntent().getStringExtra(EXTRA_ADDRESS) != null) {
             String jsonString = getIntent().getStringExtra(EXTRA_ADDRESS);
-            WalletItemBean scan = new Gson().fromJson(jsonString,WalletItemBean.class);
-            binding.address.setText(scan.getAddress());
+            walletItemBean = new Gson().fromJson(jsonString,WalletItemBean.class);
+            binding.address.setText(walletItemBean.getAddress());
         }
         adapterNavagation.setTitle(walletItemBean.getCoinName()+"转账",16,R.color.white);
         binding.button2.setOnClickListener(view -> submit());
@@ -99,27 +99,17 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
             binding.button2.setEnabled(false);
         } else {
             binding.button2.setEnabled(true);
-            if(new BigDecimal(binding.numbers.getText().toString()).compareTo(canUse)>0){
-                binding.value.setText("最大可提现："+canUse.toString());
-                binding.value.setTextColor(Color.RED);
-                binding.button2.setEnabled(false);
-            }else{
-                binding.button2.setEnabled(true);
-            }
+//            if(new BigDecimal(binding.numbers.getText().toString()).compareTo(canUse)>0){
+//                binding.value.setText("最大可提现："+canUse.toString());
+//                binding.value.setTextColor(Color.RED);
+//                binding.button2.setEnabled(false);
+//            }else{
+//                binding.button2.setEnabled(true);
+//            }
         }
     }
 
     public void submit(){
-        if(binding.address.getText().length() != 30 || binding.address.getText().length()!=32){
-            toast("请输入正确的地址");
-            return;
-        }
-        if(binding.address.getText().toString().length() == 32) {
-            if (!(binding.address.getText().toString().startsWith("0x") || binding.address.getText().toString().startsWith("0X"))){
-                toast("请输入正确的地址");
-                return;
-            }
-        }
         if(binding.numbers.getText().toString().length() == 0){
             toast("输入正确的金额");
             return;
@@ -128,9 +118,16 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
             toast("输入正确的交易密码格式");
             return;
         }
-        //弹出支付密码框
-        transferPresenter.transfer(MyApplication.user.getId(),binding.numbers.getText().toString(),
-                binding.address.getText().toString(),walletItemBean.getCoinName(),binding.reamark.getText().toString(),binding.pass.getText().toString());
+        if( (binding.address.getText().toString().length() == 42
+                && binding.address.getText().toString().toUpperCase().startsWith("0X"))
+                || binding.address.getText().toString().length() == 40
+                ) {
+            //弹出支付密码框
+            transferPresenter.transfer(MyApplication.user.getId(), binding.numbers.getText().toString(),
+                    binding.address.getText().toString(), walletItemBean.getCoinName(), binding.reamark.getText().toString(), binding.pass.getText().toString());
+        }else{
+            toast("输入正确的交易地址");
+        }
     }
 
     @Override

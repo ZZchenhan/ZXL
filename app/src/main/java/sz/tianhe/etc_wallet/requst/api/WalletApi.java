@@ -139,6 +139,13 @@ public interface WalletApi {
 
 
     /**
+     * 添加合约币到数据
+     */
+    @POST("bechatwallet/wallet/deleteUserContractAddr")
+    Observable<Result<String>> delEthCoint(@Body AddCoinVo addCoinVo);
+
+
+    /**
      * 获取合约币余额
      * @return
      */

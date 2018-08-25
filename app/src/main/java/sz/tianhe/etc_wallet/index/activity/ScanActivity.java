@@ -60,6 +60,7 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
     public void handleDecode(Result obj, Bitmap barcode, float scaleFactor){
         Intent intent = new Intent(this,TransferActivity.class);
         intent.putExtra(TransferActivity.EXTRA_ADDRESS,obj.getText());
+        Log.i("Load",obj.getText());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();

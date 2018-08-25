@@ -40,12 +40,16 @@ public class AddCoinAdapter extends BaseQuickAdapter<ETHCoinVo,BaseViewHolder> {
             if(isChecked){
                 addCoin(getData().indexOf(item));
             }else{
-                //addCoin(getData().indexOf(item));
+                deleteCoin(getData().indexOf(item));
             }
         });
     }
 
 
+    /**
+     *  添加币种
+     * @param postion
+     */
     private void addCoin(int postion){
         AddCoinVo addCoinVo = new AddCoinVo();
         addCoinVo.setUserId(MyApplication.user.getId());
@@ -68,7 +72,50 @@ public class AddCoinAdapter extends BaseQuickAdapter<ETHCoinVo,BaseViewHolder> {
                         if(stringResult.getCode() == 200){
                             getData().get(postion).setAdd(true);
                             notifyItemChanged(postion);
-                            ((Activity)mContext).finish();
+                            ((Activity)mContext).setResult(Activity.RESULT_OK);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ToastUtils.showShort("请求出错");
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
+    /**
+     *  删除
+     * @param postion
+     */
+    private void deleteCoin(int postion){
+        AddCoinVo addCoinVo = new AddCoinVo();
+        addCoinVo.setUserId(MyApplication.user.getId());
+        addCoinVo.setName(getData().get(postion).getName());
+        addCoinVo.setCoinName(getData().get(postion).getSymbol());
+        addCoinVo.setContractAddr(getData().get(postion).getContractAddress());
+        MyApplication.retrofitClient.create(WalletApi.class)
+                .delEthCoint(addCoinVo)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Result<String>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Result<String> stringResult) {
+                        ToastUtils.showShort(stringResult.getMessage());
+                        if(stringResult.getCode() == 200){
+                            getData().get(postion).setAdd(false);
+                            notifyItemChanged(postion);
+                            ((Activity)mContext).setResult(Activity.RESULT_OK);
                         }
                     }
 

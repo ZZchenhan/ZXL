@@ -37,7 +37,7 @@ public class TransferPresenter extends AbstarctPresenter {
         transferVo.setAddress(address);
         transferVo.setValue(amount);
         transferVo.setRemark(remark);
-        requst(MyApplication.tranferClient.create(WalletApi.class).transferETH(transferVo), new IResultListener<String>() {
+        requst(MyApplication.retrofitClient.create(WalletApi.class).transferETH(transferVo), new IResultListener<String>() {
             @Override
             public void onListener(String s) {
                 onTransferListener.onTransfer(s);

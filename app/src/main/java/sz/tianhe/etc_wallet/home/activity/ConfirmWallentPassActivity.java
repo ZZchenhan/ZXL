@@ -94,6 +94,7 @@ public class ConfirmWallentPassActivity extends BaseActivity implements TextWatc
     @Override
     public void onConfimrSuccess() {
         ToastUtils.showShort("创建钱包成功，请牢记你的支付密码");
+        setResult(RESULT_OK);
         finish();
     }
 }
