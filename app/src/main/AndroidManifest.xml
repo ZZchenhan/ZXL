@@ -89,7 +89,9 @@
              />
         <activity
             android:name=".index.activity.WalletInfoActivity"
-             />
+             >
+
+        </activity>
         <activity
             android:name=".index.activity.ReciveActivity"
              />
@@ -114,7 +116,7 @@
         <activity
             android:name=".home.activity.AboutActivity"
              />
-        <activity android:name=".index.activity.TestActivity"></activity>
+        <activity android:name=".index.activity.TestActivity"/>
     </application>
 
 </manifest>

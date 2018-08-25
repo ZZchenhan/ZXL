@@ -14,6 +14,7 @@ import java.util.UUID;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.HttpException;
+import sz.tianhe.baselib.http.IResultListener;
 import sz.tianhe.baselib.http.erro.ApiErro;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.baselib.weight.ProgrossDialog;
@@ -39,9 +40,12 @@ public class UpdatePresenter extends AbstarctPresenter {
             sex = 1;
         }
 
-        requst(MyApplication.retrofitClient.create(UserApi.class).updateUserInfo(MyApplication.user.getId(), name, sex, url == null?MyApplication.user.getHeadImg():url), s -> {
-            onUpdateViewSuccss.updateUserInfoSuccss();
-        },true);
+        requst(MyApplication.retrofitClient.create(UserApi.class).updateUserInfo(MyApplication.user.getId(), name, sex, url == null ? MyApplication.user.getHeadImg() : url), new IResultListener<String>() {
+            @Override
+            public void onListener(String s) {
+                onUpdateViewSuccss.updateUserInfoSuccss();
+            }
+        }, true);
     }
 
     @SuppressLint("CheckResult")

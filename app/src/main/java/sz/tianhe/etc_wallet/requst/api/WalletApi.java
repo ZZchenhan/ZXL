@@ -5,11 +5,15 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.OPTIONS;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sz.tianhe.baselib.model.bean.Result;
+import sz.tianhe.etc_wallet.requst.vo.EHBBanlance;
+import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.ManagerItem;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
@@ -26,8 +30,8 @@ public interface WalletApi {
     Observable<Result<BigDecimal>> queryUserWalletTotal(@Query("userId") int userId);
 
 
-    @GET("bechatwallet/wallet/queryUserWalletCoinList")
-    Observable<Result<PageBean<WalletItemBean>>> queryUserWalletCoinList(@Query("currentPage") int currentPage, @Query("currentSize") int currentSize, @Query("userId")int userId);
+    @GET("bechatwallet/wallet/queryUserWalletList")
+    Observable<Result<List<WalletItemBean>>> queryUserWalletCoinList(@Query("userId")int userId);
 
 
     @GET("bechatwallet/wallet/queryUserWalletCoinList")
@@ -67,4 +71,30 @@ public interface WalletApi {
     @GET("bechatwallet/transaction/queryWalletUserCoinTransactionList")
     Observable<Result<PageBean<TanscationBean>>> getManagerList(@Query("currentPage") int currentPage,@Query("currentSize") int currentSize,@Query("userId") int userId,@Query("coinType")String coinType);
 
+
+    /**
+     * 查询钱包余额 走ETH接口
+     */
+    @GET("/tx/address/{address}")
+    Observable<EHBBanlance> getETHBanlance(@Path("address")String address);
+
+
+    @GET("/tx/address/{address}")
+    Call<EHBBanlance> getSynchronizationETHBanlance(@Path("address")String address);
+
+    /**
+     * 查询钱包余额 走ETH接口
+     */
+    @GET("/tx/address/list/{address}")
+    Observable<ETHList> getETHList(@Path("address")String address);
+
+
+    /**
+     * 获取交易
+     * @param contractAddress
+     * @param address
+     * @return
+     */
+    @GET("/tx/token/{contractAddress}/{address}")
+    Observable<ETHList> getTokenList(@Path("contractAddress")String contractAddress,@Path("address")String address);
 }

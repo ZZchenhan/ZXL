@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
         MyNormalItem normalItemView = new MyNormalItem(this);
         normalItemView.initialize(drawable, checkedDrawable, text);
         normalItemView.setTextDefaultColor(0xff8E8E93);
-        normalItemView.setTextCheckedColor(0xff3975E2);
+        normalItemView.setTextCheckedColor(0xff00AE8C);
         return normalItemView;
     }
 

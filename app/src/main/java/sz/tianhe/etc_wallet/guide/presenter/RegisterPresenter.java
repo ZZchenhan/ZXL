@@ -35,11 +35,14 @@ public class RegisterPresenter extends AbstarctPresenter {
 
 
     public void register(RegisterBean registerBean){
-        requst(MyApplication.retrofitClient.create(UserApi.class).register(registerBean.getPhone(), registerBean.getPass(), registerBean.getInvaldCode(), registerBean.getWords()), s -> {
-            if(iRegister!=null){
-                iRegister.success();
+        requst(MyApplication.retrofitClient.create(UserApi.class).register(registerBean.getPhone(), registerBean.getPass(), registerBean.getInvaldCode(), registerBean.getWords()), new IResultListener<String>() {
+            @Override
+            public void onListener(String s) {
+                if(iRegister!=null){
+                    iRegister.success();
+                }
             }
-        },true);
+        }, true);
     }
 
 

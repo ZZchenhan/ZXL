@@ -20,6 +20,7 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityWalletInfoBinding;
 import sz.tianhe.etc_wallet.index.adapter.TanscationAdaper;
+import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.index.presenter.WalletInfoPresenter;
@@ -35,7 +36,7 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
 
     TanscationAdaper adaper = null;
 
-    List<TanscationBean> data = new ArrayList<>();
+    List<ETHList.ResultBean> data = new ArrayList<>();
 
     WalletInfoPresenter walletInfoPresenter;
 
@@ -63,29 +64,29 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
         adapterNavagation = new AdapterNavagation(this)
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setBack()
-                .setTitle(walletItemBean.getCoinName(), 16, R.color.white)
+                .setTitle("", 16, R.color.white)
                 .setRightImage(R.mipmap.ic_scan, v -> {ScanActivity.openActivity(WalletInfoActivity.this, ScanActivity.class);});
         return adapterNavagation;
     }
 
     @Override
     public void initView() {
-        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
-        binding.coinNumber.setText("总量："+walletItemBean.getAmount().setScale(4).toString());
-        binding.value.setText("冻结："+walletItemBean.getFreeAmount().setScale(4).toString());
+//        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
+//        binding.coinNumber.setText("总量："+walletItemBean.getAmount().setScale(4).toString());
+//        binding.value.setText("冻结："+walletItemBean.getFreeAmount().setScale(4).toString());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adaper = new TanscationAdaper(data);
         binding.recyclerView.setAdapter(adaper);
-
+        adaper.setMeAddress("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
         binding.rlRecive.setOnClickListener(this);
         binding.rlTranscation.setOnClickListener(this);
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             this.page = 1;
             this.data.clear();
-            this.walletInfoPresenter.getTranList( this.page, this.walletItemBean.getCoinName());
+            //this.walletInfoPresenter.getTranList( this.page, this.walletItemBean.getCoinName());
         });
         adaper.setOnLoadMoreListener(() -> {
-            this.walletInfoPresenter.getTranList(this.page,this.walletItemBean.getCoinName());
+            //this.walletInfoPresenter.getTranList(this.page,this.walletItemBean.getCoinName());
         },binding.recyclerView);
 //        View empty = LayoutInflater.from(this).inflate(R.layout.layout_empty,null);
 //        adaper.setEmptyView(empty);
@@ -128,30 +129,28 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void getData(){
-        this.walletInfoPresenter.getDetails(walletItemBean.getCoinName());
-        this.walletInfoPresenter.getTranList(page,walletItemBean.getCoinName());
+        this.walletInfoPresenter.getDetails("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
+        this.walletInfoPresenter.getTranList(page,"0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
     }
 
 
 
     @Override
-    public void details(WalletItemBean walletItemBean) {
-        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
-        binding.coinNumber.setText("总量："+walletItemBean.getAmount().setScale(4).toString());
-        binding.value.setText("冻结："+walletItemBean.getFreeAmount().setScale(4).toString());
+    public void details(String banlance) {
+        binding.coinNumber.setText("总量："+banlance);
     }
 
 
 
     @Override
-    public void transcationList(PageBean<TanscationBean> pageBean) {
+    public void transcationList(ETHList pageBean) {
         this.binding.swipeRefreshLayout.setRefreshing(false);
-        this.data.addAll(pageBean.getItems());
+        this.data.addAll(pageBean.getResult());
         this.adaper.notifyDataSetChanged();
-        this.adaper.loadMoreComplete();
-        if(pageBean.getItems().size() == 0){
-            this.adaper.loadMoreEnd();
-        }
-        this.page = pageBean.getCurrentPage()+1;
+//        this.adaper.loadMoreComplete();
+//        if(pageBean.getItems().size() == 0){
+//            this.adaper.loadMoreEnd();
+//        }
+//        this.page = pageBean.getCurrentPage()+1;
     }
 }

@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import sz.tianhe.etc_wallet.R;
+import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 
 /**
@@ -21,38 +22,37 @@ import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
  * @email 869360026@qq.com
  * 创建时间:2018/7/19 18:14
  */
-public class ManageTransferAdapter extends BaseQuickAdapter<TanscationBean, BaseViewHolder> {
+public class ManageTransferAdapter extends BaseQuickAdapter<ETHList.ResultBean, BaseViewHolder> {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    public ManageTransferAdapter(@Nullable List<TanscationBean> data) {
+    private String meAddrss = "";
+    public ManageTransferAdapter(@Nullable List<ETHList.ResultBean> data) {
         super(R.layout.item_manage_transcation, data);
     }
 
+    public void setMeAddrss(String meAddrss) {
+        this.meAddrss = meAddrss;
+    }
+
     @Override
-    protected void convert(BaseViewHolder helper, TanscationBean item) {
+    protected void convert(BaseViewHolder helper, ETHList.ResultBean item) {
         helper.setImageResource(R.id.ic_coin, getImage(item));
         helper.setText(R.id.address,item.getHash().substring(0,6)+"..."+item.getHash().substring(item.getHash().length()-6,item.getHash().length()));
-        helper.setText(R.id.time,simpleDateFormat.format(item.getCreateTime()));
-        helper.setText(R.id.money,item.getAmount().setScale(4).toString());
-        if(item.getAmount().compareTo(new BigDecimal(0))>0){
+        helper.setText(R.id.time,simpleDateFormat.format(item.getTimeStamp()*1000));
+        helper.setText(R.id.money,(meAddrss.equalsIgnoreCase(item.getFrom())?
+                        "-":"+")+
+                        (item.getValue().divide(new BigDecimal("100000000000000000"),6,BigDecimal.ROUND_DOWN)).toString());
+        if(!meAddrss.equalsIgnoreCase(item.getFrom())){
             helper.setTextColor(R.id.money, Color.parseColor("#286CFF"));
         }else{
             helper.setTextColor(R.id.money,Color.BLACK);
         }
     }
 
-    public int getImage(TanscationBean type) {
-        switch (type.getTxType()) {
-            case 1:
-                return R.mipmap.ic_type_interest;
-            case 2:
-                return R.mipmap.ic_type_into;
-            case 3:
-                return R.mipmap.ic_type_out;
-            case 4:
-                return R.mipmap.ic_type_overdue;
-            default:
-                return R.mipmap.ic_type_push;
+    public int getImage(ETHList.ResultBean type) {
+        if (type.getFrom().equalsIgnoreCase(meAddrss)) {
+            return R.mipmap.ic_type_out;
+        }else{
+            return R.mipmap.ic_type_into;
         }
-
     }
 }

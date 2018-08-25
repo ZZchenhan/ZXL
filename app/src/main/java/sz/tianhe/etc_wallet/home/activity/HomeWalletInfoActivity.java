@@ -20,6 +20,7 @@ import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityHomeWalletInfoBinding;
 import sz.tianhe.etc_wallet.home.adapter.ManageTransferAdapter;
 import sz.tianhe.etc_wallet.home.presenter.HomeWalletInforPresenter;
+import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.ManagerItem;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
@@ -27,7 +28,7 @@ import sz.tianhe.etc_wallet.requst.vo.YesterDayProfit;
 
 public class HomeWalletInfoActivity extends BaseActivity implements View.OnClickListener ,HomeWalletInforPresenter.IHomeWalletInfoListener {
     AdapterNavagation adapterNavagation;
-    private List<TanscationBean> data = new ArrayList<>();
+    private List<ETHList.ResultBean> data = new ArrayList<>();
     private ManageTransferAdapter adapter = null;
     ActivityHomeWalletInfoBinding  binding;
     HomeWalletInforPresenter homeWalletInforPresenter;
@@ -122,7 +123,7 @@ public class HomeWalletInfoActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void list(PageBean<TanscationBean> pageBean) {
-        this.data.addAll(pageBean.getItems());
+       //this.data.addAll(pageBean.getItems());
         this.adapter.notifyDataSetChanged();
         this.adapter.loadMoreComplete();
         this.binding.swipeRefreshLayout.setRefreshing(false);

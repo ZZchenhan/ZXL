@@ -92,37 +92,70 @@ public abstract class AbstarctPresenter implements IBasePresenter {
                         throw new ApiErro(tResult.getCode(), tResult.getMessage());
                     }
                 }).subscribe(t -> resultItf.onListener(t), e -> {
-                    if(isShow && dialog!=null){
-                       dialog.dismiss();
-                    }
-                    if (e == null) {
-                        return;
-                    }
-                    if (e instanceof HttpException) {
-                        /*网络异常*/
-                        if(((HttpException) e).code() == 404){
-                            toast(R.string.notfound_erro);
-                        }else if(((HttpException) e).code() > 500){
-                            toast(R.string.service_erro);
-                        }else {
-                            toast(R.string.net_erro);
-                        }
-                    } else if (e instanceof ApiErro) {
-                        toast(((ApiErro) e).getMsg());
-                    } else if (e instanceof ConnectException || e instanceof SocketTimeoutException) {
-                        /*链接异常*/
-                        toast(R.string.connet_erro);
-                    } else if (e instanceof JSONException || e instanceof ParseException) {
-                        /*fastjson解析异常*/
-                        toast(R.string.json_erro);
-                    } else if (e instanceof UnknownHostException) {
-                        /*无法解析该域名异常*/
-                        toast(R.string.host_erro);
-                    }else{
-                        toast(e.getMessage());
-                    }
+                        erroDel(isShow,e,resultItf);
                 });
     }
+
+
+    private void erroDel(boolean isShow,Throwable e,IResultListener resultItf){
+        if(isShow && dialog!=null){
+            dialog.dismiss();
+        }
+        if (e == null) {
+            return;
+        }
+        if (e instanceof HttpException) {
+            /*网络异常*/
+            if(((HttpException) e).code() == 404){
+                resultItf.onFailListener(mContext,"找不到服务器");
+            }else if(((HttpException) e).code() > 500){
+                resultItf.onFailListener(mContext,"服务器错误");
+            }else {
+                resultItf.onFailListener(mContext,"网络异常");
+            }
+        } else if (e instanceof ApiErro) {
+            resultItf.onFailListener(mContext,((ApiErro) e).getMsg());
+        } else if (e instanceof ConnectException || e instanceof SocketTimeoutException) {
+            /*链接异常*/
+            resultItf.onFailListener(mContext,"网络链接异常");
+        } else if (e instanceof JSONException || e instanceof ParseException) {
+            /*fastjson解析异常*/
+            resultItf.onFailListener(mContext,"解析错误");
+        } else if (e instanceof UnknownHostException) {
+            /*无法解析该域名异常*/
+            resultItf.onFailListener(mContext,"无法解析域名");
+        }else{
+            resultItf.onFailListener(mContext,e.getMessage());
+        }
+    }
+
+
+    public void erro(Throwable e){
+        if (e instanceof HttpException) {
+            /*网络异常*/
+            if(((HttpException) e).code() == 404){
+               toast("找不到服务器");
+            }else if(((HttpException) e).code() > 500){
+                toast("服务器错误");
+            }else {
+                toast("网络异常");
+            }
+        } else if (e instanceof ApiErro) {
+            toast(((ApiErro) e).getMsg());
+        } else if (e instanceof ConnectException || e instanceof SocketTimeoutException) {
+            /*链接异常*/
+            toast("网络链接异常");
+        } else if (e instanceof JSONException || e instanceof ParseException) {
+            /*fastjson解析异常*/
+            toast("解析错误");
+        } else if (e instanceof UnknownHostException) {
+            /*无法解析该域名异常*/
+            toast("无法解析域名");
+        }else{
+            toast(e.getMessage());
+        }
+    }
+
 
 
 }

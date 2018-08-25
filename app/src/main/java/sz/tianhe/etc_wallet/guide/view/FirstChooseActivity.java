@@ -55,14 +55,6 @@ public class FirstChooseActivity extends BaseActivity implements View.OnClickLis
         if(getIntent().getSerializableExtra("data") != null){
             RegisterBean registerBean = (RegisterBean) getIntent().getSerializableExtra("data");
             loginPresenter.login(registerBean.getPhone(),registerBean.getPass());
-        }else{
-            if(TokenUtil.getToken(this) != null && !TokenUtil.getToken(this).equals("")){
-                Intent intent = new Intent();
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setClass(this,MainActivity.class);
-                startActivity(intent);
-            }
         }
     }
 

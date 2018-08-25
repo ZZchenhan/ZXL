@@ -2,6 +2,7 @@ package sz.tianhe.etc_wallet.guide.presenter;
 
 import android.content.Context;
 
+import sz.tianhe.baselib.http.IResultListener;
 import sz.tianhe.baselib.presenter.AbstarctPresenter;
 import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.requst.api.UserApi;
@@ -22,8 +23,11 @@ public class MemotizingPrensenter extends AbstarctPresenter{
 
     @Override
     public void init() {
-        requst(MyApplication.retrofitClient.create(UserApi.class).mnemonit(), s -> {
-            memotizinView.memotizingSuccess(s);
+        requst(MyApplication.retrofitClient.create(UserApi.class).mnemonit(), new IResultListener<String>() {
+            @Override
+            public void onListener(String s) {
+                memotizinView.memotizingSuccess(s);
+            }
         })
         ;
     }

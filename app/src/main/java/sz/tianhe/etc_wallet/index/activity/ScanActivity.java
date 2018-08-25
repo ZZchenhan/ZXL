@@ -80,15 +80,7 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
         adapterNavagation = new AdapterNavagation(this)
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setBack()
-                .setTitle("扫一扫", 16, R.color.white)
-                .setRightText("相册",14,R.color.white,v->{
-                    Intent intent = new Intent(Intent.ACTION_PICK, null);
-                    intent.setDataAndType(
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                            "image/*");
-                    startActivityForResult(intent,1);
-                })
-        ;
+                .setTitle("扫一扫", 16, R.color.white);
         return adapterNavagation;
     }
 
@@ -181,6 +173,11 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

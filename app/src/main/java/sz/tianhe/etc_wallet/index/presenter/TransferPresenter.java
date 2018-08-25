@@ -30,9 +30,12 @@ public class TransferPresenter extends AbstarctPresenter {
      */
     public void  transfer(int id,String amount,String address,String coinName,String remark){
         requst(MyApplication.retrofitClient.create(WalletApi.class)
-                .transfer(id, amount, address, coinName, remark), s -> {
-                    onTransferListener.onTransfer(s);
-                });
+                .transfer(id, amount, address, coinName, remark), new IResultListener<String>() {
+            @Override
+            public void onListener(String s) {
+                onTransferListener.onTransfer(s);
+            }
+        });
     }
 
     public interface  OnTransferListener{

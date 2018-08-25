@@ -91,17 +91,10 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
             intent.putExtra("data", data.get(position));
             startActivity(intent);
         });
-        adapter.setOnLoadMoreListener(() -> {
-            this.indexPresenter.getWalletList(page);
-        }, binding.recyclerView);
         binding.swipeLayout.setOnRefreshListener(() -> {
             page = 1;
             getData(page);
         });
-        binding.swipeLayout.postDelayed(() -> {
-            //getData(page);
-            binding.swipeLayout.setRefreshing(true);
-        },200);
     }
 
 
@@ -124,14 +117,10 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
     }
 
     @Override
-    public void walletList(PageBean<WalletItemBean> pageBean) {
-        this.data.addAll(pageBean.getItems());
+    public void walletList(List<WalletItemBean> pageBean) {
+        this.data.addAll(pageBean);
         this.adapter.notifyDataSetChanged();
         this.adapter.loadMoreComplete();
         this.binding.swipeLayout.setRefreshing(false);
-        if (pageBean.getItems().size() < pageBean.getCurrentSize()) {
-            this.adapter.loadMoreEnd();
-        }
-        this.page = pageBean.getCurrentSize() + 1;
     }
 }

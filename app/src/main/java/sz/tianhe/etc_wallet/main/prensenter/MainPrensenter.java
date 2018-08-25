@@ -76,9 +76,12 @@ public class MainPrensenter extends AbstarctPresenter {
 
     public void refreshUserInfo() {
         requst(MyApplication.retrofitClient.create(UserApi.class).getUserInfo(),
-                user -> {
-                    MyApplication.user = user;
-                    onRefreshUser.onRefreh(user);
+                new IResultListener<User>() {
+                    @Override
+                    public void onListener(User user) {
+                        MyApplication.user = user;
+                        onRefreshUser.onRefreh(user);
+                    }
                 }, false
         );
     }

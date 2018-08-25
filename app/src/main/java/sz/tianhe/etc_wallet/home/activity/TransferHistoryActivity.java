@@ -23,6 +23,7 @@ import sz.tianhe.etc_wallet.databinding.ActivityTransferHistoryBinding;
 import sz.tianhe.etc_wallet.home.adapter.ManageTransferAdapter;
 import sz.tianhe.etc_wallet.home.presenter.TransferHistoryPresenter;
 import sz.tianhe.etc_wallet.home.view.TransferListPopDialog;
+import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationTotalBean;
@@ -32,7 +33,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
     ActivityTransferHistoryBinding binding;
     AdapterNavagation adapterNavagation;
     private ManageTransferAdapter adapter = null;
-    private List<TanscationBean> data = new ArrayList<>();
+    private List<ETHList.ResultBean> data = new ArrayList<>();
     Dialog popDialog;
 
     TransferHistoryPresenter transferHistoryPresenter;
@@ -60,6 +61,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
     @Override
     public void initView() {
         adapter = new ManageTransferAdapter(data);
+        adapter.setMeAddrss("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
         binding.time.setOnClickListener(view -> {
@@ -79,9 +81,9 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
             page = 1;
             getData();
         });
-        adapter.setOnLoadMoreListener(() -> {
-            getData();
-        },binding.recyclerView);
+//        adapter.setOnLoadMoreListener(() -> {
+//            getData();
+//        },binding.recyclerView);
         getData();
         transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
     }
@@ -102,7 +104,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
 
 
     public void getData(){
-        transferHistoryPresenter.getList(page,change(binding.time.getText().toString()));
+        transferHistoryPresenter.getList("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
     }
 
 
@@ -115,14 +117,12 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
     }
 
     @Override
-    public void list(PageBean<TanscationBean> page) {
+    public void list(ETHList page) {
         binding.swipeRefreshLayout.setRefreshing(false);
-        this.data.addAll(page.getItems());
+        this.data.addAll(page.getResult());
         this.adapter.loadMoreComplete();
         this.adapter.notifyDataSetChanged();
-        if(page.getItems().size()<page.getCurrentSize()){
-            this.adapter.loadMoreEnd();
-        }
+
     }
 
     public String change(String moth){

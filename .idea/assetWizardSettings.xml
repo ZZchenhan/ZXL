@@ -89,7 +89,7 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\Administrator\Desktop\ic_launcher.jpg" />
+                                      <entry key="imageAsset" value="C:\Users\陈\Desktop\logo.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -99,7 +99,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="ACTIONBAR" />
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>

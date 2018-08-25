@@ -39,7 +39,7 @@ public class HomeWalletInforPresenter extends AbstarctPresenter {
         requst(MyApplication.retrofitClient.create(WalletApi.class).getManagerList(page, 10, MyApplication.user.getId(), coinName), new IResultListener<PageBean<TanscationBean>>() {
             @Override
             public void onListener(PageBean<TanscationBean> pageBean) {
-                mIHomeWalletInfoListener.list(pageBean);
+               // mIHomeWalletInfoListener.list(pageBean);
             }
         });
     }

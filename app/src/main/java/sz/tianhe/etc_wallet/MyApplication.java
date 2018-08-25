@@ -31,7 +31,7 @@ public class MyApplication extends Application{
     public static String deviceId;
 
 //    public static String baseUrl = "http://103.65.180.165:8080/";
-    public static String baseUrl = "http://192.168.10.10:8080/";
+    public static String baseUrl = "http://192.168.10.125:8090/";
 
     public static User user;
 
@@ -40,6 +40,12 @@ public class MyApplication extends Application{
     public static String buck = "tongyongbucket";
 
     public static OSS oss = null;
+
+
+    /**
+     * 交易记录
+     */
+    public static Retrofit tranferClient;
 
     @Override
     public void onCreate() {
@@ -54,6 +60,8 @@ public class MyApplication extends Application{
                 builder.addInterceptor(new LoginInterceptor(MyApplication.this));
             }
         }.getRetrofit();
+
+        tranferClient = new RetrofitClient(this,"http://192.168.10.103:9090/").getRetrofit();
         deviceId = Build.SERIAL;
         Utils.init(this);
         ToastUtils.setMsgColor(Color.BLACK);

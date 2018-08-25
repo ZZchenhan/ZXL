@@ -72,7 +72,7 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
         binding.button2.setOnClickListener(view -> submit());
         binding.button2.setEnabled(false);
         //可转出
-        canUse = walletItemBean.getAmount().subtract(walletItemBean.getFreeAmount());
+//        canUse = walletItemBean.getAmount().subtract(walletItemBean.getFreeAmount());
         binding.value.setText("可提现："+canUse.setScale(4,BigDecimal.ROUND_DOWN).toString());
     }
 

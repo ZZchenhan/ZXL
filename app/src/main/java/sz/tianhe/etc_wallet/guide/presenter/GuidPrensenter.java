@@ -39,6 +39,9 @@ import sz.tianhe.etc_wallet.guide.view.FirstChooseActivity;
 import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.main.MainActivity;
 import sz.tianhe.etc_wallet.requst.api.QutaiorApi;
+import sz.tianhe.etc_wallet.requst.api.UserApi;
+import sz.tianhe.etc_wallet.requst.vo.User;
+import sz.tianhe.etc_wallet.utils.TokenUtil;
 
 /**
  * 引导页导航
@@ -138,14 +141,15 @@ public class GuidPrensenter extends AbstarctPresenter {
      * 延迟跳转
      */
     public void handOver() {
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(binding.image, "scaleX", 0.5f,0.9f, 1f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(binding.image, "scaleY", 0.5f, 0.9f, 1f);
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(binding.image, "alpha", 0f, 0.8f, 1f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(binding.image, "rotationY", 0F,360F);
+        ObjectAnimator imag2 = ObjectAnimator.ofFloat(binding.imageView5, "alpha", 0f, 0.4f, 1f);
+        ObjectAnimator imag3 = ObjectAnimator.ofFloat(binding.imageView6, "alpha", 0f, 0.4f, 1f);
+
         // 步骤2：创建组合动画的对象
         AnimatorSet animSet = new AnimatorSet();
 
         // 步骤3：根据需求组合动画
-        animSet.play(scaleX).with(scaleY).with(alpha);
+        animSet.play(scaleX).with(imag2).with(imag3);
         animSet.setDuration(3000);
         animSet.addListener(new Animator.AnimatorListener() {
             @Override
@@ -155,7 +159,7 @@ public class GuidPrensenter extends AbstarctPresenter {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                jumpView();
+                getUserInfo();
             }
 
             @Override
@@ -173,9 +177,36 @@ public class GuidPrensenter extends AbstarctPresenter {
 
     }
 
-    private void jumpView() {
+
+    /**
+     * 如果有token
+     */
+    public void getUserInfo() {
+        if(TokenUtil.getToken(mContext) != null && !TokenUtil.getToken(mContext).equals("")) {
+            requst(MyApplication.retrofitClient.create(UserApi.class).getUserInfo(),
+                    new IResultListener<User>() {
+                        @Override
+                        public void onListener(User user) {
+                            MyApplication.user = user;
+                            MainActivity.openActivity(mContext,MainActivity.class);
+                            ((Activity)mContext).finish();
+                        }
+
+                        @Override
+                        public void onFailListener(Context context, String erro) {
+                            super.onFailListener(context, erro);
+                            jumpLoginActivity();
+                        }
+                    }, false
+            );
+        }else{
+            jumpLoginActivity();
+        }
+    }
+
+
+    private void jumpLoginActivity(){
         FirstChooseActivity.openActivity(mContext, FirstChooseActivity.class);
         ((Activity)mContext).finish();
     }
-
 }
