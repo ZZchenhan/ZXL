@@ -1,6 +1,5 @@
-package sz.tianhe.etc_wallet.guide.view;
+package sz.tianhe.etc_wallet.home.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -9,8 +8,6 @@ import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,9 +18,11 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivitySetLoginPassBinding;
 import sz.tianhe.etc_wallet.guide.bean.RegisterBean;
+import sz.tianhe.etc_wallet.guide.view.ConfirmPassActivity;
+import sz.tianhe.etc_wallet.guide.view.PhoneCodeActivity;
 import sz.tianhe.etc_wallet.utils.SoftUtils;
 
-public class SetLoginPassActivity extends BaseActivity implements TextWatcher{
+public class SetWalletPassActivity extends BaseActivity implements TextWatcher{
     AdapterNavagation adapterNavagation;
     ActivitySetLoginPassBinding binding;
     @Override
@@ -42,6 +41,10 @@ public class SetLoginPassActivity extends BaseActivity implements TextWatcher{
     @Override
     public void initView() {
         binding.input.addTextChangedListener(this);
+        binding.textView4.setText("设置支付密码");
+        binding.textView5.setText("支付密码用于转账");
+        binding.textView6.setOnClickListener(v -> finish());
+        binding.textView6.setVisibility(View.VISIBLE);
         SoftUtils.showSoftInputFromWindow(this,binding.input);
     }
 
@@ -82,9 +85,9 @@ public class SetLoginPassActivity extends BaseActivity implements TextWatcher{
     @Override
     public void afterTextChanged(Editable editable) {
         if(binding.input.getText().toString().length() == 6) {
-            RegisterBean registerBean = (RegisterBean) getIntent().getSerializableExtra("data");
-            registerBean.setPass(binding.input.getText().toString());
-            startActivity(new Intent(this,ConfirmPassActivity.class).putExtra("data",registerBean));
+            startActivity(new Intent(this,ConfirmWallentPassActivity.class).
+                    putExtra("data",binding.input.getText().toString()));
+            finish();
         }
     }
 

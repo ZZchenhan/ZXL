@@ -6,18 +6,21 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.OPTIONS;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import sz.tianhe.baselib.model.bean.Result;
+import sz.tianhe.etc_wallet.home.bean.SetPassVo;
 import sz.tianhe.etc_wallet.requst.vo.EHBBanlance;
 import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.ManagerItem;
 import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationTotalBean;
+import sz.tianhe.etc_wallet.requst.vo.User;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 import sz.tianhe.etc_wallet.requst.vo.YesterDayProfit;
 
@@ -97,4 +100,8 @@ public interface WalletApi {
      */
     @GET("/tx/token/{contractAddress}/{address}")
     Observable<ETHList> getTokenList(@Path("contractAddress")String contractAddress,@Path("address")String address);
+
+
+    @POST("/bechatwallet/wallet/createWalletInfo")
+    Observable<Result<String>> createETHWallet(@Body SetPassVo user);
 }

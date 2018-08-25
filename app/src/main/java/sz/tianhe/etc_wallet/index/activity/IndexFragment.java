@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentIndexBinding;
 import sz.tianhe.etc_wallet.guide.view.LoginActivity;
+import sz.tianhe.etc_wallet.home.activity.SetWalletPassActivity;
 import sz.tianhe.etc_wallet.index.adapter.IndeAdapter;
 import sz.tianhe.etc_wallet.index.presenter.IndexPresenter;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
@@ -101,7 +104,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
     public void getData(int page) {
         this.page = page;
         this.data.clear();
-        if(MyApplication.user == null){
+        if (MyApplication.user == null) {
             startActivity(new Intent(getContext(), LoginActivity.class));
             (getActivity()).finish();
             return;
@@ -116,8 +119,18 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         this.tvNumbers.setText(total.setScale(4).toString());
     }
 
+    private boolean isFirst = true;
     @Override
     public void walletList(List<WalletItemBean> pageBean) {
+        if (pageBean == null || pageBean.size() == 0 ) {
+            if(isFirst) {
+                isFirst = false;
+                ToastUtils.showShort("没有钱包，请前往设置");
+                startActivity(new Intent(getContext(), SetWalletPassActivity.class));
+                return;
+            }
+        }
+        isFirst = false;
         this.data.addAll(pageBean);
         this.adapter.notifyDataSetChanged();
         this.adapter.loadMoreComplete();

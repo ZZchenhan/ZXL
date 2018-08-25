@@ -117,6 +117,8 @@
             android:name=".home.activity.AboutActivity"
              />
         <activity android:name=".index.activity.TestActivity"/>
+        <activity android:name=".home.activity.SetWalletPassActivity"/>
+        <activity android:name=".home.activity.ConfirmWallentPassActivity"/>
     </application>
 
 </manifest>

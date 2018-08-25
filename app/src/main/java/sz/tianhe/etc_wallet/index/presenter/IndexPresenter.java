@@ -1,6 +1,9 @@
 package sz.tianhe.etc_wallet.index.presenter;
 
 import android.content.Context;
+
+import com.blankj.utilcode.util.ToastUtils;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -25,7 +28,8 @@ import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 
 public class IndexPresenter extends AbstarctPresenter {
     OnIndexFragmentView mOnIndexFragmentView;
-    public IndexPresenter(Context context,OnIndexFragmentView onIndexFragmentView) {
+
+    public IndexPresenter(Context context, OnIndexFragmentView onIndexFragmentView) {
         super(context);
         this.mOnIndexFragmentView = onIndexFragmentView;
     }
@@ -39,7 +43,7 @@ public class IndexPresenter extends AbstarctPresenter {
     /**
      * 获取用户总资金
      */
-    public void getTotal(){
+    public void getTotal() {
 //        requst(MyApplication.retrofitClient.create(WalletApi.class).queryUserWalletTotal(MyApplication.user.getId()), new IResultListener<BigDecimal>() {
 //            @Override
 //            public void onListener(BigDecimal bigDecimal) {
@@ -49,40 +53,40 @@ public class IndexPresenter extends AbstarctPresenter {
     }
 
     //获取钱包列表需要修改
-    public void getWalletList(int page){
+    public void getWalletList(int page) {
         MyApplication.retrofitClient.create(WalletApi.class).
                 queryUserWalletCoinList(MyApplication.user.getId()).subscribeOn(Schedulers.newThread())
                 .concatMap((Function<Result<List<WalletItemBean>>,
                         ObservableSource<List<WalletItemBean>>>) pageBeanResult -> Observable.create(new ObservableOnSubscribe<List<WalletItemBean>>() {
                     @Override
                     public void subscribe(ObservableEmitter<List<WalletItemBean>> emitter) throws Exception {
-                        for(WalletItemBean walletItemBean:pageBeanResult.getData()){
+                        for (WalletItemBean walletItemBean : pageBeanResult.getData()) {
                             walletItemBean.setBanlance(MyApplication.tranferClient.create(WalletApi.class).getSynchronizationETHBanlance("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f")
-                            .execute().body().getResult());
+                                    .execute().body().getResult());
                         }
-
                         emitter.onNext(pageBeanResult.getData());
                     }
                 })).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WalletItemBean>>() {
             @Override
             public void onSubscribe(Disposable d) {
-                if(dialog==null){
-                    dialog = new ProgrossDialog(mContext);
-                }
-                dialog.show();
+//                if(dialog==null){
+//                    dialog = new ProgrossDialog(mContext);
+//                }
+//                dialog.show();
             }
 
             @Override
             public void onNext(List<WalletItemBean> walletItemBeans) {
-                dialog.dismiss();
-                if(mOnIndexFragmentView!=null){
+                //   dialog.dismiss();
+                if (mOnIndexFragmentView != null) {
                     mOnIndexFragmentView.walletList(walletItemBeans);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                dialog.dismiss();
+                // dialog.dismiss();
+                ToastUtils.showShort(e.getMessage());
             }
 
             @Override
@@ -93,8 +97,9 @@ public class IndexPresenter extends AbstarctPresenter {
     }
 
 
-    public interface OnIndexFragmentView{
+    public interface OnIndexFragmentView {
         void totalNumber(BigDecimal total);
+
         void walletList(List<WalletItemBean> data);
     }
 }
