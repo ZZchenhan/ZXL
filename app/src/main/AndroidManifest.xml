@@ -58,7 +58,7 @@
         <activity android:name=".guide.view.PhoneCodeActivity" />
         <activity android:name=".guide.view.SetLoginPassActivity" />
         <activity android:name=".guide.view.ConfirmPassActivity" />
-        <activity android:name=".index.activity.WalletInfoActivity"></activity>
+        <activity android:name=".index.activity.WalletInfoActivity" />
         <activity android:name=".index.activity.ReciveActivity" />
         <activity android:name=".index.activity.ScanActivity" />
         <activity android:name=".index.activity.TransferActivity" />
@@ -70,12 +70,8 @@
         <activity android:name=".index.activity.TestActivity" />
         <activity android:name=".home.activity.SetWalletPassActivity" />
         <activity android:name=".home.activity.ConfirmWallentPassActivity" />
-        <activity android:name=".index.activity.AddCoinActivity"></activity>
-        <receiver android:name=".recive.AmountChangeBroadCastRecive">
-            <intent-filter>
-                <action tools:ignore="ExtraText">sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive.ACTION_AMOUNT_CHANGE</action>
-            </intent-filter>
-        </receiver>
+        <activity android:name=".index.activity.AddCoinActivity" />
+
     </application>
 
 </manifest>

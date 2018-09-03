@@ -106,6 +106,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
             page = 1;
             getData(page);
         });
+        getData(1);
     }
 
 
