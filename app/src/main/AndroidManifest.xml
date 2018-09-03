@@ -71,6 +71,11 @@
         <activity android:name=".home.activity.SetWalletPassActivity" />
         <activity android:name=".home.activity.ConfirmWallentPassActivity" />
         <activity android:name=".index.activity.AddCoinActivity"></activity>
+        <receiver android:name=".recive.AmountChangeBroadCastRecive">
+            <intent-filter>
+                <action tools:ignore="ExtraText">sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive.ACTION_AMOUNT_CHANGE</action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

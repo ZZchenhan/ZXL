@@ -1,8 +1,11 @@
 package sz.tianhe.etc_wallet.index.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +31,7 @@ import sz.tianhe.etc_wallet.guide.view.LoginActivity;
 import sz.tianhe.etc_wallet.home.activity.SetWalletPassActivity;
 import sz.tianhe.etc_wallet.index.adapter.IndeAdapter;
 import sz.tianhe.etc_wallet.index.presenter.IndexPresenter;
+import sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive;
 import sz.tianhe.etc_wallet.requst.api.WalletApi;
 import sz.tianhe.etc_wallet.requst.vo.PageBean;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
@@ -151,5 +155,27 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
             bigDecimal = bigDecimal.add(new BigDecimal(item.getBanlance()));
         }
         tvNumbers.setText(bigDecimal.toString());
+    }
+
+    BroadcastReceiver amountChangetReceiver;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(null == amountChangetReceiver){
+            amountChangetReceiver = new AmountChangeBroadCastRecive(() -> {
+                getData(1);
+            });
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction(AmountChangeBroadCastRecive.ACTION_AMOUNT_CHANGE);
+            getContext().registerReceiver(amountChangetReceiver,intentFilter);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(null!=amountChangetReceiver){
+            getContext().unregisterReceiver(amountChangetReceiver);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package sz.tianhe.etc_wallet.index.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityTransferBinding;
 import sz.tianhe.etc_wallet.index.presenter.TransferPresenter;
+import sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 
 public class TransferActivity extends BaseActivity implements TextWatcher,TransferPresenter.OnTransferListener {
@@ -132,6 +134,8 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
 
     @Override
     public void onTransfer(String string) {
+        //支付成功，发送广播
+        sendBroadcast(new Intent().setAction(AmountChangeBroadCastRecive.ACTION_AMOUNT_CHANGE));
         toast(string);
         finish();
     }

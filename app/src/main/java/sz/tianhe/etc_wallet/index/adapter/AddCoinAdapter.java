@@ -1,6 +1,7 @@
 package sz.tianhe.etc_wallet.index.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.widget.CompoundButton;
 
@@ -19,6 +20,7 @@ import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.index.bean.AddCoinVo;
 import sz.tianhe.etc_wallet.index.bean.ETHCoinVo;
+import sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive;
 import sz.tianhe.etc_wallet.requst.api.WalletApi;
 
 public class AddCoinAdapter extends BaseQuickAdapter<ETHCoinVo,BaseViewHolder> {
@@ -68,6 +70,7 @@ public class AddCoinAdapter extends BaseQuickAdapter<ETHCoinVo,BaseViewHolder> {
 
                     @Override
                     public void onNext(Result<String> stringResult) {
+                        mContext.sendBroadcast(new Intent().setAction(AmountChangeBroadCastRecive.ACTION_AMOUNT_CHANGE));
                         ToastUtils.showShort(stringResult.getMessage());
                         if(stringResult.getCode() == 200){
                             getData().get(postion).setAdd(true);
@@ -113,6 +116,7 @@ public class AddCoinAdapter extends BaseQuickAdapter<ETHCoinVo,BaseViewHolder> {
                     public void onNext(Result<String> stringResult) {
                         ToastUtils.showShort(stringResult.getMessage());
                         if(stringResult.getCode() == 200){
+                            mContext.sendBroadcast(new Intent().setAction(AmountChangeBroadCastRecive.ACTION_AMOUNT_CHANGE));
                             getData().get(postion).setAdd(false);
                             notifyItemChanged(postion);
                             ((Activity)mContext).setResult(Activity.RESULT_OK);
