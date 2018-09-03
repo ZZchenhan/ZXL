@@ -61,7 +61,7 @@ public class MyApplication extends Application{
             }
         }.getRetrofit();
 
-        tranferClient = new RetrofitClient(this,"http://192.168.10.103:9090/").getRetrofit();
+        tranferClient = new RetrofitClient(this,"http://192.168.10.105:9090/").getRetrofit();
         deviceId = Build.SERIAL;
         Utils.init(this);
         ToastUtils.setMsgColor(Color.BLACK);

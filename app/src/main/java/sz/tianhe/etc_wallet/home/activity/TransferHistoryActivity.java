@@ -70,7 +70,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
                 popDialog = new MonthDialog.Builder(TransferHistoryActivity.this).onConfirmListenr(coinBean -> {
                     page = 1;
                     binding.time.setText(coinBean);
-                    getData();
+                    getData(page);
                     transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
                 }).Builder();
 
@@ -80,12 +80,12 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             this.data.clear();
             page = 1;
-            getData();
+            getData(page);
         });
 //        adapter.setOnLoadMoreListener(() -> {
 //            getData();
 //        },binding.recyclerView);
-        getData();
+        getData(page);
         transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
     }
 
@@ -104,8 +104,8 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
     }
 
 
-    public void getData() {
-        transferHistoryPresenter.getList(MyApplication.user.getAddress());
+    public void getData(int page) {
+        transferHistoryPresenter.getList(MyApplication.user.getAddress(),page);
     }
 
 

@@ -44,7 +44,7 @@ public class TransferHistoryPresenter extends AbstarctPresenter {
      *
      * @param address
      */
-    public void getList(String address){
+    public void getList(String address,int page){
 //        requst(MyApplication.retrofitClient.create(WalletApi.class)
 //                .getTransferHistory(page, 10, MyApplication.user.getId(), startTime), new IResultListener<PageBean<TanscationBean>>() {
 //            @Override
@@ -52,7 +52,7 @@ public class TransferHistoryPresenter extends AbstarctPresenter {
 //                mITransfer.list(tanscationBeanPageBean);
 //            }
 //        });
-        MyApplication.tranferClient.create(WalletApi.class).getETHList(address)
+        MyApplication.tranferClient.create(WalletApi.class).getETHList(address,page,20)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ETHList>() {

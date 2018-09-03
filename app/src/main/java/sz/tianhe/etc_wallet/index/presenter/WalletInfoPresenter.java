@@ -74,7 +74,7 @@ public class WalletInfoPresenter extends AbstarctPresenter {
      * @param adress
      */
     public void getTranList(int page, String adress) {
-        MyApplication.tranferClient.create(WalletApi.class).getETHList(adress)
+        MyApplication.tranferClient.create(WalletApi.class).getETHList(adress,page,20)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ETHList>() {

@@ -91,10 +91,13 @@ public interface WalletApi {
     Call<EHBBanlance> getSynchronizationETHBanlance(@Path("address")String address);
 
     /**
-     * 查询钱包余额 走ETH接口
+     * 查询钱转账记录
+     * @param address eth地址
+     * @param page 页数
+     * @param limit 忽略
      */
-    @GET("/tx/address/list/{address}")
-    Observable<ETHList> getETHList(@Path("address")String address);
+    @GET("/tx/address/list/{address}/{page}/{limit}")
+    Observable<ETHList> getETHList(@Path("address")String address,@Path("page") int page,@Path("limit")int limit);
 
 
     /**
