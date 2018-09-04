@@ -25,12 +25,12 @@ import sz.tianhe.etc_wallet.requst.vo.User;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:54
  */
-public class MyApplication extends Application{
+public class MyApplication extends Application {
     public static Retrofit retrofitClient;
 
     public static String deviceId;
 
-//    public static String baseUrl = "http://103.65.180.165:8080/";
+    //    public static String baseUrl = "http://103.65.180.165:8080/";
     public static String baseUrl = "http://192.168.10.118:8090/";
 
     public static User user;
@@ -51,9 +51,9 @@ public class MyApplication extends Application{
     public void onCreate() {
         super.onCreate();
         String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("LTAIqNxd4rFLe0l6","xZEViV4zH0VaVza8kd4cdNZ8TGvFLS");
+        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider("LTAIqNxd4rFLe0l6", "xZEViV4zH0VaVza8kd4cdNZ8TGvFLS");
         oss = new OSSClient(this, endpoint, credentialProvider);
-        retrofitClient = new RetrofitClient(this,baseUrl){
+        retrofitClient = new RetrofitClient(this, baseUrl) {
             @Override
             public void addInterceptor(OkHttpClient.Builder builder) {
                 super.addInterceptor(builder);
@@ -61,7 +61,7 @@ public class MyApplication extends Application{
             }
         }.getRetrofit();
 
-        tranferClient = new RetrofitClient(this,"http://192.168.10.105:9090/").getRetrofit();
+        tranferClient = new RetrofitClient(this, "http://39.105.26.249:9090/").getRetrofit();
         deviceId = Build.SERIAL;
         Utils.init(this);
         ToastUtils.setMsgColor(Color.BLACK);

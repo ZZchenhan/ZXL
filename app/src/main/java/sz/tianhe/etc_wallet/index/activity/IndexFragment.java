@@ -70,7 +70,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         adapterNavagation = new AdapterNavagation(getContext())
                 .setNavagationBackgroudColor(R.color.fragment_index_color)
                 .setTitle("钱包", 16, R.color.white)
-                .setRightImage(R.mipmap.ic_scan, v -> startActivity(new Intent(getContext(), AddCoinActivity.class)));
+                .setRightImage(R.mipmap.ic_add, v -> startActivity(new Intent(getContext(), AddCoinActivity.class)));
         return adapterNavagation;
     }
 

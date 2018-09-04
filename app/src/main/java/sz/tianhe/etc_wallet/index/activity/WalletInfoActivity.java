@@ -148,7 +148,9 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
     public void transcationList(ETHList pageBean) {
         this.data.clear();
         this.binding.swipeRefreshLayout.setRefreshing(false);
-        this.data.addAll(pageBean.getResult());
+        if(null != pageBean.getData().getItems()){
+            this.data.addAll(pageBean.getData().getItems());
+        }
         this.adaper.notifyDataSetChanged();
     }
 
