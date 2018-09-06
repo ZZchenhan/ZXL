@@ -3,6 +3,7 @@ package sz.tianhe.etc_wallet;
 import android.app.Application;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.multidex.MultiDexApplication;
 
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
@@ -25,7 +26,7 @@ import sz.tianhe.etc_wallet.requst.vo.User;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:54
  */
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     public static Retrofit retrofitClient;
 
     public static String deviceId;
@@ -66,4 +67,5 @@ public class MyApplication extends Application {
         Utils.init(this);
         ToastUtils.setMsgColor(Color.BLACK);
     }
+
 }

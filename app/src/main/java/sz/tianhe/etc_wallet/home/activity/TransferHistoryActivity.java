@@ -120,7 +120,7 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
     @Override
     public void list(ETHList page) {
         binding.swipeRefreshLayout.setRefreshing(false);
-        this.data.addAll(page.getResult());
+        this.data.addAll(page.getData().getItems());
         this.adapter.loadMoreComplete();
         this.adapter.notifyDataSetChanged();
 

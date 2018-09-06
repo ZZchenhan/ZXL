@@ -14,6 +14,7 @@ android {
             abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,4 +46,6 @@ dependencies {
     api 'com.google.zxing:core:3.3.3'
     // 此处以JCore 1.1.9 版本为例。
     api 'com.aliyun.dpa:oss-android-sdk:2.5.0'
+    api 'org.bouncycastle:bcprov-jdk15on:1.60'
+    api 'com.android.support:multidex:1.0.3'
 }

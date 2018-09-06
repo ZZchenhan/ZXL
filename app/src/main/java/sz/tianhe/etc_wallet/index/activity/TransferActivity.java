@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
@@ -22,6 +23,8 @@ import sz.tianhe.etc_wallet.databinding.ActivityTransferBinding;
 import sz.tianhe.etc_wallet.index.presenter.TransferPresenter;
 import sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
+import sz.tianhe.etc_wallet.utils.Constacts;
+import sz.tianhe.etc_wallet.utils.RSAUtils;
 
 public class TransferActivity extends BaseActivity implements TextWatcher,TransferPresenter.OnTransferListener {
     public static final String EXTRA_ADDRESS = "ADDRESS";
@@ -125,8 +128,19 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
                 || binding.address.getText().toString().length() == 40
                 ) {
             //弹出支付密码框
+            String pass = "";
+            if(null == Constacts.publicKey) {
+                try {
+                    Constacts.publicKey = RSAUtils.getPublicKeyByString(Constacts.PUBLICK_KEY);
+                } catch (Exception e) {
+                    ToastUtils.showShort("获取公钥失败");
+                    return;
+                }
+            }
+            pass =  RSAUtils.encryptDataByPublicKey(binding.pass.getText().toString().getBytes(), Constacts.publicKey);
+
             transferPresenter.transfer(MyApplication.user.getId(), binding.numbers.getText().toString(),
-                    binding.address.getText().toString(), walletItemBean.getCoinName(), binding.reamark.getText().toString(), binding.pass.getText().toString());
+                    binding.address.getText().toString(), walletItemBean.getCoinName(), binding.reamark.getText().toString(),pass);
         }else{
             toast("输入正确的交易地址");
         }
