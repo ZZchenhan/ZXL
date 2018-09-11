@@ -5,6 +5,7 @@ import android.content.Context;
 import com.blankj.utilcode.util.ToastUtils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -60,6 +61,9 @@ public class IndexPresenter extends AbstarctPresenter {
                         ObservableSource<List<WalletItemBean>>>) pageBeanResult -> Observable.create(new ObservableOnSubscribe<List<WalletItemBean>>() {
                     @Override
                     public void subscribe(ObservableEmitter<List<WalletItemBean>> emitter) throws Exception {
+                        if(pageBeanResult.getData() == null){
+                            pageBeanResult.setData(new ArrayList<>());
+                        }
                         for (WalletItemBean walletItemBean : pageBeanResult.getData()) {
                             try {
                                 if (walletItemBean.getContractAddr() == null || walletItemBean.getContractAddr().equals("")) {

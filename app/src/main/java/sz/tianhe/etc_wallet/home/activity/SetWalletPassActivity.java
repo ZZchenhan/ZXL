@@ -87,7 +87,7 @@ public class SetWalletPassActivity extends BaseActivity implements TextWatcher{
         if(binding.input.getText().toString().length() == 6) {
             startActivity(new Intent(this,ConfirmWallentPassActivity.class).
                     putExtra("data",binding.input.getText().toString()));
-            //finish();
+            finish();
         }
     }
 

@@ -132,6 +132,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
     private boolean isFirst = true;
     @Override
     public void walletList(List<WalletItemBean> pageBean) {
+        this.binding.swipeLayout.setRefreshing(false);
         if (pageBean == null || pageBean.size() == 0 ) {
             if(isFirst) {
                 isFirst = false;
@@ -146,7 +147,6 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         this.data.addAll(pageBean);
         setAll(this.data);
         this.adapter.notifyDataSetChanged();
-        this.binding.swipeLayout.setRefreshing(false);
     }
 
 
