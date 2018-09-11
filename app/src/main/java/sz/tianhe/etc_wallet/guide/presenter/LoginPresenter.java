@@ -33,6 +33,7 @@ public class LoginPresenter extends AbstarctPresenter {
         requst(MyApplication.retrofitClient.create(UserApi.class).login(phone, pass), new IResultListener<User>() {
             @Override
             public void onListener(User user) {
+                MyApplication.user = user;
                 if(null != mIloginView){
                     mIloginView.loginSuccess();
                 }
