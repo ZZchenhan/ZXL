@@ -106,8 +106,8 @@ public interface WalletApi {
      * @param address
      * @return
      */
-    @GET("/tx/token/{contractAddress}/{address}")
-    Observable<ETHList> getTokenList(@Path("contractAddress")String contractAddress,@Path("address")String address);
+    @GET("/tx/token/{contractAddress}/{address}/{page}/{limit}")
+    Observable<ETHList> getTokenList(@Path("contractAddress")String contractAddress,@Path("address")String address,@Path("page")String page,@Path("limit")String limit);
 
 
     /**

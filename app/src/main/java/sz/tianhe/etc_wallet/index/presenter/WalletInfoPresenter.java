@@ -145,8 +145,8 @@ public class WalletInfoPresenter extends AbstarctPresenter {
      * @param contactAdreess
      * @param address
      */
-    public void getTokenList(String contactAdreess,String address){
-        MyApplication.tranferClient.create(WalletApi.class).getTokenList(contactAdreess,address)
+    public void getTokenList(String contactAdreess,String address,int page){
+        MyApplication.tranferClient.create(WalletApi.class).getTokenList(contactAdreess,address,page+"","20")
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<ETHList>() {

@@ -133,7 +133,7 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
             return;
         } else {
             this.walletInfoPresenter.getToken(walletItemBean.getContractAddr(), walletItemBean.getAddress());
-            this.walletInfoPresenter.getTokenList(walletItemBean.getContractAddr(), walletItemBean.getAddress());
+            this.walletInfoPresenter.getTokenList(walletItemBean.getContractAddr(), walletItemBean.getAddress(),page);
         }
     }
 
@@ -146,12 +146,19 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void transcationList(ETHList pageBean) {
-        this.data.clear();
+        if(page == 1) {
+            this.data.clear();
+        }
+        this.adaper.loadMoreComplete();
         this.binding.swipeRefreshLayout.setRefreshing(false);
         if(null != pageBean.getData().getItems()){
             this.data.addAll(pageBean.getData().getItems());
         }
         this.adaper.notifyDataSetChanged();
+
+        if (null == pageBean.getData().getItems() || pageBean.getData().getItems().size()<20){
+            this.adaper.loadMoreEnd();
+        }
     }
 
     /**
