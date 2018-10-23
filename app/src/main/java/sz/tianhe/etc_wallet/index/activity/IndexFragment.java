@@ -67,11 +67,8 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(getContext())
-                .setNavagationBackgroudColor(R.color.fragment_index_color)
-                .setTitle("钱包", 16, R.color.white)
-                .setRightImage(R.mipmap.ic_add, v -> startActivity(new Intent(getContext(), AddCoinActivity.class)));
-        return adapterNavagation;
+
+        return null;
     }
 
 
@@ -88,12 +85,6 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
         binding.getRoot().setBackgroundColor(getContext().getResources().getColor(R.color.bgColor));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
-        View header = LayoutInflater.from(getContext())
-                .inflate(R.layout.layout_index_head, null, false);
-        tvNumbers = header.findViewById(R.id.total);
-        header.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        adapter.addHeaderView(header);
         adapter.setOnItemClickListener((adapter, view, position) -> {
             if(data.size() == 0){
                 return;
@@ -111,16 +102,6 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
 
     public void getData(int page) {
-        this.page = page;
-        this.data.clear();
-        binding.swipeLayout.setRefreshing(true);
-        if (MyApplication.user == null) {
-            startActivity(new Intent(getContext(), LoginActivity.class));
-            (getActivity()).finish();
-            return;
-        }
-        this.indexPresenter.getTotal();
-        this.indexPresenter.getWalletList(page);
     }
 
 

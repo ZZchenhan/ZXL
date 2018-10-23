@@ -5,6 +5,52 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@mipmap/index_bg"
+            android:elevation="1dp"
+            android:layout_height="180dp">
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="钱包"
+                    android:textColor="#5A3B1A"
+                    android:textSize="17sp"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_add"
+                    android:layout_gravity="right"
+                    android:padding="15sp"
+                    android:layout_height="wrap_content" />
+            </android.support.v7.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/assert_cny_values"
+                android:layout_width="wrap_content"
+                android:text="总资产 CNY"
+                android:layout_marginTop="80dp"
+                android:textColor="#5A3B1A"
+                android:textSize="12sp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/assert_cny_values"
+                android:text="0"
+                android:textSize="28sp"
+                android:textColor="#5A3B1A"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeLayout"
             android:layout_width="match_parent"

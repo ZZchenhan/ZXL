@@ -45,68 +45,12 @@ public class IndexPresenter extends AbstarctPresenter {
      * 获取用户总资金
      */
     public void getTotal() {
-//        requst(MyApplication.retrofitClient.create(WalletApi.class).queryUserWalletTotal(MyApplication.user.getId()), new IResultListener<BigDecimal>() {
-//            @Override
-//            public void onListener(BigDecimal bigDecimal) {
-//                mOnIndexFragmentView.totalNumber(bigDecimal);
-//            }
-//        }, false);
+
     }
 
     //获取钱包列表需要修改
     public void getWalletList(int page) {
-        MyApplication.retrofitClient.create(WalletApi.class).
-                queryUserWalletCoinList(MyApplication.user.getId()).subscribeOn(Schedulers.newThread())
-                .concatMap((Function<Result<List<WalletItemBean>>,
-                        ObservableSource<List<WalletItemBean>>>) pageBeanResult -> Observable.create(new ObservableOnSubscribe<List<WalletItemBean>>() {
-                    @Override
-                    public void subscribe(ObservableEmitter<List<WalletItemBean>> emitter) throws Exception {
-                        if(pageBeanResult.getData() == null){
-                            pageBeanResult.setData(new ArrayList<>());
-                        }
-                        for (WalletItemBean walletItemBean : pageBeanResult.getData()) {
-                            try {
-                                if (walletItemBean.getContractAddr() == null || walletItemBean.getContractAddr().equals("")) {
-                                    walletItemBean.setBanlance(MyApplication.tranferClient.create(WalletApi.class).getSynchronizationETHBanlance(walletItemBean.getAddress())
-                                            .execute().body().getResult());
-                                } else {
-                                    walletItemBean.setBanlance(MyApplication.tranferClient.create(WalletApi.class).getSynchronizationtContactBanlance(walletItemBean.getContractAddr(), walletItemBean.getAddress())
-                                            .execute().body().getBody().getBalance());
-                                }
-                            }catch (Exception e){
-                                walletItemBean.setBanlance("0");
-                            }
-                        }
-                        emitter.onNext(pageBeanResult.getData());
-                    }
-                })).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<List<WalletItemBean>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-//                if(dialog==null){
-//                    dialog = new ProgrossDialog(mContext);
-//                }
-//                dialog.show();
-            }
 
-            @Override
-            public void onNext(List<WalletItemBean> walletItemBeans) {
-                //   dialog.dismiss();
-                if (mOnIndexFragmentView != null) {
-                    mOnIndexFragmentView.walletList(walletItemBeans);
-                }
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                // dialog.dismiss();
-                ToastUtils.showShort(e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
     }
 
 

@@ -10,6 +10,7 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityGuideBinding;
 import sz.tianhe.etc_wallet.guide.presenter.GuidPrensenter;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class GuideActivity extends BaseActivity {
 
@@ -29,6 +30,7 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        StatusBarUtils.statusDak(this);
         guidPrensenter = new GuidPrensenter(this,
                 binding);
         guidPrensenter.init();

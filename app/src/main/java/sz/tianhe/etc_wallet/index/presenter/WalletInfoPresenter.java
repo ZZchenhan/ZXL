@@ -35,36 +35,7 @@ public class WalletInfoPresenter extends AbstarctPresenter {
      * 获取ETH详情
      */
     public void getDetails(String adress) {
-        MyApplication.tranferClient.create(WalletApi.class)
-                .getETHBanlance(adress).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<EHBBanlance>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        if (dialog == null)
-                            dialog = new ProgrossDialog(mContext);
-                        dialog.show();
-                    }
 
-                    @Override
-                    public void onNext(EHBBanlance s) {
-                        dialog.dismiss();
-                        if (mIWlletInfoView != null) {
-                            mIWlletInfoView.details(s.getResult());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        dialog.dismiss();
-                        erro(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
 
@@ -74,31 +45,7 @@ public class WalletInfoPresenter extends AbstarctPresenter {
      * @param adress
      */
     public void getTranList(int page, String adress) {
-        MyApplication.tranferClient.create(WalletApi.class).getETHList(adress,page,20)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ETHList>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
 
-                    @Override
-                    public void onNext(ETHList ethList) {
-                        if (mIWlletInfoView != null) {
-                            mIWlletInfoView.transcationList(ethList);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        erro(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
 
@@ -108,36 +55,7 @@ public class WalletInfoPresenter extends AbstarctPresenter {
      * @param address
      */
     public void getToken(String contactAdreess,String address){
-        MyApplication.tranferClient.create(WalletApi.class)
-                .getContactBanlance(contactAdreess,address).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ETHConcatBanclance>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        if (dialog == null)
-                            dialog = new ProgrossDialog(mContext);
-                        dialog.show();
-                    }
 
-                    @Override
-                    public void onNext(ETHConcatBanclance s) {
-                        dialog.dismiss();
-                        if (mIWlletInfoView != null) {
-                            mIWlletInfoView.details(s.getBody().getBalance());
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        dialog.dismiss();
-                        erro(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     /**
@@ -146,31 +64,7 @@ public class WalletInfoPresenter extends AbstarctPresenter {
      * @param address
      */
     public void getTokenList(String contactAdreess,String address,int page){
-        MyApplication.tranferClient.create(WalletApi.class).getTokenList(contactAdreess,address,page+"","20")
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ETHList>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                    }
 
-                    @Override
-                    public void onNext(ETHList ethList) {
-                        if (mIWlletInfoView != null) {
-                            mIWlletInfoView.transcationList(ethList);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        erro(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
     }
 
     public interface IWlletInfoView {

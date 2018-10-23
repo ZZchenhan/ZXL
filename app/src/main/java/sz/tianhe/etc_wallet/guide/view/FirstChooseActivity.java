@@ -23,6 +23,7 @@ import sz.tianhe.etc_wallet.home.activity.PrivacyActivity;
 import sz.tianhe.etc_wallet.main.MainActivity;
 import sz.tianhe.etc_wallet.main.prensenter.MainPrensenter;
 import sz.tianhe.etc_wallet.requst.vo.User;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 import sz.tianhe.etc_wallet.utils.TokenUtil;
 
 /**
@@ -51,7 +52,7 @@ public class FirstChooseActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void initView() {
-        BarUtils.setStatusBarColor(this, Color.parseColor("#FFFFFFFF"));
+        StatusBarUtils.statusDak(this);
         if(getIntent().getSerializableExtra("data") != null){
             RegisterBean registerBean = (RegisterBean) getIntent().getSerializableExtra("data");
             loginPresenter.login(registerBean.getPhone(),registerBean.getPass());

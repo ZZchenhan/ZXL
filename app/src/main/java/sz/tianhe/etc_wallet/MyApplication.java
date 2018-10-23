@@ -27,6 +27,7 @@ import sz.tianhe.etc_wallet.requst.vo.User;
  * 创建时间:2018/7/12 11:54
  */
 public class MyApplication extends MultiDexApplication {
+
     public static Retrofit retrofitClient;
 
     public static String deviceId;
@@ -44,11 +45,6 @@ public class MyApplication extends MultiDexApplication {
     public static OSS oss = null;
 
 
-    /**
-     * 交易记录
-     */
-    public static Retrofit tranferClient;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -62,8 +58,6 @@ public class MyApplication extends MultiDexApplication {
                 builder.addInterceptor(new LoginInterceptor(MyApplication.this));
             }
         }.getRetrofit();
-
-        tranferClient = new RetrofitClient(this, "http://39.105.26.249:9090/").getRetrofit();
         deviceId = Build.SERIAL;
         Utils.init(this);
         ToastUtils.setMsgColor(Color.BLACK);

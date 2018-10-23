@@ -29,4 +29,36 @@
     <string name="descript">\t\t中物链 钱包系统是做一个基于区块链去中心化技术，是一次即将改变数字资产托管管理模式的一次革命。 通过先进的区块链技术和智能合约的特性，及人工智能分析数据，让区块链与资产托管管理领域相融合，使得钱包具有独特的创新功能。</string>
 
 
+
+
+    <!--用户登陆相关-->
+    <string name="phone_hint">请输入11位手机号码</string>
+    <string name="login_title">手机号登录</string>
+    <string name="pass_hint">请输入6–16位数字与字母密码</string>
+    <string name="input_pass">请输入密码</string>
+    <string name="login_string">登录</string>
+    <string name="another_type">其他登录方式</string>
+    <string name="qq_type">qq登陆</string>
+    <string name="weixin_type">微信登陆</string>
+    <string name="agreement">注册或登录，即代表您已同意《用户协议》</string>
+
+    <string name="register_string">注册</string>
+    <string name="go_register">立即注册</string>
+    <string name="go_forget_pass">忘记密码</string>
+
+
+    <!--用户注册相关-->
+    <string name="register_title">手机号注册</string>
+    <string name="code_hint">请输入验证码</string>
+    <string name="get_code_hint">获取验证码</string>
+
+
+    <!--找回密码-->
+    <string name="next">下一步</string>
+    <string name="set_pass_hint">重新设置登陆密码</string>
+    <string name="confirm">确认</string>
+
+    <!--用虎协议-->
+    <string name="protocol">用户协议</string>
+
 </resources>

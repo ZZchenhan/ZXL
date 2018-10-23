@@ -12,30 +12,17 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="138dp"
-            android:layout_height="138dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="90dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@mipmap/ic_logo_icon"
-            android:alpha="1"
+            android:src="@mipmap/ic_guid_logo"
+            android:alpha="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_loop="false" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="234dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:alpha="0"
-            app:layout_constraintTop_toBottomOf="@+id/image"
-            app:srcCompat="@mipmap/ic_login_title" />
 
         <ImageView
             android:id="@+id/imageView6"

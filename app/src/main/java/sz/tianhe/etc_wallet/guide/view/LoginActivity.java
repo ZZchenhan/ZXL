@@ -49,7 +49,8 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.ILogin
     public void findViews() {
         binding.btnLogin.setOnClickListener(v ->
         {
-            loginPresenter.login(binding.phone.getText().toString(),binding.pass.getText().toString());
+//            loginPresenter.login(binding.phone.getText().toString(),binding.pass.getText().toString());
+            startActivity(new Intent(this,MainActivity.class));
         });
     }
 

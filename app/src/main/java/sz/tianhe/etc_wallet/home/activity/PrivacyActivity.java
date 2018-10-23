@@ -10,6 +10,8 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityPrivacyBinding;
 import sz.tianhe.etc_wallet.guide.view.CreateMemorizingActivity;
+import sz.tianhe.etc_wallet.guide.view.PhoneRegisterActivity;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class PrivacyActivity extends BaseActivity {
     ActivityPrivacyBinding binding;
@@ -20,20 +22,17 @@ public class PrivacyActivity extends BaseActivity {
 
     @Override
     public IBaseNavagation navagation() {
-        AdapterNavagation adapterNavagation = new AdapterNavagation(this);
-        adapterNavagation.setTitle("服务协议", 16, R.color.white);
-        adapterNavagation.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
-        adapterNavagation.setBack();
-        return adapterNavagation;
+        return null;
     }
 
     @Override
     public void initView() {
+        StatusBarUtils.statusDak(this);
         binding.btnNex.setOnClickListener(v->{
             if(!binding.isRead.isChecked()){
                 toast("请阅读用户协议并且勾选");
             }else{
-                CreateMemorizingActivity.openActivity(PrivacyActivity.this,CreateMemorizingActivity.class);
+                PhoneRegisterActivity.openActivity(PrivacyActivity.this,PhoneRegisterActivity.class);
                 finish();
             }
         });
