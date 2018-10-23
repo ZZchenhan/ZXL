@@ -28,6 +28,7 @@ public class PrivacyActivity extends BaseActivity {
     @Override
     public void initView() {
         StatusBarUtils.statusDak(this);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
         binding.btnNex.setOnClickListener(v->{
             if(!binding.isRead.isChecked()){
                 toast("请阅读用户协议并且勾选");

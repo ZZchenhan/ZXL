@@ -2,29 +2,19 @@ package sz.tianhe.etc_wallet.guide.view;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import com.blankj.utilcode.util.BarUtils;
-import com.blankj.utilcode.util.Utils;
 
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
-import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityFirstChooseBinding;
 import sz.tianhe.etc_wallet.guide.bean.RegisterBean;
 import sz.tianhe.etc_wallet.guide.presenter.LoginPresenter;
 import sz.tianhe.etc_wallet.home.activity.PrivacyActivity;
 import sz.tianhe.etc_wallet.main.MainActivity;
-import sz.tianhe.etc_wallet.main.prensenter.MainPrensenter;
-import sz.tianhe.etc_wallet.requst.vo.User;
 import sz.tianhe.etc_wallet.utils.StatusBarUtils;
-import sz.tianhe.etc_wallet.utils.TokenUtil;
 
 /**
  * 系统经过引导页之后判断第一次进入

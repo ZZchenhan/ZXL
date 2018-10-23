@@ -255,9 +255,9 @@
                 android:layout_width="74dp"
                 android:layout_height="36dp"
                 android:layout_marginRight="16dp"
-                android:background="@drawable/bg_first_btn_create"
+                android:background="@mipmap/code_bg"
                 android:text="继续"
-                android:textColor="@color/white"
+                android:textColor="#5A3B1A"
                 android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
