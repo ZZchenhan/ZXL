@@ -35,7 +35,7 @@ public class PhoneRegisterActivity extends BaseActivity {
         binding.toolbar.setNavigationOnClickListener(v -> finish());
         binding.register.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });

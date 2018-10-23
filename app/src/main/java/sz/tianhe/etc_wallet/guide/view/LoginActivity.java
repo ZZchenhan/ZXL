@@ -13,6 +13,7 @@ import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityLoginBinding;
 import sz.tianhe.etc_wallet.guide.presenter.LoginPresenter;
 import sz.tianhe.etc_wallet.main.MainActivity;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class LoginActivity extends BaseActivity implements LoginPresenter.ILoginView {
 
@@ -20,7 +21,6 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.ILogin
 
     LoginPresenter loginPresenter;
 
-    AdapterNavagation adapterNavagation;
 
     @Override
     public int layoutId() {
@@ -29,10 +29,7 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.ILogin
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this)
-                .setBack()
-                .setNavagationBackgroudColor(R.color.colorPrimary);
-        return adapterNavagation;
+       return null;
     }
 
     @Override
@@ -43,6 +40,8 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.ILogin
 
     @Override
     public void initView() {
+        StatusBarUtils.statusDak(this);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
@@ -50,7 +49,10 @@ public class LoginActivity extends BaseActivity implements LoginPresenter.ILogin
         binding.btnLogin.setOnClickListener(v ->
         {
 //            loginPresenter.login(binding.phone.getText().toString(),binding.pass.getText().toString());
-            startActivity(new Intent(this,MainActivity.class));
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
     }
 
