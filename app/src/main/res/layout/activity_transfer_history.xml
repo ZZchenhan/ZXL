@@ -1,89 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bgColor"
         tools:context=".home.activity.TransferHistoryActivity">
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/relayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:visibility="gone"
-            android:layout_marginTop="10dp"
-            android:drawablePadding="8dp"
-            android:drawableRight="@mipmap/ic_selector_arrow_dow"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="全部"
-            android:textColor="@color/black"
-            android:textSize="17sp"
+            android:background="@mipmap/toobar"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:navigationIcon="@mipmap/ic_back">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="交易记录"
+                    android:textColor="#5A3B1A"
+                    android:textSize="17sp" />
+
+            </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="4dp"
-            android:visibility="gone"
-            android:text="支出 ¥0 收入 ¥0"
-            android:textColor="@color/textHintColor"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/time"
-            app:layout_constraintTop_toBottomOf="@+id/time" />
-
-        <View
-            android:id="@+id/view19"
-            android:layout_width="0dp"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="18dp"
-            android:background="@color/textHintColor"
+            android:background="@color/white"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            app:layout_constraintTop_toBottomOf="@+id/relayout">
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="0dp"
-            android:layout_height="37dp"
-            android:layout_marginStart="17dp"
-            android:gravity="center_vertical"
-            android:text="交易记录"
-            android:textColor="@color/textHintColor"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view19" />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="23dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="8dp"
+                android:drawableRight="@mipmap/ic_selector_arrow_dow"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="全部"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/view20"
-            android:layout_width="0dp"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="0dp"
-            android:background="@color/textHintColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginTop="4dp"
+                android:text="支出 ¥0 收入 ¥0"
+                android:textColor="@color/textHintColor"
+                android:textSize="14sp"
+                android:visibility="visible"
+             />
+        </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view20">
+            app:layout_constraintTop_toBottomOf="@+id/tv_view10">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:background="@color/white"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/tv_view10"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="12dp"
+            android:text="交易记录"
+            android:textSize="13sp"
+            android:textColor="#8E8E93"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_content" />
     </android.support.constraint.ConstraintLayout>
 </layout>

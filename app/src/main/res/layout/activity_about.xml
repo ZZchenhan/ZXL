@@ -6,7 +6,31 @@
     android:layout_height="match_parent"
     android:background="@color/bgColor"
     tools:context=".home.activity.AboutActivity">
+    <RelativeLayout
+        android:id="@+id/relayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/toobar"
+        android:elevation="1dp">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:navigationIcon="@mipmap/ic_back"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="关于我们"
+                android:textColor="#5A3B1A"
+                android:textSize="17sp" />
+
+        </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="80dp"
@@ -16,7 +40,7 @@
         android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relayout"
         app:srcCompat="@mipmap/ic_logo_icon" />
 
     <TextView

@@ -1,15 +1,17 @@
 package sz.tianhe.etc_wallet.home.activity;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import sz.tianhe.baselib.navagation.AdapterNavagation;
+
+
 import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class AboutActivity extends BaseActivity {
-    AdapterNavagation adapterNavagation;
-
+    private Toolbar toolbar;
     @Override
     public int layoutId() {
         return R.layout.activity_about;
@@ -17,15 +19,14 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this)
-                .setNavagationBackgroudColor(R.color.colorPrimary)
-                .setBack()
-                .setTitle("关于", 16, R.color.white);
-        return adapterNavagation;
+        return null;
     }
 
     @Override
     public void initView() {
+        StatusBarUtils.hideStatus(this);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
     }
 

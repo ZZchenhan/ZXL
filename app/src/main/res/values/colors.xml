@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00AE8C</color>
-    <color name="colorPrimaryDark">#00AE8C</color>
+    <color name="colorPrimary">#cea815</color>
+    <color name="colorPrimaryDark">#cea815</color>
     <color name="colorAccent">#000000</color>
     <color name="lineColor">#dddddd</color>
     <color name="bottomColor">#fffafafa</color>
@@ -9,9 +9,9 @@
 
     <color name="createWalletPassHintColor">#d4cbcb</color>
 
-    <color name="first_btn_color">#00AE8C</color>
+    <color name="first_btn_color">#cea815</color>
 
-    <color name="fragment_index_color">#00AE8C</color>
+    <color name="fragment_index_color">#cea815</color>
     <color name="color286cff">#FF286CFF</color>
     <color name="color262626">#FF262626</color>
 

@@ -17,10 +17,11 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:textColor="#FF252525"
-            android:text="收到439.32BTW"
+            android:text="收到439.32BTWd"
+            android:ellipsize="end"
             android:layout_height="wrap_content" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:textColor="#CCCCCC"
             android:text="2018/03/03"
             android:layout_weight="0"

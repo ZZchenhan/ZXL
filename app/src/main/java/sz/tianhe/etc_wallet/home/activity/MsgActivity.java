@@ -14,6 +14,7 @@ import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityMsgBinding;
 import sz.tianhe.etc_wallet.home.adapter.MsgAdapter;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class MsgActivity extends BaseActivity {
 
@@ -27,18 +28,17 @@ public class MsgActivity extends BaseActivity {
 
     @Override
     public IBaseNavagation navagation() {
-        AdapterNavagation adapterNavagation = new AdapterNavagation(this);
-        adapterNavagation.setTitle("消息中心", 16, R.color.white);
-        adapterNavagation.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
-        adapterNavagation.setBack();
-        return adapterNavagation;
+        return null;
     }
 
     @Override
     public void initView() {
+        StatusBarUtils.hideStatus(this);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
         adapter = new MsgAdapter(data);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
+        loadData();
     }
 
 
@@ -52,5 +52,14 @@ public class MsgActivity extends BaseActivity {
     protected View bindViews() {
       binding =  DataBindingUtil.inflate(LayoutInflater.from(this),layoutId(),null,false);
      return binding.getRoot();
+    }
+
+    private void loadData(){
+        this.data.add("");
+        this.data.add("");
+        this.data.add("");
+        this.data.add("");
+        this.data.add("");
+        this.adapter.notifyDataSetChanged();
     }
 }

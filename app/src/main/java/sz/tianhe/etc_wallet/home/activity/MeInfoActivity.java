@@ -25,12 +25,12 @@ import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityMeInfoBinding;
 import sz.tianhe.etc_wallet.home.presenter.UpdatePresenter;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class MeInfoActivity extends BaseActivity implements View.OnClickListener, UpdatePresenter.OnUpdateViewSuccss {
-    AdapterNavagation adapterNavagation;
+
     ActivityMeInfoBinding binding;
     boolean isEdit = false;
-    UpdatePresenter updatePresenter;
 
     @Override
     public int layoutId() {
@@ -39,37 +39,34 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this);
-        adapterNavagation.setTitle("个人资料", 16, R.color.white);
-        adapterNavagation.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
-        adapterNavagation.setBack();
-        adapterNavagation.setRightText("编辑", 16, R.color.white, v -> {
-            TextView textView = (TextView) v;
-            if (!isEdit) {
-                ((TextView) v).setText("提交");
-                binding.tvUpdateHead.setText("更换头像");
-                binding.etName.setEnabled(true);
-                binding.etSex.setOnClickListener(MeInfoActivity.this);
-                isEdit = true;
-                return;
-            } else {
-               updatePresenter.updateUserInfo(upload,binding.etName.getText().toString(),binding.etSex.getText().toString());
-            }
-        });
-        return adapterNavagation;
+
+        return null;
     }
 
-    @Override
-    public IBasePresenter createPrensenter() {
-        updatePresenter = new UpdatePresenter(this,this);
-        return super.createPrensenter();
-
-    }
 
     @Override
     public void initView() {
+        StatusBarUtils.hideStatus(this);
         binding.tvUpdateHead.setText("");
         binding.tvUpdateHead.setOnClickListener(this);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
+        binding.right.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if (!isEdit) {
+                    ((TextView) v).setText("提交");
+                    binding.tvUpdateHead.setText("更换头像");
+                    binding.etName.setEnabled(true);
+                    binding.etSex.setOnClickListener(MeInfoActivity.this);
+                    isEdit = true;
+                    return;
+                } else {
+//                    updatePresenter.updateUserInfo(upload,binding.etName.getText().toString(),binding.etSex.getText().toString());
+                    toast("修改用户信息");
+                }
+            }
+        });
         setUserInfo();
     }
 
@@ -144,20 +141,13 @@ public class MeInfoActivity extends BaseActivity implements View.OnClickListener
                 Glide.with(MeInfoActivity.this)
                         .load(headImgPath)
                         .into(binding.imageView2);
-                //
-                updatePresenter.uploade(headImgPath);
+
             }
         }
     }
 
     private void setUserInfo(){
-        binding.etName.setText(MyApplication.user.getNickName());
-        binding.etPhone.setText(MyApplication.user.getPhoneNum());
-        binding.etSex.setText(MyApplication.user.getSex() == 0 ?"男":"女");
-        Glide.with(this)
-                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).placeholder(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL))
-                .load(MyApplication.user.getHeadImg())
-                .into(binding.imageView2);
+
     }
 
 

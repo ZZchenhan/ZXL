@@ -2,65 +2,49 @@ package sz.tianhe.etc_wallet.home.activity;
 
 import android.app.Dialog;
 import android.databinding.DataBindingUtil;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.PopupWindow;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
-import sz.tianhe.baselib.presenter.IBasePresenter;
 import sz.tianhe.baselib.view.activity.BaseActivity;
-import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityTransferHistoryBinding;
 import sz.tianhe.etc_wallet.home.adapter.ManageTransferAdapter;
-import sz.tianhe.etc_wallet.home.presenter.TransferHistoryPresenter;
-import sz.tianhe.etc_wallet.home.view.TransferListPopDialog;
 import sz.tianhe.etc_wallet.requst.vo.ETHList;
-import sz.tianhe.etc_wallet.requst.vo.PageBean;
-import sz.tianhe.etc_wallet.requst.vo.TanscationBean;
 import sz.tianhe.etc_wallet.requst.vo.TanscationTotalBean;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 import sz.tianhe.etc_wallet.weight.MonthDialog;
 
-public class TransferHistoryActivity extends BaseActivity implements TransferHistoryPresenter.ITransfer {
+public class TransferHistoryActivity extends BaseActivity{
     ActivityTransferHistoryBinding binding;
-    AdapterNavagation adapterNavagation;
+
     private ManageTransferAdapter adapter = null;
     private List<ETHList.ResultBean> data = new ArrayList<>();
     Dialog popDialog;
 
-    TransferHistoryPresenter transferHistoryPresenter;
+
 
     @Override
     public int layoutId() {
         return R.layout.activity_transfer_history;
     }
 
-    @Override
-    public IBasePresenter createPrensenter() {
-        transferHistoryPresenter = new TransferHistoryPresenter(this, this);
-        return super.createPrensenter();
-    }
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this)
-                .setNavagationBackgroudColor(R.color.colorPrimary)
-                .setBack()
-                .setTitle("交易记录", 16, R.color.white);
-        return adapterNavagation;
+
+        return null;
     }
 
     @Override
     public void initView() {
+        StatusBarUtils.hideStatus(this);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
         adapter = new ManageTransferAdapter(data);
         adapter.setMeAddrss("0x25C101Da7B6B5557bFF7D1FC840e28A1E00EB96f");
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -71,7 +55,6 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
                     page = 1;
                     binding.time.setText(coinBean);
                     getData(page);
-                    transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
                 }).Builder();
 
             }
@@ -82,11 +65,11 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
             page = 1;
             getData(page);
         });
+
 //        adapter.setOnLoadMoreListener(() -> {
 //            getData();
 //        },binding.recyclerView);
         getData(page);
-        transferHistoryPresenter.getTotal(change(binding.time.getText().toString()));
     }
 
     int page = 1;
@@ -105,26 +88,15 @@ public class TransferHistoryActivity extends BaseActivity implements TransferHis
 
 
     public void getData(int page) {
-        transferHistoryPresenter.getList(MyApplication.user.getAddress(),page);
-    }
-
-
-    @Override
-    public void total(TanscationTotalBean total) {
-        if (null == total) {
-            return;
-        }
-        binding.textView9.setText(String.format("支出 ¥%s 收入 ¥%s", total.getTurnTo().setScale(4).toString(), total.getToChangeInto().setScale(4).toString()));
-    }
-
-    @Override
-    public void list(ETHList page) {
-        binding.swipeRefreshLayout.setRefreshing(false);
-        this.data.addAll(page.getData().getItems());
-        this.adapter.loadMoreComplete();
+        this.data.add(new ETHList.ResultBean());
+        this.data.add(new ETHList.ResultBean());
+        this.data.add(new ETHList.ResultBean());
+        this.data.add(new ETHList.ResultBean());
         this.adapter.notifyDataSetChanged();
-
     }
+
+
+
 
     public String change(String moth) {
         return moth;
