@@ -78,7 +78,7 @@ public final class ViewfinderView extends View {
         frameColor = resources.getColor(R.color.viewfinder_laser);
         laserColor = resources.getColor(R.color.viewfinder_laser);
         resultPointColor = resources.getColor(R.color.possible_result_points);
-        green = Color.parseColor("#FF286CFF");
+        green = Color.parseColor("#FFCEA815");
 
         init(context);
     }

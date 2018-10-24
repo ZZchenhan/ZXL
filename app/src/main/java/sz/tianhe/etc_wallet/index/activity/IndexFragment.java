@@ -44,7 +44,7 @@ import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:01
  */
-public class IndexFragment extends BaseFragment{
+public class IndexFragment extends BaseFragment {
 
     FragmentIndexBinding binding;
 
@@ -78,13 +78,13 @@ public class IndexFragment extends BaseFragment{
 
     @Override
     protected void initViews() {
-        binding.add.setOnClickListener(v -> startActivity(new Intent(getContext(),ScanActivity.class)));
+        binding.add.setOnClickListener(v -> startActivity(new Intent(getContext(), AddCoinActivity.class)));
         adapter = new IndeAdapter(data);
         binding.getRoot().setBackgroundColor(getContext().getResources().getColor(R.color.bgColor));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            if(data.size() == 0){
+            if (data.size() == 0) {
                 return;
             }
             Intent intent = new Intent(getContext(), WalletInfoActivity.class);
@@ -110,23 +110,24 @@ public class IndexFragment extends BaseFragment{
     }
 
     BroadcastReceiver amountChangetReceiver;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(null == amountChangetReceiver){
+        if (null == amountChangetReceiver) {
             amountChangetReceiver = new AmountChangeBroadCastRecive(() -> {
                 getData(1);
             });
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(AmountChangeBroadCastRecive.ACTION_AMOUNT_CHANGE);
-            getContext().registerReceiver(amountChangetReceiver,intentFilter);
+            getContext().registerReceiver(amountChangetReceiver, intentFilter);
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if(null!=amountChangetReceiver){
+        if (null != amountChangetReceiver) {
             getContext().unregisterReceiver(amountChangetReceiver);
         }
     }

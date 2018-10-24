@@ -10,49 +10,79 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         tools:context=".index.activity.TransferActivity">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <EditText
-                android:id="@+id/numbers"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:id="@+id/head"
+            android:orientation="vertical"
+            android:background="@mipmap/index_bg"
+            android:layout_height="174dp">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/bg_a15_ffffff_r2"
-                android:gravity="center_vertical"
-                android:hint="请输入转账金额"
-                android:inputType="numberDecimal"
-                android:maxLines="1"
-                android:paddingLeft="13dp"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textColorHint="#CCCCCC"
-                android:textSize="16sp"
+                app:navigationIcon="@mipmap/ic_back">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="转账"
+                    android:textColor="#5A3B1A"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/scan"
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_scan"
+                    android:layout_gravity="right"
+                    android:padding="15sp"
+                    android:layout_height="wrap_content" />
+            </android.support.v7.widget.Toolbar>
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/value"
-                android:layout_width="wrap_content"
-                android:layout_height="18dp"
-                android:layout_marginBottom="19dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/numbers"
-                app:layout_constraintTop_toBottomOf="@+id/numbers" />
-        </android.support.constraint.ConstraintLayout>
+                <EditText
+                    android:id="@+id/numbers"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/revice_btn_bg"
+                    android:gravity="center_vertical"
+                    android:hint="请输入转账金额"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:paddingLeft="13dp"
+                    android:singleLine="true"
+                    android:textColor="#5A3B1A"
+                    android:textColorHint="#5A3B1A"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:layout_marginBottom="19dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/numbers"
+                    app:layout_constraintTop_toBottomOf="@+id/numbers" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/address"
@@ -65,11 +95,11 @@
             android:hint="请输入收款人钱包地址"
             android:minHeight="36dp"
             android:textColor="#CCCCCC"
-            android:textColorHint="@color/textHintColor"
+            android:textColorHint="#CCCCCC"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/head" />
         <View
             android:id="@+id/view12"
             android:layout_width="0dp"
@@ -90,8 +120,8 @@
             android:hint="请输入钱包密码"
             android:minHeight="36dp"
             android:textColor="#CCCCCC"
-            android:inputType="numberPassword"
-            android:textColorHint="@color/textHintColor"
+            android:inputType="textPassword"
+            android:textColorHint="#CCCCCC"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,14 +164,14 @@
             android:id="@+id/button2"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="203dp"
-            android:background="@drawable/bg_first_btn_create"
+            android:background="@mipmap/choose_btn_register"
             android:enabled="false"
             android:text="确认发送"
-            android:textColor="@color/white"
+            android:textColor="#5A3B1A"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.ToastUtils;
 
@@ -26,6 +27,7 @@ import sz.tianhe.etc_wallet.index.adapter.AddCoinAdapter;
 import sz.tianhe.etc_wallet.index.animation.HeightEvaluator;
 import sz.tianhe.etc_wallet.index.bean.ETHCoinVo;
 import sz.tianhe.etc_wallet.utils.SoftUtils;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 /**
  * 添加币种
@@ -44,14 +46,7 @@ public class AddCoinActivity extends BaseActivity {
 
     @Override
     public IBaseNavagation navagation() {
-        AdapterNavagation adapterNavagation = new AdapterNavagation(this)
-                .setNavagationBackgroudColor(R.color.fragment_index_color)
-                .setBack()
-                .setTitle("添加币种", 16, R.color.white)
-                .setRightImage(R.mipmap.search, v -> {
-                    show();
-                });
-        return adapterNavagation;
+        return null;
     }
 
     boolean isCanclik = true;
@@ -66,7 +61,7 @@ public class AddCoinActivity extends BaseActivity {
         }
         set.addUpdateListener(animation -> {
             float heigh = (float) animation.getAnimatedValue();
-            ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) binding.constraintLayout2.getLayoutParams();
+            LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) binding.constraintLayout2.getLayoutParams();
             layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, heigh, getResources().getDisplayMetrics());
             binding.constraintLayout2.setLayoutParams(layoutParams);
         });
@@ -92,7 +87,10 @@ public class AddCoinActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        StatusBarUtils.hideStatus(this);
         addCoinAdapter = new AddCoinAdapter(this.ethCoinVos);
+        binding.search.setOnClickListener(v -> show());
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(addCoinAdapter);
         binding.recyclerView.postDelayed(() -> show(), 200);
@@ -118,6 +116,12 @@ public class AddCoinActivity extends BaseActivity {
             ToastUtils.showShort("请输入正确的币种名称");
             return;
         }
+        ethCoinVos.add(new ETHCoinVo());
+        ethCoinVos.add(new ETHCoinVo());
+        ethCoinVos.add(new ETHCoinVo());
+        ethCoinVos.add(new ETHCoinVo());
+        ethCoinVos.add(new ETHCoinVo());
+        addCoinAdapter.notifyDataSetChanged();
     }
 
 

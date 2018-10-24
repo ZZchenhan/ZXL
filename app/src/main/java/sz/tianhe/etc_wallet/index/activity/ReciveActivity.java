@@ -33,7 +33,6 @@ public class ReciveActivity extends BaseActivity {
     Bitmap bitmap;
 
 
-
     @Override
     public int layoutId() {
         return R.layout.activity_recive;
@@ -47,7 +46,7 @@ public class ReciveActivity extends BaseActivity {
     @Override
     public void initView() {
         StatusBarUtils.hideStatus(this);
-//        binding.icCoin.setImageResource(asssertBean.getCoinId());
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
         Glide.with(this).
                 setDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).
                         placeholder(R.mipmap.ic_me_head).error(R.mipmap.ic_me_head))
@@ -67,16 +66,16 @@ public class ReciveActivity extends BaseActivity {
         productQRCode();
     }
 
-    private void productQRCode(){
-        if(bitmap == null){
+    private void productQRCode() {
+        if (bitmap == null) {
             try {
                 bitmap = QRCodeUtils.encodeAsBitmap("这里是一个dasasasasasasasasasasasasaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsasasasasasasasasasasasasasasasasasasas二维码",
-                        binding.code.getWidth(),binding.code.getHeight());
+                        binding.code.getWidth(), binding.code.getHeight());
                 binding.code.setImageBitmap(bitmap);
             } catch (WriterException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             binding.code.setImageBitmap(bitmap);
         }
     }
@@ -96,7 +95,7 @@ public class ReciveActivity extends BaseActivity {
 
     @Override
     protected View bindViews() {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(this),layoutId(),null,false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(this), layoutId(), null, false);
         return binding.getRoot();
     }
 }

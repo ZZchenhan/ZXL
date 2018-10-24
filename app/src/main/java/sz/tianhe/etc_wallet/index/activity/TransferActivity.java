@@ -25,16 +25,16 @@ import sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 import sz.tianhe.etc_wallet.utils.Constacts;
 import sz.tianhe.etc_wallet.utils.RSAUtils;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
-public class TransferActivity extends BaseActivity implements TextWatcher,TransferPresenter.OnTransferListener {
+/**
+ * 转账
+ */
+public class TransferActivity extends BaseActivity implements TextWatcher, TransferPresenter.OnTransferListener {
     public static final String EXTRA_ADDRESS = "ADDRESS";
-    AdapterNavagation adapterNavagation;
 
     ActivityTransferBinding binding;
 
-    WalletItemBean walletItemBean;
-
-    TransferPresenter transferPresenter;
 
     @Override
     public int layoutId() {
@@ -42,43 +42,24 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
     }
 
     @Override
-    public IBasePresenter createPrensenter() {
-        transferPresenter = new TransferPresenter(this,this);
-        return super.createPrensenter();
-    }
-
-    @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this)
-                .setNavagationBackgroudColor(R.color.fragment_index_color)
-                .setBack()
-                .setRightImage(R.mipmap.ic_scan, v -> {
-                    ScanActivity.openActivity(TransferActivity.this, ScanActivity.class);
-                });
-        return adapterNavagation;
+        return null;
     }
 
     @Override
     public void initView() {
-
+        StatusBarUtils.hideStatus(this);
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
+        binding.scan.setOnClickListener(v -> startActivity(new Intent(this, ScanActivity.class)));
     }
-    BigDecimal canUse;
+
     @Override
     public void findViews() {
-        walletItemBean = (WalletItemBean) getIntent().getSerializableExtra("data");
         binding.address.addTextChangedListener(this);
         binding.numbers.addTextChangedListener(this);
-        if (getIntent().getStringExtra(EXTRA_ADDRESS) != null) {
-            String jsonString = getIntent().getStringExtra(EXTRA_ADDRESS);
-            walletItemBean = new Gson().fromJson(jsonString,WalletItemBean.class);
-            binding.address.setText(walletItemBean.getAddress());
-        }
-        adapterNavagation.setTitle(walletItemBean.getCoinName()+"转账",16,R.color.white);
         binding.button2.setOnClickListener(view -> submit());
         binding.button2.setEnabled(false);
-        //可转出
-        canUse = new BigDecimal(walletItemBean.getBanlance() == null?"0":walletItemBean.getBanlance());
-        binding.value.setText("可提现："+canUse.toString());
+
     }
 
 
@@ -114,22 +95,22 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
         }
     }
 
-    public void submit(){
-        if(binding.numbers.getText().toString().length() == 0){
+    public void submit() {
+        if (binding.numbers.getText().toString().length() == 0) {
             toast("输入正确的金额");
             return;
         }
-        if(binding.pass.getText().toString().length() != 6){
+        if (binding.pass.getText().toString().length() != 6) {
             toast("输入正确的交易密码格式");
             return;
         }
-        if( (binding.address.getText().toString().length() == 42
+        if ((binding.address.getText().toString().length() == 42
                 && binding.address.getText().toString().toUpperCase().startsWith("0X"))
                 || binding.address.getText().toString().length() == 40
                 ) {
             //弹出支付密码框
             String pass = "";
-            if(null == Constacts.publicKey) {
+            if (null == Constacts.publicKey) {
                 try {
                     Constacts.publicKey = RSAUtils.getPublicKeyByString(Constacts.PUBLICK_KEY);
                 } catch (Exception e) {
@@ -137,11 +118,9 @@ public class TransferActivity extends BaseActivity implements TextWatcher,Transf
                     return;
                 }
             }
-            pass =  RSAUtils.encryptDataByPublicKey(binding.pass.getText().toString().getBytes(), Constacts.publicKey);
+            pass = RSAUtils.encryptDataByPublicKey(binding.pass.getText().toString().getBytes(), Constacts.publicKey);
 
-            transferPresenter.transfer(MyApplication.user.getId(), binding.numbers.getText().toString(),
-                    binding.address.getText().toString(), walletItemBean.getCoinName(), binding.reamark.getText().toString(),pass);
-        }else{
+        } else {
             toast("输入正确的交易地址");
         }
     }

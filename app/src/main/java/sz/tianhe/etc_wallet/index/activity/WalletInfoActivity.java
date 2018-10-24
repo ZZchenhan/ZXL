@@ -28,6 +28,9 @@ import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
+/**
+ * 钱包记录
+ */
 public class WalletInfoActivity extends BaseActivity implements View.OnClickListener {
 
 
@@ -63,8 +66,8 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
     @Override
     public void initView() {
         StatusBarUtils.hideStatus(this);
-
-
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
+        binding.add.setOnClickListener(v -> startActivity(new Intent(this,ScanActivity.class)));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adaper = new TanscationAdaper(data);
         binding.recyclerView.setAdapter(adaper);

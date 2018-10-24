@@ -8,12 +8,14 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
+
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
@@ -33,9 +35,10 @@ import sz.tianhe.etc_wallet.decode.CaptureActivityHandler;
 import sz.tianhe.etc_wallet.decode.PreferencesActivity;
 import sz.tianhe.etc_wallet.decode.ViewfinderView;
 import sz.tianhe.etc_wallet.decode.camera.CameraManager;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback {
-    AdapterNavagation adapterNavagation;
+
     private SurfaceView surfaceView;
 
     private CameraManager cameraManager;
@@ -43,6 +46,8 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
     private CaptureActivityHandler handler;
 
     private ViewfinderView viewfinderView;
+
+    private Toolbar toolbar;
 
     private Collection<BarcodeFormat> decodeFormats;
 
@@ -78,16 +83,13 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this)
-                .setNavagationBackgroudColor(R.color.fragment_index_color)
-                .setBack()
-                .setTitle("扫一扫", 16, R.color.white);
-        return adapterNavagation;
+        return null;
     }
 
     @Override
     public void initView() {
-
+        StatusBarUtils.hideStatus(this);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
@@ -106,6 +108,7 @@ public class ScanActivity extends BaseActivity implements SurfaceHolder.Callback
     private void findviews() {
         surfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
+        toolbar = findViewById(R.id.toolbar);
     }
 
 

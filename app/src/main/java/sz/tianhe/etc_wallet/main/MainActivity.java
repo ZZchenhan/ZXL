@@ -33,7 +33,6 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
     private String[] fragmentTitles = new String[]{"钱包", "交易","我的"};
     ActivityMainBinding binding;
 
-    MainPrensenter prensenter;
 
     private IndexFragment indexFragment;
 //    private AssetsFragment assetsFragment;
@@ -54,8 +53,6 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
         StatusBarUtils.hideStatus(this);
         initFragment();
         initBottom();
-        prensenter = new MainPrensenter(this, this);
-//        prensenter.init();
     }
 
     private void initFragment() {
@@ -131,7 +128,6 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
     @Override
     protected void onResume() {
         super.onResume();
-        prensenter.refreshUserInfo();
     }
 
     @Override
