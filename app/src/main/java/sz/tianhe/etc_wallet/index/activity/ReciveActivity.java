@@ -23,22 +23,16 @@ import sz.tianhe.etc_wallet.databinding.ActivityReciveBinding;
 import sz.tianhe.etc_wallet.index.bean.AsssertBean;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
 import sz.tianhe.etc_wallet.utils.QRCodeUtils;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 public class ReciveActivity extends BaseActivity {
 
-    AdapterNavagation adapterNavagation;
-
     ActivityReciveBinding binding;
 
-    WalletItemBean asssertBean;
 
     Bitmap bitmap;
 
-    @Override
-    public void getIntenData() {
-        super.getIntenData();
-        asssertBean = (WalletItemBean) getIntent().getSerializableExtra("data");
-    }
+
 
     @Override
     public int layoutId() {
@@ -47,23 +41,19 @@ public class ReciveActivity extends BaseActivity {
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this)
-                .setNavagationBackgroudColor(R.color.fragment_index_color)
-                .setBack()
-                .setTitle("收款码", 16, R.color.white);
-        return adapterNavagation;
+        return null;
     }
 
     @Override
     public void initView() {
+        StatusBarUtils.hideStatus(this);
 //        binding.icCoin.setImageResource(asssertBean.getCoinId());
-        binding.coinTitle.setText(MyApplication.user.getNickName());
         Glide.with(this).
                 setDefaultRequestOptions(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).
                         placeholder(R.mipmap.ic_me_head).error(R.mipmap.ic_me_head))
-                .load(MyApplication.user.getHeadImg())
+                .load("http://192.168.0.108")
                 .into(binding.icCoin);
-        binding.address.setText(asssertBean.getAddress());
+        binding.address.setText("0x125456465456");
     }
 
     @Override
@@ -80,7 +70,7 @@ public class ReciveActivity extends BaseActivity {
     private void productQRCode(){
         if(bitmap == null){
             try {
-                bitmap = QRCodeUtils.encodeAsBitmap(new Gson().toJson(asssertBean),
+                bitmap = QRCodeUtils.encodeAsBitmap("这里是一个dasasasasasasasasasasasasaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddsasasasasasasasasasasasasasasasasasasas二维码",
                         binding.code.getWidth(),binding.code.getHeight());
                 binding.code.setImageBitmap(bitmap);
             } catch (WriterException e) {

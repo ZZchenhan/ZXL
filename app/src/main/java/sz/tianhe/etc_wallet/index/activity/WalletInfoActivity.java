@@ -26,12 +26,10 @@ import sz.tianhe.etc_wallet.index.presenter.WalletInfoPresenter;
 import sz.tianhe.etc_wallet.recive.AmountChangeBroadCastRecive;
 import sz.tianhe.etc_wallet.requst.vo.ETHList;
 import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
+import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
-public class WalletInfoActivity extends BaseActivity implements View.OnClickListener, WalletInfoPresenter.IWlletInfoView {
+public class WalletInfoActivity extends BaseActivity implements View.OnClickListener {
 
-    AdapterNavagation adapterNavagation;
-
-    WalletItemBean walletItemBean;
 
     ActivityWalletInfoBinding binding;
 
@@ -39,19 +37,16 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
 
     List<ETHList.ResultBean> data = new ArrayList<>();
 
-    WalletInfoPresenter walletInfoPresenter;
 
     private int page = 1;
 
     @Override
     public void getIntenData() {
         super.getIntenData();
-        walletItemBean = (WalletItemBean) getIntent().getSerializableExtra("data");
     }
 
     @Override
     public IBasePresenter createPrensenter() {
-        walletInfoPresenter = new WalletInfoPresenter(this, this);
         return super.createPrensenter();
     }
 
@@ -62,30 +57,23 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(this)
-                .setNavagationBackgroudColor(R.color.fragment_index_color)
-                .setBack()
-                .setTitle(walletItemBean.getCoinName(), 16, R.color.white)
-                .setRightImage(R.mipmap.ic_scan, v -> {
-                    ScanActivity.openActivity(WalletInfoActivity.this, ScanActivity.class);
-                });
-        return adapterNavagation;
+        return null;
     }
 
     @Override
     public void initView() {
-        Glide.with(this).load(walletItemBean.getCoinImg()).into(binding.icon);
-        binding.coinNumber.setText("总量：" + walletItemBean.getBanlance());
+        StatusBarUtils.hideStatus(this);
+
+
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adaper = new TanscationAdaper(data);
         binding.recyclerView.setAdapter(adaper);
-        adaper.setMeAddress(walletItemBean.getAddress());
         binding.rlRecive.setOnClickListener(this);
         binding.rlTranscation.setOnClickListener(this);
         binding.swipeRefreshLayout.setOnRefreshListener(() -> {
             this.page = 1;
             this.data.clear();
-            this.walletInfoPresenter.getTranList(this.page, this.walletItemBean.getCoinName());
+
         });
         View empty = LayoutInflater.from(this).inflate(R.layout.layout_empty, null);
         adaper.setEmptyView(empty);
@@ -108,7 +96,6 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         Intent intent = new Intent();
-        intent.putExtra("data", walletItemBean);
         switch (view.getId()) {
             case R.id.rl_transcation:
                 intent.setClass(this, TransferActivity.class);
@@ -127,39 +114,9 @@ public class WalletInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     public void getData() {
-        if (walletItemBean.getContractAddr() == null || walletItemBean.getContractAddr().equals("")) {
-            this.walletInfoPresenter.getTranList(page, walletItemBean.getAddress());
-            this.walletInfoPresenter.getDetails(walletItemBean.getAddress());
-            return;
-        } else {
-            this.walletInfoPresenter.getToken(walletItemBean.getContractAddr(), walletItemBean.getAddress());
-            this.walletInfoPresenter.getTokenList(walletItemBean.getContractAddr(), walletItemBean.getAddress(),page);
-        }
+
     }
 
-
-    @Override
-    public void details(String banlance) {
-        binding.coinNumber.setText("总量：" + banlance);
-    }
-
-
-    @Override
-    public void transcationList(ETHList pageBean) {
-        if(page == 1) {
-            this.data.clear();
-        }
-        this.adaper.loadMoreComplete();
-        this.binding.swipeRefreshLayout.setRefreshing(false);
-        if(null != pageBean.getData().getItems()){
-            this.data.addAll(pageBean.getData().getItems());
-        }
-        this.adaper.notifyDataSetChanged();
-
-        if (null == pageBean.getData().getItems() || pageBean.getData().getItems().size()<20){
-            this.adaper.loadMoreEnd();
-        }
-    }
 
     /**
      * 广播接收器

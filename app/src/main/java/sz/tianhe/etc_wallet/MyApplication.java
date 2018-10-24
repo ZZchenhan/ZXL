@@ -1,6 +1,5 @@
 package sz.tianhe.etc_wallet;
 
-import android.app.Application;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.multidex.MultiDexApplication;

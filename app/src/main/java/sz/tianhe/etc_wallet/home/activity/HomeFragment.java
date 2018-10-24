@@ -1,6 +1,5 @@
 package sz.tianhe.etc_wallet.home.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
@@ -8,20 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-
-import sz.tianhe.baselib.navagation.AdapterNavagation;
 import sz.tianhe.baselib.navagation.IBaseNavagation;
-import sz.tianhe.baselib.utils.TokenUtil;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
-import sz.tianhe.etc_wallet.MyApplication;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
-import sz.tianhe.etc_wallet.guide.view.GuideActivity;
-import sz.tianhe.etc_wallet.guide.view.LoginActivity;
-import sz.tianhe.etc_wallet.requst.vo.User;
 
 /**
  * 项目名称:etc_wallet
@@ -34,7 +23,6 @@ import sz.tianhe.etc_wallet.requst.vo.User;
 public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     FragmentHomeBinding binding;
-    AdapterNavagation adapterNavagation;
 
     @Override
     public int layoutId() {
@@ -43,10 +31,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public IBaseNavagation navagation() {
-        adapterNavagation = new AdapterNavagation(getContext())
-                .setNavagationBackgroudColor(R.color.colorPrimary)
-                .setTitle("我", 16, R.color.white);
-        return adapterNavagation;
+        return null;
     }
 
 
@@ -62,8 +47,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         binding.head.setOnClickListener(this);
         binding.userPermission.setOnClickListener(this);
         binding.aboutMe.setOnClickListener(this);
-        binding.quit.setOnClickListener(this);
-        binding.transcation.setOnClickListener(this);
+        binding.trans.setOnClickListener(this);
+        binding.msg.setOnClickListener(this);
+        binding.order.setOnClickListener(this);
     }
 
     @Override
@@ -73,11 +59,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(MyApplication.user == null){
-            startActivity(new Intent(getContext(), LoginActivity.class));
-            getActivity().finish();
-            return;
-        }
         switch (view.getId()) {
             case R.id.head:
                 MeInfoActivity.openActivity(getContext(), MeInfoActivity.class);
@@ -90,36 +71,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.about_me:
                 AboutActivity.openActivity(getContext(), AboutActivity.class);
                 break;
-            case R.id.quit:
-                TokenUtil.cleanToken(getContext());
-                GuideActivity.openActivity(getContext(),GuideActivity.class);
-                getActivity().finish();
-                break;
-            case R.id.transcation:
-//                TransferHistoryActivity.openActivity(getContext(), TransferHistoryActivity.class);
+            case R.id.trans:
                 startActivity(new Intent(getContext(),TransferHistoryActivity.class));
                 break;
+            case R.id.msg:
+                startActivity(new Intent(getContext(),MsgActivity.class));
+                break;
+            case R.id.order:
+
+                break;
         }
     }
 
-    public void setUserInfo(User userInfo) {
-        if (userInfo == null) {
-            return;
-        }
-        if(binding == null){
-            return;
-        }
-        if(binding.aboutMe == null){
-            return;
-        }
-        Glide.with(this)
-                .applyDefaultRequestOptions(new RequestOptions().error(R.mipmap.ic_me_head).diskCacheStrategy(DiskCacheStrategy.ALL).
-                        dontAnimate())
-                .load(userInfo.getHeadImg())
-                .into(binding.head);
-        binding.name.setText(userInfo.getNickName());
-        binding.userId.setText("手机号:"+userInfo.getPhoneNum());
-    }
-
-    
 }

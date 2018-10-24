@@ -23,7 +23,7 @@
 
     <color name="gray">#b5b3b3</color>
 
-    <color name="bgColor">#FFFFFF</color>
+    <color name="bgColor">#F7F7F7</color>
     <color name="textColor">#252525</color>
     <color name="textColor2">#262626</color>
     <color name="textHintColor">#8E8E93</color>

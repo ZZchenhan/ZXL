@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="@mipmap/recive_bg"
         tools:context=".index.activity.ReciveActivity">
+        <RelativeLayout
+            android:id="@+id/relayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:navigationIcon="@mipmap/ic_back">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="收款码"
+                    android:textColor="#5A3B1A"
+                    android:textSize="17sp" />
+            </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -14,11 +40,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/bg_white_r_5"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/relayout">
 
             <sz.tianhe.baselib.weight.CircleImageView
                 android:id="@+id/ic_coin"
@@ -37,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="15dp"
-                android:text=""
+                android:text="ETJ"
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/ic_coin"
@@ -62,7 +89,7 @@
                 android:layout_marginBottom="18dp"
                 android:layout_marginTop="18dp"
                 android:gravity="center"
-                android:text=""
+                android:text="0x0000000"
                 android:textColor="@color/textHintColor"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -78,8 +105,8 @@
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
             android:text="复制地址"
-            android:background="@drawable/bg_a15_ffffff_r4"
-            android:textColor="@color/white"
+            android:background="@mipmap/revice_btn_bg"
+            android:textColor="#5A3B1A"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />

@@ -44,7 +44,7 @@ import sz.tianhe.etc_wallet.requst.vo.WalletItemBean;
  * @email 869360026@qq.com
  * 创建时间:2018/7/12 11:01
  */
-public class IndexFragment extends BaseFragment implements IndexPresenter.OnIndexFragmentView {
+public class IndexFragment extends BaseFragment{
 
     FragmentIndexBinding binding;
 
@@ -56,7 +56,6 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
     private List<WalletItemBean> data = new ArrayList<>();
 
-    IndexPresenter indexPresenter;
 
     int page = 1;
 
@@ -67,7 +66,6 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
     @Override
     public IBaseNavagation navagation() {
-
         return null;
     }
 
@@ -80,7 +78,7 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
     @Override
     protected void initViews() {
-        indexPresenter = new IndexPresenter(getContext(), this);
+        binding.add.setOnClickListener(v -> startActivity(new Intent(getContext(),ScanActivity.class)));
         adapter = new IndeAdapter(data);
         binding.getRoot().setBackgroundColor(getContext().getResources().getColor(R.color.bgColor));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -102,41 +100,13 @@ public class IndexFragment extends BaseFragment implements IndexPresenter.OnInde
 
 
     public void getData(int page) {
-    }
-
-
-    @Override
-    public void totalNumber(BigDecimal total) {
-        this.tvNumbers.setText(total.setScale(4).toString());
-    }
-
-    private boolean isFirst = true;
-    @Override
-    public void walletList(List<WalletItemBean> pageBean) {
-        this.binding.swipeLayout.setRefreshing(false);
-        if (pageBean == null || pageBean.size() == 0 ) {
-            if(isFirst) {
-                isFirst = false;
-                ToastUtils.showShort("没有钱包，请前往设置");
-                startActivity(new Intent(getContext(), SetWalletPassActivity.class));
-                return;
-            }
-        }
-
-        this.data.clear();
-        isFirst = false;
-        this.data.addAll(pageBean);
-        setAll(this.data);
+        this.data.add(new WalletItemBean());
+        this.data.add(new WalletItemBean());
+        this.data.add(new WalletItemBean());
+        this.data.add(new WalletItemBean());
+        this.data.add(new WalletItemBean());
+        this.data.add(new WalletItemBean());
         this.adapter.notifyDataSetChanged();
-    }
-
-
-    private void setAll(List<WalletItemBean> data){
-        BigDecimal bigDecimal = new BigDecimal(0);
-        for(WalletItemBean item:data){
-            bigDecimal = bigDecimal.add(new BigDecimal(item.getBanlance()));
-        }
-        tvNumbers.setText(bigDecimal.toString());
     }
 
     BroadcastReceiver amountChangetReceiver;

@@ -1,24 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bgColor"
+        android:background="@color/white"
         tools:context=".index.activity.WalletInfoActivity">
+        <RelativeLayout
+            android:id="@+id/relayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/toobar"
+            android:elevation="1dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                app:navigationIcon="@mipmap/ic_back"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="币种名称"
+                    android:textColor="#5A3B1A"
+                    android:textSize="17sp" />
+
+                <ImageView
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/ic_scan"
+                    android:layout_gravity="right"
+                    android:padding="15sp"
+                    android:layout_height="wrap_content" />
+            </android.support.v7.widget.Toolbar>
+        </RelativeLayout>
 
         <sz.tianhe.baselib.weight.CircleImageView
             android:id="@+id/icon"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_marginEnd="8dp"
+            app:srcCompat="@mipmap/ic_coin1"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/relayout" />
 
         <TextView
             android:id="@+id/coin_number"
@@ -27,7 +59,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
-            android:text=""
+            android:text="200.00"
             android:textColor="@color/textColor2"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +73,8 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
-            android:text=""
-            android:visibility="gone"
+            android:text="6235.00 CNY"
+            android:visibility="visible"
             android:textColor="@color/textHintColor"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/colorPrimary">
+                android:background="@mipmap/bg_wallet_send">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -119,14 +151,14 @@
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:src="@mipmap/ic_arrow_up"
+                        android:src="@mipmap/icon_transaction_sent"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="转账"
                         android:layout_marginLeft="11dp"
-                        android:textColor="@color/white"
+                        android:textColor="#5A3B1A"
                         android:textSize="17sp" />
                 </LinearLayout>
             </RelativeLayout>
@@ -136,7 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/color26231a">
+                android:background="@mipmap/bg_wallet_recive">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -146,14 +178,14 @@
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:src="@mipmap/ic_arrow_down"
+                        android:src="@mipmap/icon_transaction_received"
                         android:layout_height="wrap_content" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_marginLeft="11dp"
                         android:layout_height="wrap_content"
                         android:text="收款"
-                        android:textColor="@color/white"
+                        android:textColor="#5A3B1A"
                         android:textSize="17sp" />
                 </LinearLayout>
             </RelativeLayout>
