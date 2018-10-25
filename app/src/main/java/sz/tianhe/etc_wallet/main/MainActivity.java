@@ -23,6 +23,7 @@ import sz.tianhe.etc_wallet.index.activity.IndexFragment;
 import sz.tianhe.etc_wallet.main.customview.MyNormalItem;
 import sz.tianhe.etc_wallet.main.prensenter.MainPrensenter;
 import sz.tianhe.etc_wallet.requst.vo.User;
+import sz.tianhe.etc_wallet.trade.view.TradeFragment;
 import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 /**
@@ -86,7 +87,7 @@ public class MainActivity extends BaseActivity implements MainPrensenter.OnRefre
                     }
 
                     if (index == 1) {
-                        newFragment = new AssetsFragment();
+                        newFragment = new TradeFragment();
                     }
 
                     if(index == 2){

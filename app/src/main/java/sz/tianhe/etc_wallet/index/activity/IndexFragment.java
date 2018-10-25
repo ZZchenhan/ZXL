@@ -72,7 +72,7 @@ public class IndexFragment extends BaseFragment {
 
     @Override
     protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_index, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_index, null, false);
         return binding.getRoot();
     }
 

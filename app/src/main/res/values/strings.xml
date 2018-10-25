@@ -29,8 +29,6 @@
     <string name="descript">\t\tGTF Wallet(以下简称GTF钱包）是一款打通数字货币和实体世界的钱包应用，旨在解决用户管理多种数字货币的不便、兑换交易过程繁杂以及应用场景不足的问题，致力于为大众提供一个安全、便捷、高效的数字资产管理工具，丰富区块链技术和数字货币的应用场景，推动区块链技术服务于商业进步和社会发展。</string>
 
 
-
-
     <!--用户登陆相关-->
     <string name="phone_hint">请输入11位手机号码</string>
     <string name="login_title">手机号登录</string>

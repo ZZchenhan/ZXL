@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f7f7f7">
+
+        <RelativeLayout
+            android:id="@+id/relayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/toobar"
+            android:elevation="1dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:navigationIcon="@mipmap/ic_close" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/relayout">
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="购买GTF"
+                android:textColor="@color/textColor2"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="6.68USDT/GTF"
+                android:textColor="#262626"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="限额 100.00-100.00 CNY"
+                android:textColor="#8E8E93"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="28dp"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                 >
+
+                    <EditText
+                        android:id="@+id/eth_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="最大可买1000.00"
+                        android:paddingLeft="17dp"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="#CCCCCC"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="0"
+                        android:text="ETH"
+                        android:textColor="#262626"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="17dp"
+                    android:background="@color/line" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                   >
+
+                    <EditText
+                        android:id="@+id/gft_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="最大可买1000.00"
+                        android:paddingLeft="17dp"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="#CCCCCC"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="0"
+                        android:text="GTF"
+                        android:textColor="#262626"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="17dp"
+                    android:background="@color/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp">
+
+                    <EditText
+                        android:id="@+id/code"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:ems="11"
+                        android:hint="@string/code_hint"
+                        android:inputType="phone"
+                        android:paddingLeft="17dp"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="#CCCCCC"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/tvCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dp"
+                        android:background="@mipmap/code_bg"
+                        android:gravity="center"
+                        android:paddingLeft="14dp"
+                        android:paddingRight="14dp"
+                        android:text="@string/get_code_hint"
+                        android:textColor="#5A3B1A"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="17dp"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    >
+
+                    <EditText
+                        android:id="@+id/et_pass"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="请输入交易密码"
+                        android:paddingLeft="17dp"
+                        android:inputType="textPassword"
+                        android:textColor="@color/textColor"
+                        android:textColorHint="#CCCCCC"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:layout_weight="0"
+                        android:text="GTF"
+                        android:textColor="#262626"
+                        android:textSize="17sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="47dp"
+                android:text="下单"
+                android:textSize="17sp"
+                android:textColor="#5A3B1A"
+                android:gravity="center"
+                android:background="@mipmap/bg_trade1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

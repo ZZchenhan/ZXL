@@ -37,7 +37,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     protected View bindViews(LayoutInflater inflater, @Nullable ViewGroup container) {
-        this.binding = DataBindingUtil.inflate(inflater, layoutId(), container, false);
+        this.binding = DataBindingUtil.inflate(inflater, layoutId(), null, false);
         return this.binding.getRoot();
     }
 
