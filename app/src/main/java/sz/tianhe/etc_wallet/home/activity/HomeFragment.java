@@ -11,6 +11,8 @@ import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.fragment.BaseFragment;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.FragmentHomeBinding;
+import sz.tianhe.etc_wallet.trade.adapter.TradeHistoryAdapter;
+import sz.tianhe.etc_wallet.trade.view.TradeHistoryActivity;
 
 /**
  * 项目名称:etc_wallet
@@ -72,13 +74,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 AboutActivity.openActivity(getContext(), AboutActivity.class);
                 break;
             case R.id.trans:
-                startActivity(new Intent(getContext(),TransferHistoryActivity.class));
+                startActivity(new Intent(getContext(), TransferHistoryActivity.class));
                 break;
             case R.id.msg:
-                startActivity(new Intent(getContext(),MsgActivity.class));
+                startActivity(new Intent(getContext(), MsgActivity.class));
                 break;
             case R.id.order:
-
+                startActivity(new Intent(getContext(), TradeHistoryActivity.class));
                 break;
         }
     }

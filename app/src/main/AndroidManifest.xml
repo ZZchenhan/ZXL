@@ -72,7 +72,9 @@
         <activity android:name=".home.activity.ConfirmWallentPassActivity" />
         <activity android:name=".index.activity.AddCoinActivity" />
         <activity android:name=".guide.view.PhoneRegisterActivity" />
-        <activity android:name=".trade.view.TradeActivity"></activity>
+        <activity android:name=".trade.view.TradeActivity" />
+        <activity android:name=".trade.view.TradeDetailActivity" />
+        <activity android:name=".trade.view.TradeHistoryActivity"></activity>
     </application>
 
 </manifest>

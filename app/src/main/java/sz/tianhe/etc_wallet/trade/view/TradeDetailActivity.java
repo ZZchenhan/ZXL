@@ -1,6 +1,5 @@
 package sz.tianhe.etc_wallet.trade.view;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +8,18 @@ import sz.tianhe.baselib.navagation.IBaseNavagation;
 import sz.tianhe.baselib.view.activity.BaseActivity;
 import sz.tianhe.etc_wallet.R;
 import sz.tianhe.etc_wallet.databinding.ActivityTradeBinding;
+import sz.tianhe.etc_wallet.databinding.ActivityTradeDetailBinding;
 import sz.tianhe.etc_wallet.utils.StatusBarUtils;
 
 /**
- * 交易详情
+ * 交易结果页面
  */
-public class TradeActivity extends BaseActivity {
-
+public class TradeDetailActivity extends BaseActivity {
 
     @Override
     public int layoutId() {
-        return R.layout.activity_trade;
+        return R.layout.activity_trade_detail;
     }
-
 
     @Override
     public IBaseNavagation navagation() {
@@ -32,10 +30,6 @@ public class TradeActivity extends BaseActivity {
     public void initView() {
         StatusBarUtils.hideStatus(this);
         binding.toolbar.setNavigationOnClickListener(v -> finish());
-        binding.submit.setOnClickListener(v -> {
-            startActivity(new Intent(this, TradeDetailActivity.class));
-            finish();
-        });
     }
 
     @Override
@@ -43,7 +37,7 @@ public class TradeActivity extends BaseActivity {
 
     }
 
-    ActivityTradeBinding binding;
+    ActivityTradeDetailBinding binding;
 
     @Override
     protected View bindViews() {

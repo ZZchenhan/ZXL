@@ -1,7 +1,5 @@
 package sz.tianhe.etc_wallet.requst.api;
 
-import android.util.Log;
-
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
